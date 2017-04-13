@@ -1,4 +1,4 @@
-package pojos;
+	package pojos;
 
 import com.couchbase.client.deps.com.fasterxml.jackson.annotation.*;;
 
@@ -7,7 +7,7 @@ import com.couchbase.client.deps.com.fasterxml.jackson.annotation.*;;
  */
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Usuario {
+public class UsuarioAntiguo {
 
     //@JsonProperty(value = "_id")
     //private String docId;
@@ -21,17 +21,17 @@ public class Usuario {
     private String apellidos;
     private String passwordHash;
 
-    public Usuario()
+    public UsuarioAntiguo()
     {}
 
-    public Usuario(String userName) {
+    public UsuarioAntiguo(String userName) {
         this.userName = userName;
         this.nombre = "";
         this.apellidos = "";
         this.passwordHash = "";
     }
 
-    public Usuario(String userName, String email) {
+    public UsuarioAntiguo(String userName, String email) {
         this.userName = userName;
         this.email = email;
         this.nombre = "";

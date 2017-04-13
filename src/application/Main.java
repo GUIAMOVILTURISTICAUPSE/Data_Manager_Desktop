@@ -2,9 +2,10 @@ package application;
 	
 import data_layer.CouchbaseManager;
 import data_layer.RepositoryManager;
+import es.codigoandroid.pojos.Usuario;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import pojos.Usuario;
+import pojos.UsuarioAntiguo;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 
@@ -35,18 +36,17 @@ public class Main extends Application {
 	public static void saveTest()
 	{
 		Usuario u = new Usuario();
-		u.setNombre("Ivan");
-		u.setApellidos("Sanchez Vera");
-		u.setEmail("ivan@computer.org");
-		u.setUserName("1vand1ng0");
-		u.setPasswordHash("123");
-		
+		u.setEmail("testupse@upse.edu.ec");
+		u.setContraseniaHash("123");
+		u.setDireccion("UPSE");
+		u.setNombre("Usuario de Prueba UPSE");
+		u.setTelefono("123456");
 		repo.save(u, true);
 	}
 	
 	public static void getTest()
 	{
-		Usuario u = repo.get("1vand1ng0");
+		Usuario u = repo.get("testupse@upse.edu.ec");
 		System.out.println(u.toString());
 	}
 }

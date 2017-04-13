@@ -37,7 +37,7 @@ public class CouchbaseManager<K, V> implements RepositoryManager<K, V>
     final Bucket bucket;
 
 
-    private final String dataBaseName = "guia_turistica_upse";
+    private final String dataBaseName = "GuiaMovilSE";
     
 
     //@Inject
@@ -56,7 +56,7 @@ public class CouchbaseManager<K, V> implements RepositoryManager<K, V>
         cluster = CouchbaseCluster.create(cbe, this.clusterIP);
    
         //bucket = cluster.openBucket(cbUser, cbPass);
-        bucket = cluster.openBucket();
+        bucket = cluster.openBucket(dataBaseName);
         
 
     }
