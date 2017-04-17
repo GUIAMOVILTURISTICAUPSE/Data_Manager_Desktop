@@ -26,9 +26,9 @@ public class CouchbaseManager<K, V> implements RepositoryManager<K, V>
     private final Class<V> valueTypeParameterClass;
     final CouchbaseCluster cluster;
     final ObjectMapper mapper = new ObjectMapper();
-    final String clusterIP = "186.178.10.221";
-    final String cbUser = "Admincb";
-    final String cbPass = "B/cb_1*Fab4s3";
+    final String clusterIP = "";
+    final String cbUser = "";
+    final String cbPass = "";
     final String port = "";
     final Bucket bucket;
 
