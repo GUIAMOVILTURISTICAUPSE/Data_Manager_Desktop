@@ -21,11 +21,7 @@ import com.couchbase.client.deps.com.fasterxml.jackson.annotation.*;
 public class CouchbaseManager<K, V> implements RepositoryManager<K, V>
 {
 	
-	/*
-	 * http://186.178.10.221:8091
 
-	user: Admincb
-	pass: B/cb_1*Fab4s3
 */
     private final Class<V> valueTypeParameterClass;
     final CouchbaseCluster cluster;
