@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620.0" prefWidth="643.0" stylesheets="/Estilo.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ControllerRecurso">
+   <children>
+      <GridPane layoutX="11.0" layoutY="25.0" prefHeight="234.0" prefWidth="296.0" AnchorPane.rightAnchor="321.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="188.0" minWidth="10.0" prefWidth="112.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="233.0" minWidth="10.0" prefWidth="233.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label prefHeight="17.0" prefWidth="47.0" text="ID" GridPane.rowIndex="1" />
+            <Label text="NOMBRE" GridPane.rowIndex="2" />
+            <Label text="DESCRIPCION" GridPane.rowIndex="3" />
+            <Label text="INF. GENERAL" GridPane.rowIndex="4" />
+            <Label text="DIRECCION" GridPane.rowIndex="5" />
+            <Label text="POSICION" GridPane.rowIndex="6" />
+            <Label text="RANKING" GridPane.rowIndex="7" />
+            <TextField fx:id="textId" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="textNombre" prefHeight="25.0" prefWidth="328.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="textDescripcion" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="textInfGeneral" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="textDireccion" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="textPosicion" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <TextField fx:id="textRanking" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+         </children>
+      </GridPane>
+      <Button layoutX="196.0" layoutY="550.0" mnemonicParsing="false" onAction="#Guardar" text="GUARDAR" />
+      <Button layoutX="416.0" layoutY="545.0" mnemonicParsing="false" onAction="#Salir" prefHeight="34.0" prefWidth="56.0" text="SALIR" />
+      <Button layoutX="344.0" layoutY="550.0" mnemonicParsing="false" onAction="#LimpiarPantalla" text="LIMPIAR" />
+      <Button layoutX="276.0" layoutY="550.0" mnemonicParsing="false" onAction="#CargarDatos" text="CARGAR" />
+    <Button layoutX="125.0" layoutY="543.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="59.0" text="ATRAS" />
+      <Label layoutX="339.0" layoutY="52.0" text="Estado" />
+      <CheckBox fx:id="checkActivo" layoutX="403.0" layoutY="52.0" mnemonicParsing="false" onAction="#checkActivo" text="ACTIVO" />
+      <CheckBox fx:id="checkInactivo" layoutX="472.0" layoutY="52.0" mnemonicParsing="false" onAction="#checkInactivo" text="INACTIVO" />
+      <Label layoutX="334.0" layoutY="84.0" text="PREGUNTAS FRECUENTES" />
+      <TextField fx:id="textpreguntasf" layoutX="334.0" layoutY="112.0" prefHeight="17.0" prefWidth="233.0" />
+      <Button layoutX="569.0" layoutY="112.0" mnemonicParsing="false" onAction="#cargarPreguntas" text="AÑADIR" />
+      <ListView fx:id="listViewIdiomas" layoutX="113.0" layoutY="240.0" prefHeight="97.0" prefWidth="209.0" />
+      <Label layoutX="33.0" layoutY="232.0" text="IDIOMA" />
+      <Button layoutX="495.0" layoutY="151.0" mnemonicParsing="false" text="Costos" />
+      <ComboBox fx:id="comboCosto" layoutX="334.0" layoutY="151.0" prefWidth="150.0" />
+      <VBox layoutX="362.0" layoutY="191.0" prefHeight="97.0" prefWidth="100.0">
+         <children>
+            <Button mnemonicParsing="false" text="Accesibilidad" />
+            <CheckBox fx:id="checkAcceso1" mnemonicParsing="false" text="Acceso1" />
+            <CheckBox fx:id="checkAcceso2" mnemonicParsing="false" text="Acceso2" />
+            <CheckBox fx:id="checkAcceso3" mnemonicParsing="false" text="Acceso3" />
+            <CheckBox fx:id="checkAcceso4" mnemonicParsing="false" text="Acceso4" />
+         </children>
+      </VBox>
+      <ComboBox fx:id="comboFacilidad" layoutX="337.0" layoutY="304.0" prefWidth="150.0" />
+      <Button layoutX="495.0" layoutY="304.0" mnemonicParsing="false" text="Facilidad" />
+      <Button layoutX="29.0" layoutY="369.0" mnemonicParsing="false" text="Recomendacion" />
+      <ComboBox fx:id="comboRecomendacion" layoutX="150.0" layoutY="369.0" prefWidth="150.0" />
+      <ComboBox fx:id="comboContactos" layoutX="150.0" layoutY="427.0" prefWidth="150.0" />
+      <Button layoutX="29.0" layoutY="427.0" mnemonicParsing="false" text="Contactos" />
+      <Label layoutX="333.0" layoutY="373.0" text="IMAGENES" />
+      <ListView fx:id="listViewImagenes" layoutX="395.0" layoutY="353.0" prefHeight="140.0" prefWidth="227.0" />
+   </children>
+</AnchorPane>

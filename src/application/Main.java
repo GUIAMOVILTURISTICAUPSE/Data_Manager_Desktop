@@ -1,25 +1,29 @@
 package application;
 	
-import data_layer.CouchbaseManager;
-import data_layer.RepositoryManager;
-import es.codigoandroid.pojos.Usuario;
+import org.springframework.web.client.RestTemplate;
+
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
+import pojos.Recurso;
+import pojos.Usuario;
 import pojos.UsuarioAntiguo;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 
 
 public class Main extends Application {
-	
-	public static final RepositoryManager<String, Usuario> repo = new CouchbaseManager<String, Usuario>(Usuario.class);
-	
+
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			BorderPane root = new BorderPane();
+			Parent root = FXMLLoader.load(getClass().getResource("/ViewRecurso.fxml"));
+			
+			
 			Scene scene = new Scene(root,400,400);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			//scene.getStylesheets().add(getClass().getResource("/recursos/css/estiloPrincipal.css").toExternalForm());
+			primaryStage.setTitle("Recurso");
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch(Exception e) {
@@ -29,24 +33,16 @@ public class Main extends Application {
 	
 	public static void main(String[] args) {
 		//launch(args);
-		saveTest();
-		getTest();
+		//saveTest();
+		//getTest();
+		consumirWebService();
 	}
 	
-	public static void saveTest()
-	{
-		Usuario u = new Usuario();
-		u.setEmail("testupse@upse.edu.ec");
-		u.setContraseniaHash("123");
-		u.setDireccion("UPSE");
-		u.setNombre("Usuario de Prueba UPSE");
-		u.setTelefono("123456");
-		repo.save(u, true);
-	}
 	
-	public static void getTest()
+	public static void consumirWebService()
 	{
-		Usuario u = repo.get("testupse@upse.edu.ec");
-		System.out.println(u.toString());
+		 RestTemplate restTemplate = new RestTemplate();
+	     Recurso r = restTemplate.getForObject("http://186.178.10.221:8080/api/recursos/La Chocolatera", Recurso.class);
+	     System.out.println(r.toString());	
 	}
 }

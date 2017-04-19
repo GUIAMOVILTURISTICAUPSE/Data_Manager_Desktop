@@ -1,0 +1,19 @@
+ .root{
+-fx-background-color: linear-gradient(from 0% 0% to 100% 200%, repeat, #22858C 0%, #564F5A 50%);
+-fx-alignment: center;
+}
+
+.text-field{
+-fx-font: 12px Calibri;
+-fx-text-fill: black;
+}
+
+.button{
+-fx-background-color: #5C6F70;
+-fx-text-fill: white;
+}
+
+.label{
+-fx-font: 12px Calibri;
+-fx-text-fill: white;
+}

@@ -1,0 +1,5 @@
+package pojos;
+
+public enum TipoAccesibilidad {
+	TEXTOENBRAILE,ANOSACCESIBLES,SILLASDERUEDA,ASCENSOR,RAMPAS;
+}
