@@ -7,7 +7,7 @@
 
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8"
-			fx:controller="application.usuarioController">
+			fx:controller="controllers.ControllerUsuario">
    <children>
       <GridPane layoutY="7.0" prefHeight="175.0" prefWidth="338.0">
         <columnConstraints>
