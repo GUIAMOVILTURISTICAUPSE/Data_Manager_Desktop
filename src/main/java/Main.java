@@ -1,7 +1,10 @@
-package application;
+package main.java;
 	
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.client.RestTemplate;
 
+import configuration.PropertyManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -12,17 +15,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 
-
+//@SpringBootApplication
 public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("/ViewRecurso.fxml"));
-			
-			
 			Scene scene = new Scene(root,400,400);
-			//scene.getStylesheets().add(getClass().getResource("/recursos/css/estiloPrincipal.css").toExternalForm());
 			primaryStage.setTitle("Recurso");
 			primaryStage.setScene(scene);
 			primaryStage.show();
@@ -32,10 +32,16 @@ public class Main extends Application {
 	}
 	
 	public static void main(String[] args) {
-		//launch(args);
+		//SpringApplication.run(Main.class, args);
+		PropertyManager pm = new PropertyManager();
+		
+		//System.out.println(pm.baseURL);
+		//
+		launch(args);
+		
 		//saveTest();
 		//getTest();
-		consumirWebService();
+		//consumirWebService();
 	}
 	
 	

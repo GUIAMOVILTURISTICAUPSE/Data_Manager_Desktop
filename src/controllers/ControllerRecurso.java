@@ -165,7 +165,7 @@ public int contador=0;
 	Recurso pojo = new Recurso();
 	
 	public void Guardar(){
-		pojo.set_id(textId.getText());
+		pojo.setId(textId.getText());
 		pojo.setNombre(textNombre.getText());
 		pojo.setDescripcion(textDescripcion.getText());
 		pojo.setInformacionGeneral(textInfGeneral.getText());
@@ -248,7 +248,7 @@ public int contador=0;
 	
 	public void CargarDatos(){
 		contador=2;
-		textId.setText(pojo.get_id());
+		textId.setText(pojo.getId());
 		textNombre.setText(pojo.getNombre());
 		textDescripcion.setText(pojo.getDireccion());
 		textInfGeneral.setText(pojo.getInformacionGeneral());

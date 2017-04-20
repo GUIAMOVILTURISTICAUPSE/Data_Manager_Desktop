@@ -4,11 +4,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import pojos.UsuarioAntiguo;
 
-public class usuarioController {
+public class ControllerUsuario {
 
 	@FXML TextField tvUserName;
 	
-	public usuarioController() {
+	public ControllerUsuario() {
 		// TODO Auto-generated constructor stub
 	}
 	
