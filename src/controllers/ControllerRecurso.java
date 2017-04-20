@@ -13,6 +13,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import pojos.*;
 
@@ -24,9 +25,9 @@ public ControllerRecurso() {}
 	
 	@FXML private TextField textId;
 	@FXML private TextField textNombre;
-	@FXML private TextField textDescripcion;
-	@FXML private TextField textInfGeneral;
-	@FXML private TextField textDireccion;
+	@FXML private TextArea textDescripcion;
+	@FXML private TextArea textInfGeneral;
+	@FXML private TextArea textDireccion;
 	@FXML private TextField textPosicion;
 	@FXML private TextField textRanking;
 	@FXML private ListView<Idiomas> listViewIdiomas;

@@ -24,7 +24,7 @@
             <Label text="Nombre De Usuario" GridPane.rowIndex="1" />
             <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="tvUsername" />
             <Button mnemonicParsing="false" text="Grabar" GridPane.columnIndex="1" GridPane.rowIndex="2" 
-            OnAction="#grabarObjeto"/>
+            />
             <Button mnemonicParsing="false" text="Limpiar" GridPane.rowIndex="2" />
          </children>
       </GridPane>
