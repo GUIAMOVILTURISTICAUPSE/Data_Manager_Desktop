@@ -45,6 +45,7 @@
             <TextField fx:id="textDireccion" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <TextField fx:id="textPosicion" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <TextField fx:id="textRanking" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <Label text="IDIOMA" GridPane.rowIndex="8" />
          </children>
       </GridPane>
       <Button layoutX="196.0" layoutY="550.0" mnemonicParsing="false" onAction="#Guardar" text="GUARDAR" />
@@ -52,14 +53,13 @@
       <Button layoutX="344.0" layoutY="550.0" mnemonicParsing="false" onAction="#LimpiarPantalla" text="LIMPIAR" />
       <Button layoutX="276.0" layoutY="550.0" mnemonicParsing="false" onAction="#CargarDatos" text="CARGAR" />
     <Button layoutX="125.0" layoutY="543.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="59.0" text="ATRAS" />
-      <Label layoutX="339.0" layoutY="52.0" text="Estado" />
-      <CheckBox fx:id="checkActivo" layoutX="403.0" layoutY="52.0" mnemonicParsing="false" onAction="#checkActivo" text="ACTIVO" />
-      <CheckBox fx:id="checkInactivo" layoutX="472.0" layoutY="52.0" mnemonicParsing="false" onAction="#checkInactivo" text="INACTIVO" />
+      <Label layoutX="26.0" layoutY="329.0" text="Estado" />
+      <CheckBox fx:id="checkActivo" layoutX="97.0" layoutY="329.0" mnemonicParsing="false" onAction="#checkActivo" text="ACTIVO" />
+      <CheckBox fx:id="checkInactivo" layoutX="166.0" layoutY="329.0" mnemonicParsing="false" onAction="#checkInactivo" text="INACTIVO" />
       <Label layoutX="334.0" layoutY="84.0" text="PREGUNTAS FRECUENTES" />
       <TextField fx:id="textpreguntasf" layoutX="334.0" layoutY="112.0" prefHeight="17.0" prefWidth="233.0" />
       <Button layoutX="569.0" layoutY="112.0" mnemonicParsing="false" onAction="#cargarPreguntas" text="AÑADIR" />
-      <ListView fx:id="listViewIdiomas" layoutX="113.0" layoutY="240.0" prefHeight="97.0" prefWidth="209.0" />
-      <Label layoutX="33.0" layoutY="232.0" text="IDIOMA" />
+      <ListView fx:id="listViewIdiomas" layoutX="113.0" layoutY="240.0" prefHeight="75.0" prefWidth="209.0" />
       <Button layoutX="495.0" layoutY="151.0" mnemonicParsing="false" text="Costos" />
       <ComboBox fx:id="comboCosto" layoutX="334.0" layoutY="151.0" prefWidth="150.0" />
       <VBox layoutX="362.0" layoutY="191.0" prefHeight="97.0" prefWidth="100.0">
@@ -79,5 +79,6 @@
       <Button layoutX="29.0" layoutY="427.0" mnemonicParsing="false" text="Contactos" />
       <Label layoutX="333.0" layoutY="373.0" text="IMAGENES" />
       <ListView fx:id="listViewImagenes" layoutX="395.0" layoutY="353.0" prefHeight="140.0" prefWidth="227.0" />
+      <Button fx:id="btnCargarWS" layoutX="336.0" layoutY="51.0" mnemonicParsing="false" text="Cargar con ID" onAction="#cargarDatosWebService" />
    </children>
 </AnchorPane>
