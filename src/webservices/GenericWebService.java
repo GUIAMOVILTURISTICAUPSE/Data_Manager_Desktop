@@ -38,5 +38,28 @@ public class GenericWebService<X> implements ConsumableWebService<X>{
 	     return x;
 	}
 
+	@Override
+	public String consumePost(X x, String url, String... params) {
+		RestTemplate restTemplate = new RestTemplate();
+		String urlCompleto = url;
+		for(String s: params)
+		 {
+			 urlCompleto = urlCompleto + "/" + s;
+		 }
+
+		String respuesta;		
+		try{
+			respuesta = restTemplate.postForObject(urlCompleto, x, String.class);
+
+		}catch (Exception e) {
+			System.err.println("Error en el webservice");
+			System.err.println("Causa:" + e.getCause());
+			System.err.println("Mensaje: " + e.getMessage());
+			e.printStackTrace();
+			respuesta = null;
+		}
+		return respuesta;
+	}
+
 	
 }
