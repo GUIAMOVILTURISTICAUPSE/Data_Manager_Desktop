@@ -1,5 +1,6 @@
 package controllers;
 
+//import java.awt.ScrollPane;
 import java.util.ArrayList;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -8,13 +9,16 @@ import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import pojos.*;
 
 public class ControllerRecurso {
@@ -24,6 +28,13 @@ public ControllerRecurso() {}
 	public int contador=0;
 	
 	@FXML private TextField textId;
+	@FXML private Pane guno;
+	@FXML private Accordion gdos;
+	@FXML private Pane gtres;
+	@FXML private ScrollPane gcuatro;
+	@FXML private Pane gcinco;
+	@FXML private Pane gseis;
+	
 	@FXML private TextField textNombre;
 	@FXML private TextArea textDescripcion;
 	@FXML private TextArea textInfGeneral;
@@ -33,7 +44,7 @@ public ControllerRecurso() {}
 	@FXML private ListView<Idiomas> listViewIdiomas;
 	@FXML private CheckBox checkActivo;
 	@FXML private CheckBox checkInactivo;
-	@FXML private TextField textpreguntasf;
+	@FXML private TextArea textpreguntasf;
 	@FXML private ComboBox<Costo> comboCosto;
 	@FXML private CheckBox checkAcceso1;
 	@FXML private CheckBox checkAcceso2;

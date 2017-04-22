@@ -17,64 +17,91 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620.0" prefWidth="679.0" stylesheets="/Estilo.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ControllerRecurso">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620.0" prefWidth="648.0" stylesheets="/Estilo.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ControllerRecurso">
    <children>
-      <TitledPane layoutX="370.0" layoutY="34.0" prefHeight="114.0" prefWidth="258.0" text="Accesibilidad">
-         <content>
-            <VBox prefHeight="92.0" prefWidth="256.0">
-               <children>
-                  <CheckBox fx:id="checkAcceso1" mnemonicParsing="false" text="Sillas de ruedas" />
-                  <CheckBox fx:id="checkAcceso2" mnemonicParsing="false" text="Rampas" />
-                  <CheckBox fx:id="checkAcceso3" mnemonicParsing="false" text="Otros medios" />
-                  <CheckBox fx:id="checkAcceso4" mnemonicParsing="false" text="Acceso4" />
-               </children>
-            </VBox>
-         </content>
-      </TitledPane>
-      <Pane layoutX="16.0" layoutY="14.0" prefHeight="335.0" prefWidth="353.0">
+      <Pane fx:id="gtres" layoutX="360.0" layoutY="236.0" prefHeight="98.0" prefWidth="275.0">
          <children>
-            <Label layoutX="10.0" layoutY="24.0" prefHeight="17.0" prefWidth="47.0" text="ID" />
-            <Label layoutX="10.0" layoutY="51.0" text="NOMBRE" />
-            <Label layoutX="10.0" layoutY="74.0" text="DESCRIPCION" />
-            <Label layoutX="8.0" layoutY="136.0" text="INF. GENERAL" />
-            <Label layoutX="8.0" layoutY="198.0" text="DIRECCION" />
-            <Label layoutX="7.0" layoutY="242.0" text="POSICION" />
-            <Label layoutX="8.0" layoutY="268.0" text="RANKING" />
-            <TextField fx:id="textId" layoutX="100.0" layoutY="20.0" prefHeight="25.0" prefWidth="138.0" />
-            <TextField fx:id="textNombre" layoutX="100.0" layoutY="47.0" prefHeight="25.0" prefWidth="239.0" />
-            <TextField fx:id="textPosicion" layoutX="100.0" layoutY="238.0" prefHeight="25.0" prefWidth="239.0" />
-            <TextField fx:id="textRanking" layoutX="100.0" layoutY="264.0" prefHeight="25.0" prefWidth="239.0" />
-            <Label layoutX="8.0" layoutY="305.0" text="Estado" />
-            <CheckBox fx:id="checkActivo" layoutX="100.0" layoutY="305.0" mnemonicParsing="false" onAction="#checkActivo" text="ACTIVO" />
-            <CheckBox fx:id="checkInactivo" layoutX="182.0" layoutY="305.0" mnemonicParsing="false" onAction="#checkInactivo" text="INACTIVO" />
-            <TextArea fx:id="textDescripcion" layoutX="100.0" layoutY="74.0" maxHeight="1.7976931348623157E308" minHeight="-Infinity" prefHeight="60.0" prefWidth="239.0" wrapText="true" />
-            <Button fx:id="btnCargarWS" layoutX="250.0" layoutY="20.0" mnemonicParsing="false" onAction="#cargarDatosWebService" text="Cargar con ID" />
-            <TextArea fx:id="textInfGeneral" layoutX="100.0" layoutY="136.0" maxHeight="1.7976931348623157E308" minHeight="-Infinity" prefHeight="60.0" prefWidth="239.0" wrapText="true" />
-            <TextArea fx:id="textDireccion" layoutX="100.0" layoutY="198.0" maxHeight="1.7976931348623157E308" minHeight="-Infinity" prefHeight="38.0" prefWidth="239.0" wrapText="true" />
+            <Button layoutX="9.0" layoutY="67.0" mnemonicParsing="false" text="Costos" />
+            <ComboBox fx:id="comboCosto" layoutX="116.0" layoutY="67.0" prefHeight="25.0" prefWidth="150.0" />
+            <Button layoutX="9.0" layoutY="13.0" mnemonicParsing="false" text="Recomendacion" />
+            <ComboBox fx:id="comboRecomendacion" layoutX="116.0" layoutY="13.0" prefWidth="150.0" />
+            <ComboBox fx:id="comboContactos" layoutX="116.0" layoutY="40.0" prefWidth="150.0" />
+            <Button layoutX="9.0" layoutY="40.0" mnemonicParsing="false" text="Contactos" />
          </children>
       </Pane>
-      <Button layoutX="194.0" layoutY="575.0" mnemonicParsing="false" onAction="#Guardar" text="GUARDAR" />
-      <Button layoutX="414.0" layoutY="570.0" mnemonicParsing="false" onAction="#Salir" prefHeight="34.0" prefWidth="56.0" text="SALIR" />
-      <Button layoutX="342.0" layoutY="575.0" mnemonicParsing="false" onAction="#LimpiarPantalla" text="LIMPIAR" />
-      <Button layoutX="274.0" layoutY="575.0" mnemonicParsing="false" onAction="#CargarDatos" text="CARGAR" />
-    <Button layoutX="123.0" layoutY="568.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="59.0" text="ATRAS" />
-      <Label layoutX="30.0" layoutY="373.0" text="PREGUNTAS FRECUENTES" />
-      <TextField fx:id="textpreguntasf" layoutX="30.0" layoutY="401.0" prefHeight="17.0" prefWidth="233.0" />
-      <Button layoutX="265.0" layoutY="401.0" mnemonicParsing="false" onAction="#cargarPreguntas" text="AÑADIR" />
-      <Button layoutX="193.0" layoutY="433.0" mnemonicParsing="false" text="Costos" />
-      <ComboBox fx:id="comboCosto" layoutX="32.0" layoutY="433.0" prefWidth="150.0" />
-      <ComboBox fx:id="comboFacilidad" layoutX="352.0" layoutY="369.0" prefWidth="150.0" />
-      <Button layoutX="510.0" layoutY="369.0" mnemonicParsing="false" text="Facilidad" />
-      <Button layoutX="14.0" layoutY="493.0" mnemonicParsing="false" text="Recomendacion" />
-      <ComboBox fx:id="comboRecomendacion" layoutX="135.0" layoutY="493.0" prefWidth="150.0" />
-      <ComboBox fx:id="comboContactos" layoutX="138.0" layoutY="531.0" prefWidth="150.0" />
-      <Button layoutX="17.0" layoutY="531.0" mnemonicParsing="false" text="Contactos" />
-      <Label layoutX="343.0" layoutY="434.0" text="IMAGENES" />
-      <ListView fx:id="listViewImagenes" layoutX="405.0" layoutY="414.0" prefHeight="140.0" prefWidth="227.0" />
-      <TitledPane layoutX="369.0" layoutY="150.0" prefHeight="152.0" prefWidth="258.0" text="Idiomas">
-         <content>
-            <ListView fx:id="listViewIdiomas" prefHeight="77.0" prefWidth="256.0" />
-         </content>
-      </TitledPane>
+      <Accordion fx:id="gdos" layoutX="368.0" layoutY="33.0" prefHeight="206.0" prefWidth="258.0">
+        <panes>
+          <TitledPane animated="false" text="Accesibilidad">
+               <content>
+                  <VBox prefHeight="82.0" prefWidth="256.0">
+                     <children>
+                        <CheckBox fx:id="checkAcceso1" mnemonicParsing="false" text="Sillas de ruedas" />
+                        <CheckBox fx:id="checkAcceso2" mnemonicParsing="false" text="Rampas" />
+                        <CheckBox fx:id="checkAcceso3" mnemonicParsing="false" text="Otros medios" />
+                        <CheckBox fx:id="checkAcceso4" mnemonicParsing="false" text="Acceso4" />
+                     </children>
+                  </VBox>
+               </content>
+            </TitledPane>
+          <TitledPane animated="false" text="Idiomas">
+               <content>
+                  <ListView fx:id="listViewIdiomas" prefHeight="77.0" prefWidth="256.0" />
+               </content>
+            </TitledPane>
+            <TitledPane prefHeight="200.0" prefWidth="200.0" text="Facilidades">
+               <content>
+                  <ComboBox fx:id="comboFacilidad" prefWidth="150.0" />
+               </content>
+            </TitledPane>
+        </panes>
+      </Accordion>
+      <Pane fx:id="guno" layoutX="17.0" layoutY="14.0" prefHeight="335.0" prefWidth="353.0">
+         <children>
+            <Label layoutX="10.0" layoutY="50.0" prefHeight="17.0" prefWidth="47.0" text="ID" />
+            <Label layoutX="10.0" layoutY="77.0" text="NOMBRE" />
+            <Label layoutX="10.0" layoutY="100.0" text="DESCRIPCION" />
+            <Label layoutX="8.0" layoutY="162.0" text="INF. GENERAL" />
+            <Label layoutX="8.0" layoutY="224.0" text="DIRECCION" />
+            <Label layoutX="7.0" layoutY="268.0" text="POSICION" />
+            <Label layoutX="8.0" layoutY="294.0" text="RANKING" />
+            <TextField fx:id="textId" layoutX="100.0" layoutY="46.0" prefHeight="25.0" prefWidth="138.0" />
+            <TextField fx:id="textNombre" layoutX="100.0" layoutY="73.0" prefHeight="25.0" prefWidth="239.0" />
+            <TextField fx:id="textPosicion" layoutX="100.0" layoutY="264.0" prefHeight="25.0" prefWidth="239.0" />
+            <TextField fx:id="textRanking" layoutX="100.0" layoutY="290.0" prefHeight="25.0" prefWidth="239.0" />
+            <TextArea fx:id="textDescripcion" layoutX="100.0" layoutY="100.0" maxHeight="1.7976931348623157E308" minHeight="-Infinity" prefHeight="60.0" prefWidth="239.0" wrapText="true" />
+            <Button fx:id="btnCargarWS" layoutX="250.0" layoutY="46.0" mnemonicParsing="false" onAction="#cargarDatosWebService" text="Cargar con ID" />
+            <TextArea fx:id="textInfGeneral" layoutX="100.0" layoutY="162.0" maxHeight="1.7976931348623157E308" minHeight="-Infinity" prefHeight="60.0" prefWidth="239.0" wrapText="true" />
+            <TextArea fx:id="textDireccion" layoutX="100.0" layoutY="224.0" maxHeight="1.7976931348623157E308" minHeight="-Infinity" prefHeight="38.0" prefWidth="239.0" wrapText="true" />
+            <Accordion layoutX="140.0" layoutY="-54.0" />
+            <Label layoutX="9.0" layoutY="22.0" text="Estado" />
+            <CheckBox fx:id="checkActivo" layoutX="100.0" layoutY="22.0" mnemonicParsing="false" onAction="#checkActivo" text="ACTIVO" />
+            <CheckBox fx:id="checkInactivo" layoutX="182.0" layoutY="22.0" mnemonicParsing="false" onAction="#checkInactivo" text="INACTIVO" />
+         </children>
+      </Pane>
+      <Pane fx:id="gseis" layoutX="25.0" layoutY="542.0" prefHeight="70.0" prefWidth="602.0">
+         <children>
+            <Button layoutX="194.0" layoutY="24.0" mnemonicParsing="false" onAction="#Guardar" text="GUARDAR" />
+            <Button layoutX="414.0" layoutY="19.0" mnemonicParsing="false" onAction="#Salir" prefHeight="34.0" prefWidth="56.0" text="SALIR" />
+            <Button layoutX="342.0" layoutY="24.0" mnemonicParsing="false" onAction="#LimpiarPantalla" text="LIMPIAR" />
+            <Button layoutX="274.0" layoutY="24.0" mnemonicParsing="false" onAction="#CargarDatos" text="CARGAR" />
+          <Button layoutX="123.0" layoutY="17.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="59.0" text="ATRAS" />
+         </children>
+      </Pane>
+      <ScrollPane fx:id="gcuatro" layoutX="25.0" layoutY="341.0" prefHeight="182.0" prefWidth="337.0">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="174.0" prefWidth="330.0">
+               <children>
+                  <Label layoutX="9.0" layoutY="14.0" text="PREGUNTAS FRECUENTES" />
+                  <Button layoutX="260.0" layoutY="31.0" mnemonicParsing="false" onAction="#cargarPreguntas" text="AÑADIR" />
+                  <TextArea fx:id="textpreguntasf" layoutX="9.0" layoutY="31.0" maxHeight="1.7976931348623157E308" prefHeight="25.0" prefWidth="247.0" wrapText="true" />
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
+      <Pane fx:id="gcinco" layoutX="369.0" layoutY="341.0" prefHeight="188.0" prefWidth="258.0">
+         <children>
+            <ListView fx:id="listViewImagenes" layoutX="6.0" prefHeight="182.0" prefWidth="247.0" />
+         </children>
+      </Pane>
    </children>
 </AnchorPane>
