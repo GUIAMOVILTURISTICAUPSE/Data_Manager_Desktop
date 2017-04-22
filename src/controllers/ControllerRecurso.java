@@ -260,6 +260,19 @@ public ControllerRecurso() {}
 		}
 	}
 	
+	public void guardarDatosWebService()
+	{
+		ControllerHelper<Recurso> controllerHelper= new ControllerHelper<Recurso>();
+		Guardar();
+		if(controllerHelper.guardarNuevosDatosWebService(pojo, Recurso.class))
+		{
+			System.out.println("Datos guardados con exito");
+		}else{
+			System.err.println("No se pudo guardar los datos a traves del web service.");
+		}
+		
+	}
+	
 	public void CargarDatos(){
 		contador=2;
 		textId.setText(pojo.getId());

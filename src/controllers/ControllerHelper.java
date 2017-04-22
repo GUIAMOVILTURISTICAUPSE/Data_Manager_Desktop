@@ -33,4 +33,22 @@ public class ControllerHelper<R> {
 		return pojoCargado;
 		
 	}
+	
+	public boolean guardarNuevosDatosWebService(R r, Class<R> clase)
+	{
+		String urlBase = PropertyManager.getURLBase();
+		
+		String urlRelativo = propertyManager.getUrlRelativoDesdeClase(clase.getName());
+		GenericWebService<R> webService = new GenericWebService<R>(clase);
+		String respuesta = webService.consumePost(r, urlBase, urlRelativo);
+		System.out.println("La respuesta es: " + respuesta);
+		if(respuesta== null || respuesta.equals(""))
+		{
+			System.err.println("Error con el webservice, objeto no cargado!");
+			return false;
+		}
+		else{
+			return true;
+		}	
+	}
 }
