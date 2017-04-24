@@ -192,4 +192,12 @@ public class Sendero {
     public void verAnimacion(Animacion animacion){
 
     }
+
+	@Override
+	public String toString() {
+		return "Sendero [nombre=" + nombre + ", descripcion=" + descripcion + ", recorrido=" + recorrido + 
+				", duracion=" + duracion + ", distancia=" + distancia + ", dificultad=" + dificultad +"]";
+	}
+    
+    
 }

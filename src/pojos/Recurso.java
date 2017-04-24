@@ -265,7 +265,7 @@ public class Recurso {
 				+ facilidadRecurso + ", recomendacion=" + recomendacion + ", infContacto=" + infContacto + ", ranking="
 				+ ranking + ", galeria=" + galeria + ", imagenPrincipal=" + imagenPrincipal + ", sendero=" + sendero
 				+ ", posicion=" + posicion + ", estado=" + estado + ", idiomasInformac=" + idiomasInformac
-				+ ", preguntasFrecuentes=" + preguntasFrecuentes + ", comentarios=" + comentarios + "]";
+				+ ", preguntasFrecuentes=" + preguntasFrecuentes + ", comentarios=" + comentarios + "]\n";
 	}
 
 }
