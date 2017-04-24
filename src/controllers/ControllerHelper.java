@@ -1,5 +1,7 @@
 package controllers;
 
+import java.util.List;
+
 import configuration.PropertyManager;
 import webservices.GenericWebService;
 
@@ -50,5 +52,30 @@ public class ControllerHelper<R> {
 		else{
 			return true;
 		}	
+	}
+	
+	public List<R> cargarListaDatosWebService(Class<R> clase)
+	{
+		List<R> listaPojosCargado = null;
+		if(clase!=null)
+		{
+			String urlBase = PropertyManager.getURLBase();
+			
+			String urlRelativo = propertyManager.getUrlRelativoDesdeClase(clase.getName());
+			GenericWebService<R> webService = new GenericWebService<R>(clase);
+			
+			String urlFinal = urlBase.concat("/").concat(urlRelativo);
+			
+			listaPojosCargado = webService.consumeGetAll(urlFinal);
+			if(listaPojosCargado==null)
+			{
+				System.err.println("Error con el webservice, lista de objetos no cargada!");
+			}else{
+				return listaPojosCargado;
+				
+			}
+		}
+		return listaPojosCargado;
+		
 	}
 }
