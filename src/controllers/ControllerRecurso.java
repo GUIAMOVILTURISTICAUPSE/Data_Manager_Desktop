@@ -185,10 +185,14 @@ public ControllerRecurso() {}
 		pojo.setInformacionGeneral(textInfGeneral.getText());
 		pojo.setDireccion(textDireccion.getText());
 		pojo.setPosicion(textPosicion.getText());
-		for(Idiomas s : selectedItems){
-			 pojo.getIdiomasInformac().add(s);
-			 System.out.println("selected item " + s.toString());
-        }	
+		
+		if(selectedItems!=null && !selectedItems.isEmpty())
+		{
+			for(Idiomas s : selectedItems){
+				 pojo.getIdiomasInformac().add(s);
+				 System.out.println("selected item " + s.toString());
+	        }
+		}
 		pojo.getCostoRecursos().add(comboCosto.getValue());
 		float rank = Integer.parseInt(textRanking.getText());
 		pojo.setRanking(rank);
@@ -276,6 +280,7 @@ public ControllerRecurso() {}
 	{
 		ControllerHelper<Recurso> controllerHelper= new ControllerHelper<Recurso>();
 		Guardar();
+		System.out.println("El pojo a guardar en el WS es: " + pojo);
 		if(controllerHelper.guardarNuevosDatosWebService(pojo, Recurso.class))
 		{
 			System.out.println("Datos guardados con exito");

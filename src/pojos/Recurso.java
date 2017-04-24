@@ -25,7 +25,7 @@ public class Recurso {
     private float ranking;
     private ArrayList<Imagen> galeria = new ArrayList<Imagen>();
     private Imagen imagenPrincipal;
-    private ArrayList<Senderos> sendero = new ArrayList<Senderos>();
+    private ArrayList<Sendero> sendero = new ArrayList<Sendero>();
     private String posicion;
     private Estado estado;
     private ArrayList<Idiomas> idiomasInformac = new ArrayList<Idiomas>();
@@ -127,11 +127,11 @@ public class Recurso {
         this.imagenPrincipal = imagen;
     }
 
-    public ArrayList<Senderos> getSendero() {
+    public ArrayList<Sendero> getSendero() {
         return sendero;
     }
 
-    public void setSendero(ArrayList<Senderos> sendero) {
+    public void setSendero(ArrayList<Sendero> sendero) {
         this.sendero = sendero;
     }
 

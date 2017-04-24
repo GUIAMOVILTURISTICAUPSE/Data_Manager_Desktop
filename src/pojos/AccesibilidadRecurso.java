@@ -45,4 +45,11 @@ public class AccesibilidadRecurso {
 	    public void setDescripcion(String descripcion) {
 	        this.descripcion = descripcion;
 	    }
+		@Override
+		public String toString() {
+			return "AccesibilidadRecurso [_id=" + _id + ", tipoAccesibilidad=" + tipoAccesibilidad + ", titulo="
+					+ titulo + ", descripcion=" + descripcion + "]";
+		}
+	    
+	    
 }
