@@ -54,12 +54,36 @@ public ControllerRecurso() {}
 	@FXML private ComboBox<Recomendacion> comboRecomendacion;
 	@FXML private ComboBox<Contacto> comboContactos;
 	@FXML private ListView<Imagen> listViewImagenes;
+	@FXML private ListView<Sendero> listViewSenderos;
+	
 	@FXML private Button btnCargarWS;
 	ObservableList<Idiomas> selectedItems;
 	ObservableList<Imagen> selectedItemsImagen;
 	ArrayList<AccesibilidadRecurso> pojoOpcionesAccesibilidad;
- 
+	ObservableList<Sendero> selectItemsSenderos;
 	public void initialize(){
+		textNombre.setPromptText("Nombre");
+		textId.setPromptText("# ID");
+		textDescripcion.setPromptText("Descripcion");
+		textInfGeneral.setPromptText("Informacion General");
+		textDireccion.setPromptText("Direccion ");
+		textPosicion.setPromptText("Latitud - Longitud");
+		textRanking.setPromptText("Ranking ");
+		
+		Sendero sendero1 = new Sendero();
+		sendero1.setNombre("Camino Hacia el terror");
+		ArrayList<Sendero> nombreSenderos = new ArrayList<Sendero>();
+		nombreSenderos.add(sendero1);	
+			ObservableList<Sendero> senderosList = FXCollections.observableArrayList(nombreSenderos);
+			listViewSenderos.setItems(senderosList);
+			listViewSenderos.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+			listViewSenderos.setOnMouseClicked(new EventHandler<Event>() {
+				@Override
+				public void handle(Event event) {
+					// TODO Auto-generated method stub
+					selectItemsSenderos = listViewSenderos.getSelectionModel().getSelectedItems();
+				}
+			});
 		ObservableList<Idiomas> testes = FXCollections.observableArrayList(Idiomas.values());
 		listViewIdiomas.setItems(testes);
 		listViewIdiomas.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);

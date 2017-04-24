@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620.0" prefWidth="648.0" stylesheets="/Estilo.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ControllerRecurso">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="655.0" prefWidth="648.0" stylesheets="/Estilo.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ControllerRecurso">
    <children>
       <Pane fx:id="gtres" layoutX="360.0" layoutY="236.0" prefHeight="98.0" prefWidth="275.0">
          <children>
@@ -51,6 +51,11 @@
             <TitledPane prefHeight="200.0" prefWidth="200.0" text="Facilidades">
                <content>
                   <ComboBox fx:id="comboFacilidad" prefWidth="150.0" />
+               </content>
+            </TitledPane>
+            <TitledPane prefHeight="200.0" prefWidth="200.0" text="Senderos">
+               <content>
+                  <ListView fx:id="listViewSenderos" prefHeight="200.0" prefWidth="200.0" />
                </content>
             </TitledPane>
         </panes>
