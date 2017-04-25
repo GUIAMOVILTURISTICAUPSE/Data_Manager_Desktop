@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ControllerViewListaRecursos">
+   <children>
+      <ListView fx:id="lvRecursos" layoutX="19.0" layoutY="94.0" prefHeight="256.0" prefWidth="415.0" />
+      <Label layoutX="97.0" layoutY="31.0" text="LISTA DE RECURSOS">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

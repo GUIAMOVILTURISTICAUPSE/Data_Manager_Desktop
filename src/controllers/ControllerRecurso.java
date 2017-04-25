@@ -9,6 +9,9 @@ import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -18,13 +21,17 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import main.java.Main;
 import pojos.*;
 
 public class ControllerRecurso {
 public ControllerRecurso() {}
 
-	
+	@FXML private Button btnBuscarID;
 	@FXML private TextField textId;
 	@FXML private Pane guno;
 	@FXML private Accordion gdos;
@@ -197,6 +204,7 @@ public ControllerRecurso() {}
 		
 	}
 
+	
 	private void setPromptText() {
 		textNombre.setPromptText("Nombre");
 		textDescripcion.setPromptText("Descripcion");
@@ -329,6 +337,40 @@ public ControllerRecurso() {}
 		
 	}
 	
+	private String id_;
+	
+	public String getId_() {
+		return id_;
+	}
+
+
+	public void setId_(String id_) {
+		this.id_ = id_;
+	}
+
+
+	public void abrirListaRecurso(){
+		try {
+			Recurso pojo_ = new Recurso();
+			FXMLLoader loader = new FXMLLoader();
+	        loader.setLocation(Main.class.getResource("/ViewListaRecurso.fxml"));
+	        AnchorPane page = (AnchorPane) loader.load();
+	        
+	        Stage stage = new Stage();
+	        stage.setTitle("Lista Recursos");
+	        stage.initModality(Modality.WINDOW_MODAL);
+	        Scene scene = new Scene(page);
+	        stage.setScene(scene);
+	        ControllerViewListaRecursos controller = loader.getController();
+	        controller.setDialogStage(stage);
+	        stage.showAndWait();
+	        
+	        pojo_ = controller.getPojo();
+	        CargarDatos(pojo_);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
 	public void CargarDatos(Recurso pojo){
 		textNombre.setText(pojo.getId());
 		textDescripcion.setText(pojo.getDireccion());
