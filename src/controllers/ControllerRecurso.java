@@ -223,7 +223,7 @@ public ControllerRecurso() {}
 	
 	public Recurso Guardar(){
 		Recurso pojo = new Recurso();
-		pojo.setId(textId.getText());
+		pojo.setId(textId.getText().trim());
 		pojo.setNombre(textNombre.getText());
 		pojo.setDescripcion(textDescripcion.getText());
 		pojo.setInformacionGeneral(textInfGeneral.getText());
@@ -338,7 +338,10 @@ public ControllerRecurso() {}
 		textRanking.setText(""+pojo.getRanking());
 		ObservableList<Idiomas> idiomasSeleccionado = FXCollections.observableArrayList(pojo.getIdiomasInformac());
 		listViewIdiomas.setItems(idiomasSeleccionado);
-		comboCosto.setValue(pojo.getCostoRecursos().get(0));
+		if(comboCosto!=null && !comboCosto.getSelectionModel().isEmpty())
+		{
+			comboCosto.setValue(pojo.getCostoRecursos().get(0));
+		}
 		if(act==1){
 			checkActivo.setSelected(true);
 		}else{
@@ -356,12 +359,28 @@ public ControllerRecurso() {}
 		if(actC4==1){
 			checkAcceso4.setSelected(true);
 		}
-		comboFacilidad.setValue(pojo.getFacilidadRecurso().get(0));
-		comboRecomendacion.setValue(pojo.getRecomendacion().get(0));
-		comboContactos.setValue(pojo.getInfContacto());
+		if(comboFacilidad!=null && !comboFacilidad.getSelectionModel().isEmpty())
+		{
+			comboFacilidad.setValue(pojo.getFacilidadRecurso().get(0));
+		}
+		
+		if(comboRecomendacion!=null && !comboRecomendacion.getSelectionModel().isEmpty())
+		{
+			comboRecomendacion.setValue(pojo.getRecomendacion().get(0));
+		}
+		
+		if(comboContactos!=null && !comboContactos.getSelectionModel().isEmpty())
+		{
+			comboContactos.setValue(pojo.getInfContacto());
+		}
+		
 		ObservableList<Imagen> imagenesSeleccionado = FXCollections.observableArrayList(pojo.getGaleria());
 		listViewImagenes.setItems(imagenesSeleccionado);
-		textpreguntasf.setText(preguntas.get(0));	 
+		
+		if(preguntas!=null && !preguntas.isEmpty())
+		{
+			textpreguntasf.setText(preguntas.get(0));	 
+		}
 	}
 	
 	public void Salir(){
