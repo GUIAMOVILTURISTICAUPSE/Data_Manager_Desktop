@@ -24,8 +24,6 @@ import pojos.*;
 public class ControllerRecurso {
 public ControllerRecurso() {}
 
-
-	public int contador=0;
 	
 	@FXML private TextField textId;
 	@FXML private Pane guno;
@@ -61,14 +59,10 @@ public ControllerRecurso() {}
 	ObservableList<Imagen> selectedItemsImagen;
 	ArrayList<AccesibilidadRecurso> pojoOpcionesAccesibilidad;
 	ObservableList<Sendero> selectItemsSenderos;
+	
+	
 	public void initialize(){
-		textNombre.setPromptText("Nombre");
-		textId.setPromptText("# ID");
-		textDescripcion.setPromptText("Descripcion");
-		textInfGeneral.setPromptText("Informacion General");
-		textDireccion.setPromptText("Direccion ");
-		textPosicion.setPromptText("Latitud - Longitud");
-		textRanking.setPromptText("Ranking ");
+		setPromptText();
 		
 		Sendero sendero1 = new Sendero();
 		sendero1.setNombre("Camino Hacia el terror");
@@ -192,6 +186,16 @@ public ControllerRecurso() {}
 		comboContactos.setItems(contactos);
 		
 	}
+
+	private void setPromptText() {
+		textNombre.setPromptText("Nombre");
+		textId.setPromptText("# ID");
+		textDescripcion.setPromptText("Descripcion");
+		textInfGeneral.setPromptText("Informacion General");
+		textDireccion.setPromptText("Direccion ");
+		textPosicion.setPromptText("Latitud - Longitud");
+		textRanking.setPromptText("Ranking ");
+	}
 	
 	
 	int act=0;
@@ -202,7 +206,8 @@ public ControllerRecurso() {}
 	private ArrayList<String> preguntas = new ArrayList<>();
 	Recurso pojo = new Recurso();
 	
-	public void Guardar(){
+	public Recurso Guardar(){
+		Recurso pojo = new Recurso();
 		pojo.setId(textId.getText());
 		pojo.setNombre(textNombre.getText());
 		pojo.setDescripcion(textDescripcion.getText());
@@ -252,7 +257,7 @@ public ControllerRecurso() {}
 			 System.out.println("selected item " + i.toString());
        }	
 		
-		
+		return pojo;
 	}
 	
 	public void LimpiarPantalla(){
@@ -267,17 +272,13 @@ public ControllerRecurso() {}
 		checkInactivo.setSelected(false);
 		comboCosto.setValue(null);
 		textpreguntasf.setText("");
-		if(contador == 2){
-			contador = 0;
-			initialize();
-			actC1=0;
-			actC2=0;
-			actC3=0;
-			actC4=0;
-		}else{
-			listViewIdiomas.setItems(null);	
-			listViewImagenes.setItems(null);
-		}
+		initialize();
+		actC1=0;
+		actC2=0;
+		actC3=0;
+		actC4=0;
+		listViewIdiomas.setItems(null);	
+		listViewImagenes.setItems(null);
 		
 		checkAcceso1.setSelected(false);
 		checkAcceso2.setSelected(false);
@@ -286,6 +287,7 @@ public ControllerRecurso() {}
 		comboFacilidad.setValue(null);
 		comboRecomendacion.setValue(null);
 		comboContactos.setValue(null);
+
 	}
 	
 	public void cargarDatosWebService()
@@ -295,15 +297,14 @@ public ControllerRecurso() {}
 		Recurso r = controllerHelper.cargarDatosWebService(id, Recurso.class);
 		if(r!=null)
 		{
-			pojo = r;
-			CargarDatos();
+			CargarDatos(r);
 		}
 	}
 	
 	public void guardarDatosWebService()
 	{
 		ControllerHelper<Recurso> controllerHelper= new ControllerHelper<Recurso>();
-		Guardar();
+		Recurso pojo = Guardar();
 		System.out.println("El pojo a guardar en el WS es: " + pojo);
 		if(controllerHelper.guardarNuevosDatosWebService(pojo, Recurso.class))
 		{
@@ -314,8 +315,7 @@ public ControllerRecurso() {}
 		
 	}
 	
-	public void CargarDatos(){
-		contador=2;
+	public void CargarDatos(Recurso pojo){
 		textId.setText(pojo.getId());
 		textNombre.setText(pojo.getNombre());
 		textDescripcion.setText(pojo.getDireccion());
@@ -370,6 +370,7 @@ public ControllerRecurso() {}
 				checkInactivo.setSelected(true);
 			}				
 	}
+	
 	public void cargarPreguntas(){
 		preguntas.add(textpreguntasf.getText());
 		textpreguntasf.setText("");

@@ -88,7 +88,6 @@
             <Button layoutX="194.0" layoutY="24.0" mnemonicParsing="false" onAction="#guardarDatosWebService" text="GUARDAR" />
             <Button layoutX="414.0" layoutY="19.0" mnemonicParsing="false" onAction="#Salir" prefHeight="34.0" prefWidth="56.0" text="SALIR" />
             <Button layoutX="342.0" layoutY="24.0" mnemonicParsing="false" onAction="#LimpiarPantalla" text="LIMPIAR" />
-            <Button layoutX="274.0" layoutY="24.0" mnemonicParsing="false" onAction="#CargarDatos" text="CARGAR" />
           <Button layoutX="123.0" layoutY="17.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="59.0" text="ATRAS" />
          </children>
       </Pane>
