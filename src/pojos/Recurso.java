@@ -11,12 +11,15 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Recurso {
 
-    private String id;
+	private String id;
 	private String rev;
     private String nombre;
     private String descripcion;
     private String informacionGeneral;
     private String direccion;
+    private String provincia;
+    private String canton;
+    private String parroquia;
     private ArrayList<Costo> costoRecursos = new ArrayList<Costo>();
     private ArrayList<AccesibilidadRecurso> opcionesAccesibilidad = new ArrayList<AccesibilidadRecurso>();
     private ArrayList<Facilidad> facilidadRecurso = new ArrayList<Facilidad>();
@@ -85,6 +88,7 @@ public class Recurso {
         this.direccion = direccion;
     }
 
+    
     /*
     public ArrayList<Costo> getCostoRecursos() {
         return costoRecursos;
@@ -144,6 +148,31 @@ public class Recurso {
     public void setRanking(float ranking) {
         this.ranking = ranking;
     }
+    
+    public String getProvincia() {
+ 		return provincia;
+ 	}
+
+ 	public void setProvincia(String provincia) {
+ 		this.provincia = provincia;
+ 	}
+
+ 	public String getCanton() {
+ 		return canton;
+ 	}
+
+ 	public void setCanton(String canton) {
+ 		this.canton = canton;
+ 	}
+
+ 	public String getParroquia() {
+ 		return parroquia;
+ 	}
+
+ 	public void setParroquia(String parroquia) {
+ 		this.parroquia = parroquia;
+ 	}
+    
 
     //otros metodos
 

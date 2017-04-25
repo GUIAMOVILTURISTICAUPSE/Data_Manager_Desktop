@@ -39,6 +39,11 @@ public ControllerRecurso() {}
 	@FXML private TextArea textDireccion;
 	@FXML private TextField textPosicion;
 	@FXML private TextField textRanking;
+	@FXML private TextField textProvincia;
+	@FXML private TextField textCanton;
+	@FXML private TextField textParroquia;
+	@FXML private TextField textPropietario;
+	@FXML private TextField textPersonaEncargada;
 	@FXML private ListView<Idiomas> listViewIdiomas;
 	@FXML private CheckBox checkActivo;
 	@FXML private CheckBox checkInactivo;
@@ -53,6 +58,8 @@ public ControllerRecurso() {}
 	@FXML private ComboBox<Contacto> comboContactos;
 	@FXML private ListView<Imagen> listViewImagenes;
 	@FXML private ListView<Sendero> listViewSenderos;
+	@FXML private ListView<String> listTiposParqueo;
+	@FXML private ListView<String> listPreguntas;
 	
 	@FXML private Button btnCargarWS;
 	ObservableList<Idiomas> selectedItems;
@@ -60,9 +67,12 @@ public ControllerRecurso() {}
 	ArrayList<AccesibilidadRecurso> pojoOpcionesAccesibilidad;
 	ObservableList<Sendero> selectItemsSenderos;
 	
-	
 	public void initialize(){
 		setPromptText();
+		
+		ObservableList<String> tiposParqueo = FXCollections.observableArrayList("Bicicleta","Moto","Vehiculo","Casilleros");
+		listTiposParqueo.setItems(tiposParqueo);
+		listTiposParqueo.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 		
 		Sendero sendero1 = new Sendero();
 		sendero1.setNombre("Camino Hacia el terror");
@@ -189,12 +199,17 @@ public ControllerRecurso() {}
 
 	private void setPromptText() {
 		textNombre.setPromptText("Nombre");
-		textId.setPromptText("# ID");
 		textDescripcion.setPromptText("Descripcion");
 		textInfGeneral.setPromptText("Informacion General");
 		textDireccion.setPromptText("Direccion ");
 		textPosicion.setPromptText("Latitud - Longitud");
 		textRanking.setPromptText("Ranking ");
+		textCanton.setPromptText("Cantón ");
+		textProvincia.setPromptText("Provincia ");
+		textParroquia.setPromptText("Provincia ");
+		textPropietario.setPromptText("Propietario ");
+		textPersonaEncargada.setPromptText("Persona Encargada ");
+		textpreguntasf.setPromptText("Escriba su Pregunta");
 	}
 	
 	
@@ -261,7 +276,7 @@ public ControllerRecurso() {}
 	}
 	
 	public void LimpiarPantalla(){
-		textId.setText("");
+
 		textNombre.setText("");
 		textDescripcion.setText("");
 		textInfGeneral.setText("");
@@ -272,29 +287,28 @@ public ControllerRecurso() {}
 		checkInactivo.setSelected(false);
 		comboCosto.setValue(null);
 		textpreguntasf.setText("");
-		initialize();
-		actC1=0;
-		actC2=0;
-		actC3=0;
-		actC4=0;
 		listViewIdiomas.setItems(null);	
 		listViewImagenes.setItems(null);
-		
 		checkAcceso1.setSelected(false);
 		checkAcceso2.setSelected(false);
 		checkAcceso3.setSelected(false);
 		checkAcceso4.setSelected(false);
 		comboFacilidad.setValue(null);
+		textCanton.setText(" ");
+		textProvincia.setText(" ");
+		textParroquia.setText(" ");
+		textPersonaEncargada.setText(" ");
+		textPropietario.setText(" ");
 		comboRecomendacion.setValue(null);
 		comboContactos.setValue(null);
-
+		initialize();
 	}
 	
 	public void cargarDatosWebService()
 	{
-		String id = textId.getText();
+		String nombre = textNombre.getText();
 		ControllerHelper<Recurso> controllerHelper= new ControllerHelper<Recurso>();
-		Recurso r = controllerHelper.cargarDatosWebService(id, Recurso.class);
+		Recurso r = controllerHelper.cargarDatosWebService(nombre, Recurso.class);
 		if(r!=null)
 		{
 			CargarDatos(r);
@@ -316,8 +330,7 @@ public ControllerRecurso() {}
 	}
 	
 	public void CargarDatos(Recurso pojo){
-		textId.setText(pojo.getId());
-		textNombre.setText(pojo.getNombre());
+		textNombre.setText(pojo.getId());
 		textDescripcion.setText(pojo.getDireccion());
 		textInfGeneral.setText(pojo.getInformacionGeneral());
 		textDireccion.setText(pojo.getDireccion());
@@ -374,6 +387,8 @@ public ControllerRecurso() {}
 	public void cargarPreguntas(){
 		preguntas.add(textpreguntasf.getText());
 		textpreguntasf.setText("");
+		ObservableList<String> preguntas1 = FXCollections.observableArrayList(preguntas);
+		listPreguntas.setItems(preguntas1);
 	}
 	
 }
