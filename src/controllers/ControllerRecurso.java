@@ -75,12 +75,19 @@ public ControllerRecurso() {}
 	ArrayList<AccesibilidadRecurso> pojoOpcionesAccesibilidad;
 	ObservableList<Sendero> selectItemsSenderos;
 	ObservableList<TipoAtractivo> selectItemsAtractivo;
+	ObservableList<String> selectItemsTiposParqueo;
 	public void initialize(){
 		setPromptText();
-		
 		ObservableList<String> tiposParqueo = FXCollections.observableArrayList("Bicicleta","Moto","Vehiculo","Casilleros");
 		listTiposParqueo.setItems(tiposParqueo);
-		listTiposParqueo.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+		listTiposParqueo.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		listTiposParqueo.setOnMouseClicked(new EventHandler<Event>() {
+
+			@Override
+			public void handle(Event event) {
+				selectItemsTiposParqueo = listTiposParqueo.getSelectionModel().getSelectedItems();
+			}
+		});
 		
 		Sendero sendero1 = new Sendero();
 		sendero1.setNombre("Camino Hacia el terror");
@@ -226,7 +233,7 @@ public ControllerRecurso() {}
 		textRanking.setPromptText("Ranking ");
 		textCanton.setPromptText("Cantón ");
 		textProvincia.setPromptText("Provincia ");
-		textParroquia.setPromptText("Provincia ");
+		textParroquia.setPromptText("Parroquia ");
 		textPropietario.setPromptText("Propietario ");
 		textPersonaEncargada.setPromptText("Persona Encargada ");
 		textpreguntasf.setPromptText("Escriba su Pregunta");
