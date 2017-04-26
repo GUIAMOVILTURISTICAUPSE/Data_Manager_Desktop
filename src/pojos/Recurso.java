@@ -20,6 +20,10 @@ public class Recurso {
     private String provincia;
     private String canton;
     private String parroquia;
+    private String categoria;
+    private String propietario;
+    private String personaEncargada;
+    	
     private ArrayList<Costo> costoRecursos = new ArrayList<Costo>();
     private ArrayList<AccesibilidadRecurso> opcionesAccesibilidad = new ArrayList<AccesibilidadRecurso>();
     private ArrayList<Facilidad> facilidadRecurso = new ArrayList<Facilidad>();
@@ -34,6 +38,7 @@ public class Recurso {
     private ArrayList<Idiomas> idiomasInformac = new ArrayList<Idiomas>();
     private ArrayList<String> preguntasFrecuentes = new ArrayList<String>();
     private ArrayList<Comentario> comentarios = new ArrayList<Comentario>();
+    private ArrayList<TipoAtractivo> tipoAtractivo = new ArrayList<TipoAtractivo>();
     //constructor
 
     public Recurso(){
@@ -172,8 +177,39 @@ public class Recurso {
  	public void setParroquia(String parroquia) {
  		this.parroquia = parroquia;
  	}
-    
 
+ 	public String getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(String categoria) {
+		this.categoria = categoria;
+	}
+	
+	public String getPropietario() {
+		return propietario;
+	}
+
+	public void setPropietario(String propietario) {
+		this.propietario = propietario;
+	}
+
+	public String getPersonaEncargada() {
+		return personaEncargada;
+	}
+
+	public void setPersonaEncargada(String personaEncargada) {
+		this.personaEncargada = personaEncargada;
+	}
+	
+	public ArrayList<TipoAtractivo> getTipoAtractivo() {
+		return tipoAtractivo;
+	}
+
+	public void setTipoAtractivo(ArrayList<TipoAtractivo> tipoAtractivo) {
+		this.tipoAtractivo = tipoAtractivo;
+	}
+	
     //otros metodos
 
     public void verReviews(){

@@ -51,6 +51,7 @@ public ControllerRecurso() {}
 	@FXML private TextField textParroquia;
 	@FXML private TextField textPropietario;
 	@FXML private TextField textPersonaEncargada;
+	@FXML private TextField textCategoria;
 	@FXML private ListView<Idiomas> listViewIdiomas;
 	@FXML private CheckBox checkActivo;
 	@FXML private CheckBox checkInactivo;
@@ -67,13 +68,13 @@ public ControllerRecurso() {}
 	@FXML private ListView<Sendero> listViewSenderos;
 	@FXML private ListView<String> listTiposParqueo;
 	@FXML private ListView<String> listPreguntas;
-	
+	@FXML private ListView<TipoAtractivo> listTiposAtractivos;
 	@FXML private Button btnCargarWS;
 	ObservableList<Idiomas> selectedItems;
 	ObservableList<Imagen> selectedItemsImagen;
 	ArrayList<AccesibilidadRecurso> pojoOpcionesAccesibilidad;
 	ObservableList<Sendero> selectItemsSenderos;
-	
+	ObservableList<TipoAtractivo> selectItemsAtractivo;
 	public void initialize(){
 		setPromptText();
 		
@@ -107,6 +108,17 @@ public ControllerRecurso() {}
 
         });
 		
+		ObservableList<TipoAtractivo> tipoAtractivos = FXCollections.observableArrayList(TipoAtractivo.values());
+		listTiposAtractivos.setItems(tipoAtractivos);
+		listTiposAtractivos.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		listTiposAtractivos.setOnMouseClicked(new EventHandler<Event>() {
+
+			@Override
+			public void handle(Event event) {
+				selectItemsAtractivo = listTiposAtractivos.getSelectionModel().getSelectedItems();
+				
+			}
+		});
 		
 		Imagen pojoI1 = new Imagen();
 		pojoI1.setTitulo("Foto1");
@@ -218,6 +230,7 @@ public ControllerRecurso() {}
 		textPropietario.setPromptText("Propietario ");
 		textPersonaEncargada.setPromptText("Persona Encargada ");
 		textpreguntasf.setPromptText("Escriba su Pregunta");
+		textCategoria.setPromptText("Categoria ");
 	}
 	
 	

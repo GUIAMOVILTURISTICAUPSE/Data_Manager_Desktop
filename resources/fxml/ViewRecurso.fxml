@@ -17,9 +17,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="648.0" stylesheets="/Estilo.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ControllerRecurso">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="900.0" stylesheets="/Estilo.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ControllerRecurso">
    <children>
-      <Pane fx:id="gtres" layoutX="360.0" layoutY="236.0" prefHeight="98.0" prefWidth="275.0">
+      <Pane fx:id="gtres" layoutX="508.0" layoutY="334.0" prefHeight="98.0" prefWidth="275.0">
          <children>
             <Button layoutX="9.0" layoutY="67.0" mnemonicParsing="false" text="Costos" />
             <ComboBox fx:id="comboCosto" layoutX="116.0" layoutY="67.0" prefHeight="25.0" prefWidth="150.0" />
@@ -29,7 +29,7 @@
             <Button layoutX="9.0" layoutY="40.0" mnemonicParsing="false" text="Contactos" />
          </children>
       </Pane>
-      <Accordion fx:id="gdos" layoutX="368.0" layoutY="33.0" prefHeight="206.0" prefWidth="258.0">
+      <Accordion fx:id="gdos" layoutX="507.0" layoutY="18.0" prefHeight="259.0" prefWidth="292.0">
         <panes>
           <TitledPane animated="false" text="Accesibilidad">
                <content>
@@ -67,45 +67,52 @@
                   </AnchorPane>
               </content>
             </TitledPane>
+            <TitledPane animated="false" prefHeight="163.0" prefWidth="292.0" text="TiposAtractivos">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="98.0" prefWidth="259.0">
+                     <children>
+                        <ListView fx:id="listTiposAtractivos" prefHeight="104.0" prefWidth="257.0" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </TitledPane>
         </panes>
       </Accordion>
-      <Pane fx:id="guno" layoutX="12.0" layoutY="9.0" prefHeight="472.0" prefWidth="351.0">
+      <Pane fx:id="guno" layoutX="130.0" layoutY="13.0" prefHeight="467.0" prefWidth="369.0">
          <children>
             <Label layoutX="11.0" layoutY="25.0" text="NOMBRE" />
             <Label layoutX="10.0" layoutY="72.0" text="DESCRIPCION" />
             <Label layoutX="8.0" layoutY="137.0" text="INF. GENERAL" />
-            <Label layoutX="8.0" layoutY="238.0" text="DIRECCION" />
-            <Label layoutX="7.0" layoutY="364.0" text="POSICION" />
-            <Label layoutX="8.0" layoutY="392.0" text="RANKING" />
+            <Label layoutX="12.0" layoutY="220.0" text="DIRECCION" />
+            <Label layoutX="12.0" layoutY="355.0" text="POSICION" />
+            <Label layoutX="13.0" layoutY="383.0" text="RANKING" />
             <TextField fx:id="textNombre" layoutX="100.0" layoutY="21.0" prefHeight="25.0" prefWidth="138.0" />
-            <TextField fx:id="textPosicion" layoutX="100.0" layoutY="360.0" prefHeight="25.0" prefWidth="239.0" />
-            <TextField fx:id="textRanking" layoutX="100.0" layoutY="386.0" prefHeight="25.0" prefWidth="239.0" />
+            <TextField fx:id="textPosicion" layoutX="105.0" layoutY="351.0" prefHeight="25.0" prefWidth="239.0" />
+            <TextField fx:id="textRanking" layoutX="105.0" layoutY="377.0" prefHeight="25.0" prefWidth="239.0" />
             <TextArea fx:id="textDescripcion" layoutX="100.0" layoutY="50.0" maxHeight="1.7976931348623157E308" minHeight="-Infinity" prefHeight="60.0" prefWidth="239.0" wrapText="true" />
-            <Button fx:id="btnCargarWS" layoutX="302.0" layoutY="21.0" mnemonicParsing="false" onAction="#cargarDatosWebService" prefHeight="25.0" prefWidth="35.0" text="Cargar/Nombre" />
+            <Button fx:id="btnCargarWS" layoutX="241.0" layoutY="23.0" mnemonicParsing="false" onAction="#cargarDatosWebService" prefHeight="25.0" prefWidth="101.0" text="Cargar/Nombre" />
             <TextArea fx:id="textInfGeneral" layoutX="100.0" layoutY="115.0" maxHeight="1.7976931348623157E308" minHeight="-Infinity" prefHeight="60.0" prefWidth="239.0" wrapText="true" />
-            <TextArea fx:id="textDireccion" layoutX="100.0" layoutY="227.0" maxHeight="1.7976931348623157E308" minHeight="-Infinity" prefHeight="38.0" prefWidth="239.0" wrapText="true" />
+            <TextArea fx:id="textDireccion" layoutX="102.0" layoutY="210.0" maxHeight="1.7976931348623157E308" minHeight="-Infinity" prefHeight="38.0" prefWidth="239.0" wrapText="true" />
             <Accordion layoutX="140.0" layoutY="-54.0" />
             <Label layoutX="9.0" layoutY="-3.0" text="Estado" />
-            <CheckBox fx:id="checkActivo" layoutX="100.0" layoutY="-3.0" mnemonicParsing="false" onAction="#checkActivo" text="ACTIVO" />
-            <CheckBox fx:id="checkInactivo" layoutX="182.0" layoutY="-3.0" mnemonicParsing="false" onAction="#checkInactivo" text="INACTIVO" />
-            <Label layoutX="33.0" layoutY="265.0" text="PROVINCIA" />
-            <Label layoutX="205.0" layoutY="266.0" text="CANTON" />
-            <Label layoutX="142.0" layoutY="313.0" text="PARROQUIA" />
-            <TextField fx:id="textParroquia" layoutX="10.0" layoutY="330.0" prefHeight="25.0" prefWidth="330.0" />
-            <TextField fx:id="textProvincia" layoutX="8.0" layoutY="283.0" prefHeight="25.0" prefWidth="157.0" />
-            <TextField fx:id="textCanton" layoutX="180.0" layoutY="283.0" prefHeight="25.0" prefWidth="157.0" />
-            <Label layoutX="33.0" layoutY="179.0" text="CATEGORIA" />
-            <Label layoutX="206.0" layoutY="179.0" text="TIPO" />
-            <TextField layoutX="10.0" layoutY="197.0" />
-            <TextField layoutX="186.0" layoutY="196.0" />
-            <Label layoutX="32.0" layoutY="415.0" text="PROPIETARIO" />
-            <Label layoutX="187.0" layoutY="415.0" text="PERSONA ENCARGADA" />
-            <TextField fx:id="textPropietario" layoutX="8.0" layoutY="431.0" prefHeight="25.0" prefWidth="165.0" />
-            <TextField fx:id="textPersonaEncargada" layoutX="177.0" layoutY="431.0" prefHeight="25.0" prefWidth="165.0" />
-            <Button fx:id="btnBuscarID" layoutX="250.0" layoutY="21.0" mnemonicParsing="false" onAction="#abrirListaRecurso" prefHeight="25.0" prefWidth="25.0" text="..." />
+            <CheckBox fx:id="checkActivo" layoutX="95.0" layoutY="-3.0" mnemonicParsing="false" onAction="#checkActivo" text="ACTIVO" />
+            <CheckBox fx:id="checkInactivo" layoutX="164.0" layoutY="-3.0" mnemonicParsing="false" onAction="#checkInactivo" text="INACTIVO" />
+            <Label layoutX="38.0" layoutY="256.0" text="PROVINCIA" />
+            <Label layoutX="210.0" layoutY="257.0" text="CANTON" />
+            <Label layoutX="147.0" layoutY="304.0" text="PARROQUIA" />
+            <TextField fx:id="textParroquia" layoutX="15.0" layoutY="321.0" prefHeight="25.0" prefWidth="330.0" />
+            <TextField fx:id="textProvincia" layoutX="13.0" layoutY="274.0" prefHeight="25.0" prefWidth="157.0" />
+            <TextField fx:id="textCanton" layoutX="179.0" layoutY="274.0" prefHeight="25.0" prefWidth="168.0" />
+            <Label layoutX="12.0" layoutY="189.0" text="CATEGORIA" />
+            <TextField fx:id="textCategoria" layoutX="101.0" layoutY="181.0" prefHeight="25.0" prefWidth="237.0" />
+            <Label layoutX="37.0" layoutY="406.0" text="PROPIETARIO" />
+            <Label layoutX="192.0" layoutY="406.0" text="PERSONA ENCARGADA" />
+            <TextField fx:id="textPropietario" layoutX="13.0" layoutY="422.0" prefHeight="25.0" prefWidth="165.0" />
+            <TextField fx:id="textPersonaEncargada" layoutX="182.0" layoutY="422.0" prefHeight="25.0" prefWidth="165.0" />
+            <Button fx:id="btnBuscarID" layoutX="241.0" layoutY="-4.0" mnemonicParsing="false" onAction="#abrirListaRecurso" prefHeight="25.0" prefWidth="101.0" text="CargarListaRrc" />
          </children>
       </Pane>
-      <Pane fx:id="gseis" layoutX="434.0" layoutY="571.0" prefHeight="70.0" prefWidth="201.0">
+      <Pane fx:id="gseis" layoutX="529.0" layoutY="648.0" prefHeight="70.0" prefWidth="201.0">
          <children>
             <Button layoutX="72.0" layoutY="5.0" mnemonicParsing="false" onAction="#guardarDatosWebService" text="GUARDAR" />
             <Button layoutX="145.0" layoutY="20.0" mnemonicParsing="false" onAction="#Salir" prefHeight="34.0" prefWidth="56.0" text="SALIR" />
@@ -113,7 +120,7 @@
           <Button layoutX="2.0" layoutY="18.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="59.0" text="ATRAS" />
          </children>
       </Pane>
-    <AnchorPane layoutX="22.0" layoutY="481.0" minHeight="0.0" minWidth="0.0" prefHeight="198.0" prefWidth="332.0">
+    <AnchorPane layoutX="145.0" layoutY="485.0" minHeight="0.0" minWidth="0.0" prefHeight="198.0" prefWidth="332.0">
          <children>
             <Label layoutX="13.0" layoutY="13.0" text="PREGUNTAS FRECUENTES" />
             <Button layoutX="263.0" layoutY="37.0" mnemonicParsing="false" onAction="#cargarPreguntas" text="AÑADIR" />
@@ -121,9 +128,9 @@
             <ListView fx:id="listPreguntas" layoutX="7.0" layoutY="68.0" prefHeight="121.0" prefWidth="316.0" />
          </children>
       </AnchorPane>
-      <Pane fx:id="gcinco" layoutX="369.0" layoutY="341.0" prefHeight="188.0" prefWidth="258.0">
+      <Pane fx:id="gcinco" layoutX="510.0" layoutY="450.0" prefHeight="188.0" prefWidth="266.0">
          <children>
-            <ListView fx:id="listViewImagenes" layoutX="6.0" prefHeight="182.0" prefWidth="247.0" />
+            <ListView fx:id="listViewImagenes" layoutX="15.0" layoutY="4.0" prefHeight="188.0" prefWidth="237.0" />
          </children>
       </Pane>
    </children>
