@@ -244,7 +244,7 @@ public ControllerRecurso() {}
 	
 	public Recurso Guardar(){
 		Recurso pojo = new Recurso();
-		pojo.setId(textId.getText().trim());
+	//	pojo.setId(textId.getText().trim());
 		pojo.setNombre(textNombre.getText());
 		pojo.setDescripcion(textDescripcion.getText());
 		pojo.setInformacionGeneral(textInfGeneral.getText());
@@ -322,6 +322,7 @@ public ControllerRecurso() {}
 		textPropietario.setText(" ");
 		comboRecomendacion.setValue(null);
 		comboContactos.setValue(null);
+		textCategoria.setText(" ");
 		initialize();
 	}
 	
