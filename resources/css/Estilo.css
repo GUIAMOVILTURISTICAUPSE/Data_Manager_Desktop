@@ -17,3 +17,8 @@
 -fx-font: 12px Calibri;
 -fx-text-fill: black;
 }
+
+#lblRecurso{
+-fx-font: 37px Calibri;
+-fx-text-fill: black;
+}

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="500.0" stylesheets="/Estilo.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ControllerTableRecurso">
+   <children>
+      <Label fx:id="lblRecurso" layoutX="114.0" layoutY="14.0" text="Lista de Recursos">
+         <font>
+            <Font size="37.0" />
+         </font>
+      </Label>
+      <TableView fx:id="tvRecurso" layoutX="36.0" layoutY="87.0" prefHeight="284.0" prefWidth="450.0" />
+   </children>
+</AnchorPane>

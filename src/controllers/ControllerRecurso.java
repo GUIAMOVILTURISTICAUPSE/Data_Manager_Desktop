@@ -374,15 +374,14 @@ public ControllerRecurso() {}
 		try {
 			Recurso pojo_ = new Recurso();
 			FXMLLoader loader = new FXMLLoader();
-	        loader.setLocation(Main.class.getResource("/ViewListaRecurso.fxml"));
+	        loader.setLocation(Main.class.getResource("/ViewTableRecurso.fxml"));
 	        AnchorPane page = (AnchorPane) loader.load();
-	        
 	        Stage stage = new Stage();
 	        stage.setTitle("Lista Recursos");
 	        stage.initModality(Modality.WINDOW_MODAL);
 	        Scene scene = new Scene(page);
 	        stage.setScene(scene);
-	        ControllerViewListaRecursos controller = loader.getController();
+	        ControllerTableRecurso controller = loader.getController();
 	        controller.setDialogStage(stage);
 	        stage.showAndWait();
 	        
