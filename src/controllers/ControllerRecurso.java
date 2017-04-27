@@ -2,6 +2,8 @@ package controllers;
 
 //import java.awt.ScrollPane;
 import java.util.ArrayList;
+
+import ch.qos.logback.core.pattern.color.ForegroundCompositeConverterBase;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -257,6 +259,12 @@ public ControllerRecurso() {}
 		pojo.setInformacionGeneral(textInfGeneral.getText());
 		pojo.setDireccion(textDireccion.getText());
 		pojo.setPosicion(textPosicion.getText());
+		pojo.setProvincia(textProvincia.getText());
+		pojo.setCanton(textCanton.getText());
+		pojo.setParroquia(textParroquia.getText());
+		pojo.setPropietario(textPropietario.getText());
+		pojo.setPersonaEncargada(textPersonaEncargada.getText());
+		pojo.setCategoria(textCategoria.getText());
 		
 		if(selectedItems!=null && !selectedItems.isEmpty())
 		{
@@ -265,9 +273,11 @@ public ControllerRecurso() {}
 				 System.out.println("selected item " + s.toString());
 	        }
 		}
+		
 		pojo.getCostoRecursos().add(comboCosto.getValue());
-		float rank = Integer.parseInt(textRanking.getText());
-		pojo.setRanking(rank);
+		float ranking = Integer.parseInt(textRanking.getText());
+		pojo.setRanking(ranking);
+		
 		if (checkActivo.isSelected()== true){
 			pojo.setEstado(Estado.ACTIVO);
 			
@@ -276,6 +286,24 @@ public ControllerRecurso() {}
 			pojo.setEstado(Estado.INACTIVO);
 		}
 		
+		
+			for (TipoAtractivo a : selectItemsAtractivo) {
+				pojo.getTipoAtractivo().add(a);
+				System.out.println("seleccion  " + a.toString());
+			}
+		
+		
+			for (String b :selectItemsTiposParqueo ) {
+				pojo.getTiposParqueo().add(b);
+				System.out.println("seleccion  " + b.toString());
+			}
+
+		
+		
+			for (Sendero c: selectItemsSenderos) {
+				pojo.getSendero().add(c);
+				System.out.println("seleccion  " + c.toString());
+			}
 		pojoOpcionesAccesibilidad = new  ArrayList<AccesibilidadRecurso>();
 		if (checkAcceso1.isSelected()== true){
 			actC1=1;
@@ -322,14 +350,15 @@ public ControllerRecurso() {}
 		checkAcceso3.setSelected(false);
 		checkAcceso4.setSelected(false);
 		comboFacilidad.setValue(null);
-		textCanton.setText(" ");
-		textProvincia.setText(" ");
-		textParroquia.setText(" ");
-		textPersonaEncargada.setText(" ");
-		textPropietario.setText(" ");
+		textCanton.setText("");
+		textProvincia.setText("");
+		textParroquia.setText("");
+		textPersonaEncargada.setText("");
+		textPropietario.setText("");
 		comboRecomendacion.setValue(null);
 		comboContactos.setValue(null);
-		textCategoria.setText(" ");
+		textCategoria.setText("");
+		listPreguntas.setItems(null);
 		initialize();
 	}
 	
@@ -444,6 +473,7 @@ public ControllerRecurso() {}
 		{
 			textpreguntasf.setText(preguntas.get(0));	 
 		}
+		
 	}
 	
 	public void Salir(){

@@ -11,6 +11,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Recurso {
 
+
+
 	private String id;
 	private String rev;
     private String nombre;
@@ -39,6 +41,7 @@ public class Recurso {
     private ArrayList<String> preguntasFrecuentes = new ArrayList<String>();
     private ArrayList<Comentario> comentarios = new ArrayList<Comentario>();
     private ArrayList<TipoAtractivo> tipoAtractivo = new ArrayList<TipoAtractivo>();
+    private ArrayList<String> tiposParqueo = new ArrayList<>();
     //constructor
 
     public Recurso(){
@@ -321,16 +324,28 @@ public class Recurso {
 	public String get_rev() {
 		return rev;
 	}
+	
+	public ArrayList<String> getTiposParqueo() {
+		return tiposParqueo;
+	}
 
-    @Override
+	public void setTiposParqueo(ArrayList<String> tiposParqueo) {
+		this.tiposParqueo = tiposParqueo;
+	}
+	
+    
+	@Override
 	public String toString() {
-		return "Recurso [id=" + id + ", _rev=" + rev + ", nombre=" + nombre + ", descripcion=" + descripcion
-				+ ", informacionGeneral=" + informacionGeneral + ", direccion=" + direccion + ", costoRecursos="
-				+ costoRecursos + ", opcionesAccesibilidad=" + opcionesAccesibilidad + ", facilidadRecurso="
-				+ facilidadRecurso + ", recomendacion=" + recomendacion + ", infContacto=" + infContacto + ", ranking="
-				+ ranking + ", galeria=" + galeria + ", imagenPrincipal=" + imagenPrincipal + ", sendero=" + sendero
-				+ ", posicion=" + posicion + ", estado=" + estado + ", idiomasInformac=" + idiomasInformac
-				+ ", preguntasFrecuentes=" + preguntasFrecuentes + ", comentarios=" + comentarios + "]\n";
+		return "Recurso [id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", informacionGeneral="
+				+ informacionGeneral + ", direccion=" + direccion + ", provincia=" + provincia + ", canton=" + canton
+				+ ", parroquia=" + parroquia + ", categoria=" + categoria + ", propietario=" + propietario
+				+ ", personaEncargada=" + personaEncargada + ", costoRecursos=" + costoRecursos
+				+ ", opcionesAccesibilidad=" + opcionesAccesibilidad + ", facilidadRecurso=" + facilidadRecurso
+				+ ", recomendacion=" + recomendacion + ", infContacto=" + infContacto + ", ranking=" + ranking
+				+ ", galeria=" + galeria + ", sendero=" + sendero + ", posicion=" + posicion + ", estado=" + estado
+				+ ", idiomasInformac=" + idiomasInformac + ", preguntasFrecuentes=" + preguntasFrecuentes
+				+ ", comentarios=" + comentarios + ", tipoAtractivo=" + tipoAtractivo + ", tiposParqueo=" + tiposParqueo
+				+ "]";
 	}
 
 }
