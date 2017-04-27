@@ -2,6 +2,8 @@ package controllers;
 
 //import java.awt.ScrollPane;
 import java.util.ArrayList;
+
+import ch.qos.logback.core.pattern.color.ForegroundCompositeConverterBase;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -257,6 +259,12 @@ public ControllerRecurso() {}
 		pojo.setInformacionGeneral(textInfGeneral.getText());
 		pojo.setDireccion(textDireccion.getText());
 		pojo.setPosicion(textPosicion.getText());
+		pojo.setProvincia(textProvincia.getText());
+		pojo.setCanton(textCanton.getText());
+		pojo.setParroquia(textParroquia.getText());
+		pojo.setPropietario(textPropietario.getText());
+		pojo.setPersonaEncargada(textPersonaEncargada.getText());
+		pojo.setCategoria(textCategoria.getText());
 		
 		if(selectedItems!=null && !selectedItems.isEmpty())
 		{
@@ -265,9 +273,11 @@ public ControllerRecurso() {}
 				 System.out.println("selected item " + s.toString());
 	        }
 		}
+		
 		pojo.getCostoRecursos().add(comboCosto.getValue());
-		float rank = Integer.parseInt(textRanking.getText());
-		pojo.setRanking(rank);
+		float ranking = Float.parseFloat(textRanking.getText());
+		pojo.setRanking(ranking);
+		
 		if (checkActivo.isSelected()== true){
 			pojo.setEstado(Estado.ACTIVO);
 			
@@ -276,6 +286,24 @@ public ControllerRecurso() {}
 			pojo.setEstado(Estado.INACTIVO);
 		}
 		
+		
+			for (TipoAtractivo a : selectItemsAtractivo) {
+				pojo.getTipoAtractivo().add(a);
+				System.out.println("seleccion  " + a.toString());
+			}
+		
+		
+			for (String b :selectItemsTiposParqueo ) {
+				pojo.getTiposParqueo().add(b);
+				System.out.println("seleccion  " + b.toString());
+			}
+
+		
+		
+			for (Sendero c: selectItemsSenderos) {
+				pojo.getSendero().add(c);
+				System.out.println("seleccion  " + c.toString());
+			}
 		pojoOpcionesAccesibilidad = new  ArrayList<AccesibilidadRecurso>();
 		if (checkAcceso1.isSelected()== true){
 			actC1=1;
@@ -322,14 +350,15 @@ public ControllerRecurso() {}
 		checkAcceso3.setSelected(false);
 		checkAcceso4.setSelected(false);
 		comboFacilidad.setValue(null);
-		textCanton.setText(" ");
-		textProvincia.setText(" ");
-		textParroquia.setText(" ");
-		textPersonaEncargada.setText(" ");
-		textPropietario.setText(" ");
+		textCanton.setText("");
+		textProvincia.setText("");
+		textParroquia.setText("");
+		textPersonaEncargada.setText("");
+		textPropietario.setText("");
 		comboRecomendacion.setValue(null);
 		comboContactos.setValue(null);
-		textCategoria.setText(" ");
+		textCategoria.setText("");
+		listPreguntas.setItems(null);
 		initialize();
 	}
 	
@@ -338,6 +367,7 @@ public ControllerRecurso() {}
 		String nombre = textNombre.getText();
 		ControllerHelper<Recurso> controllerHelper= new ControllerHelper<Recurso>();
 		Recurso r = controllerHelper.cargarDatosWebService(nombre, Recurso.class);
+		System.out.println(r);
 		if(r!=null)
 		{
 			CargarDatos(r);
@@ -397,52 +427,54 @@ public ControllerRecurso() {}
 		textInfGeneral.setText(pojo.getInformacionGeneral());
 		textDireccion.setText(pojo.getDireccion());
 		textPosicion.setText(pojo.getPosicion());
-		textRanking.setText(""+pojo.getRanking());
+		float num = pojo.getRanking();
+		String numero = String.valueOf(num);
+		System.out.println(numero);
+		textRanking.setText(numero.toString());
+		textCanton.setText(pojo.getCanton());
+		textProvincia.setText(pojo.getProvincia());
+		textParroquia.setText(pojo.getParroquia());
+		textPropietario.setText(pojo.getPropietario());
+		textPersonaEncargada.setText(pojo.getPersonaEncargada());
+		textCategoria.setText(pojo.getCategoria());
+		
 		ObservableList<Idiomas> idiomasSeleccionado = FXCollections.observableArrayList(pojo.getIdiomasInformac());
 		listViewIdiomas.setItems(idiomasSeleccionado);
-		if(comboCosto!=null && !comboCosto.getSelectionModel().isEmpty())
-		{
-			comboCosto.setValue(pojo.getCostoRecursos().get(0));
-		}
-		if(act==1){
-			checkActivo.setSelected(true);
-		}else{
-			checkInactivo.setSelected(true);
-		}
-		if(actC1==1){
-			checkAcceso1.setSelected(true);
-		}
-		if(actC2==1){
-			checkAcceso2.setSelected(true);
-		}
-		if(actC3==1){
-			checkAcceso3.setSelected(true);
-		}
-		if(actC4==1){
-			checkAcceso4.setSelected(true);
-		}
-		if(comboFacilidad!=null && !comboFacilidad.getSelectionModel().isEmpty())
-		{
-			comboFacilidad.setValue(pojo.getFacilidadRecurso().get(0));
-		}
+		ObservableList<String> ParqueoSeleccionado = FXCollections.observableArrayList(pojo.getTiposParqueo());
+		listTiposParqueo.setItems(ParqueoSeleccionado);
+		ObservableList<TipoAtractivo> TatractivoSeleccionado = FXCollections.observableArrayList(pojo.getTipoAtractivo());
+		listTiposAtractivos.setItems(TatractivoSeleccionado);
+		ObservableList<Sendero> senderoSeleccionado = FXCollections.observableArrayList(pojo.getSendero());
+		listViewSenderos.setItems(senderoSeleccionado);
 		
-		if(comboRecomendacion!=null && !comboRecomendacion.getSelectionModel().isEmpty())
-		{
-			comboRecomendacion.setValue(pojo.getRecomendacion().get(0));
-		}
+		comboCosto.setValue(pojo.getCostoRecursos().get(0));
 		
-		if(comboContactos!=null && !comboContactos.getSelectionModel().isEmpty())
-		{
-			comboContactos.setValue(pojo.getInfContacto());
-		}
+			if(act==1){
+				checkActivo.setSelected(true);
+			}else{
+				checkInactivo.setSelected(true);
+			}
+			if(actC1==1){
+				checkAcceso1.setSelected(true);
+			}
+			if(actC2==1){
+				checkAcceso2.setSelected(true);
+			}
+			if(actC3==1){
+				checkAcceso3.setSelected(true);
+			}
+			if(actC4==1){
+				checkAcceso4.setSelected(true);
+			}
+		comboFacilidad.setValue(pojo.getFacilidadRecurso().get(0));
+		comboRecomendacion.setValue(pojo.getRecomendacion().get(0));
+		comboContactos.setValue(pojo.getInfContacto());
 		
 		ObservableList<Imagen> imagenesSeleccionado = FXCollections.observableArrayList(pojo.getGaleria());
 		listViewImagenes.setItems(imagenesSeleccionado);
 		
-		if(preguntas!=null && !preguntas.isEmpty())
-		{
-			textpreguntasf.setText(preguntas.get(0));	 
-		}
+		//textpreguntasf.setText(preguntas.get(0));	 
+		
 	}
 	
 	public void Salir(){
