@@ -47,7 +47,7 @@ public class Recurso {
     public Recurso(){
 
     }
-
+  
     /*
     public Recurso(String nombre, String descripcion, String informacionGeneral, String direccion, ArrayList<Costo> costoRecursos, ArrayList<Facilidad> facilidadRecurso, ArrayList<Recomendacion> recomendacion, ArrayList<Imagen> imagen, ArrayList<Senderos> sendero, ArrayList<Idiomas> idiomasInformac, float ranking) {
         this.nombre = nombre;
