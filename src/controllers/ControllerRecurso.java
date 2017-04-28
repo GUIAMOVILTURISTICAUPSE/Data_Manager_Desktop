@@ -161,7 +161,7 @@ public ControllerRecurso() {}
 		textRanking.textProperty().addListener(new ChangeListener<String>() {
 	        @Override
 	        public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-	        	if (!textRanking.getText().matches("[0-9]")) {
+	        	if (!textRanking.getText().matches("^[0-9]*\\.?[0-9]*$")) {
 	        		textRanking.setText("");
                 }
 	        }
@@ -424,14 +424,11 @@ public ControllerRecurso() {}
 	}
 	public void CargarDatos(Recurso pojo){
 		textNombre.setText(pojo.getId());
-		textDescripcion.setText(pojo.getDireccion());
+		textDescripcion.setText(pojo.getDescripcion());
 		textInfGeneral.setText(pojo.getInformacionGeneral());
 		textDireccion.setText(pojo.getDireccion());
 		textPosicion.setText(pojo.getPosicion());
-		float num = pojo.getRanking();
-		String numero = String.valueOf(num);
-		System.out.println(numero);
-		textRanking.setText(numero.toString());
+		textRanking.setText(String.valueOf(pojo.getRanking()));
 		textCanton.setText(pojo.getCanton());
 		textProvincia.setText(pojo.getProvincia());
 		textParroquia.setText(pojo.getParroquia());
