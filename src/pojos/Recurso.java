@@ -11,8 +11,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Recurso {
 
-
-
+	private ArrayList<Contacto> contactos = new ArrayList<Contacto>();
+	private String horario;
+	private String seguridad;
+	private ArrayList<PreguntasFrecuentes> preguntasF = new ArrayList<PreguntasFrecuentes>();
+	
 	private String id;
 	private String rev;
     private String nombre;
@@ -63,6 +66,39 @@ public class Recurso {
         this.ranking = ranking;
     }
     */
+	
+	public ArrayList<PreguntasFrecuentes> getPreguntasF() {
+		return preguntasF;
+	}
+
+	public void setPreguntasF(ArrayList<PreguntasFrecuentes> preguntasF) {
+		this.preguntasF = preguntasF;
+	}
+    
+	public ArrayList<Contacto> getContactos() {
+		return contactos;
+	}
+
+	public void setContactos(ArrayList<Contacto> contactos) {
+		this.contactos = contactos;
+	}
+
+	public String getHorario() {
+		return horario;
+	}
+
+	public void setHorario(String horario) {
+		this.horario = horario;
+	}
+
+	public String getSeguridad() {
+		return seguridad;
+	}
+
+	public void setSeguridad(String seguridad) {
+		this.seguridad = seguridad;
+	}
+
 
     public String getNombre() {
         return nombre;
@@ -336,16 +372,17 @@ public class Recurso {
     
 	@Override
 	public String toString() {
-		return "Recurso [id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", informacionGeneral="
-				+ informacionGeneral + ", direccion=" + direccion + ", provincia=" + provincia + ", canton=" + canton
-				+ ", parroquia=" + parroquia + ", categoria=" + categoria + ", propietario=" + propietario
-				+ ", personaEncargada=" + personaEncargada + ", costoRecursos=" + costoRecursos
+		return "Recurso [contactos=" + contactos + ", horario=" + horario + ", seguridad=" + seguridad + ", preguntasF="
+				+ preguntasF + ", id=" + id + ", rev=" + rev + ", nombre=" + nombre + ", descripcion=" + descripcion
+				+ ", informacionGeneral=" + informacionGeneral + ", direccion=" + direccion + ", provincia=" + provincia
+				+ ", canton=" + canton + ", parroquia=" + parroquia + ", categoria=" + categoria + ", propietario="
+				+ propietario + ", personaEncargada=" + personaEncargada + ", costoRecursos=" + costoRecursos
 				+ ", opcionesAccesibilidad=" + opcionesAccesibilidad + ", facilidadRecurso=" + facilidadRecurso
 				+ ", recomendacion=" + recomendacion + ", infContacto=" + infContacto + ", ranking=" + ranking
-				+ ", galeria=" + galeria + ", sendero=" + sendero + ", posicion=" + posicion + ", estado=" + estado
-				+ ", idiomasInformac=" + idiomasInformac + ", preguntasFrecuentes=" + preguntasFrecuentes
-				+ ", comentarios=" + comentarios + ", tipoAtractivo=" + tipoAtractivo + ", tiposParqueo=" + tiposParqueo
-				+ "]";
+				+ ", galeria=" + galeria + ", imagenPrincipal=" + imagenPrincipal + ", sendero=" + sendero
+				+ ", posicion=" + posicion + ", estado=" + estado + ", idiomasInformac=" + idiomasInformac
+				+ ", preguntasFrecuentes=" + preguntasFrecuentes + ", comentarios=" + comentarios + ", tipoAtractivo="
+				+ tipoAtractivo + ", tiposParqueo=" + tiposParqueo + "]";
 	}
 
 }

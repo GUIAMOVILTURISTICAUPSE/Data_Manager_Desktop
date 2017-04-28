@@ -21,6 +21,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -41,6 +42,17 @@ public ControllerRecurso() {}
 	@FXML private ScrollPane gcuatro;
 	@FXML private Pane gcinco;
 	@FXML private Pane gseis;
+
+
+	@FXML private TextField textTelefono;
+	@FXML private TextField textFacebook;
+	@FXML private TextField textTwitter;
+	@FXML private TextField textInstagram;
+	@FXML private TextField textEmail;
+	@FXML private TextField textSeguridad;
+	@FXML private TextField textHorario;
+	@FXML private TableView<PreguntasFrecuentes> tablePreRes ;
+	@FXML private TextArea textRespuestas;
 	
 	@FXML private TextField textNombre;
 	@FXML private TextArea textDescripcion;
@@ -240,6 +252,16 @@ public ControllerRecurso() {}
 		textPersonaEncargada.setPromptText("Persona Encargada ");
 		textpreguntasf.setPromptText("Escriba su Pregunta");
 		textCategoria.setPromptText("Categoria ");
+		
+		textEmail.setPromptText("Email");
+		textFacebook.setPromptText("Facebook");
+		textHorario.setPromptText("Horario");
+		textInstagram.setPromptText("Instagram");
+		textRespuestas.setPromptText("Respuestas");
+		textSeguridad.setPromptText("Seguridad");
+		textTelefono.setPromptText("Telefono");
+		textTwitter.setPromptText("Twitter");
+		
 	}
 	
 	
@@ -265,6 +287,7 @@ public ControllerRecurso() {}
 		pojo.setPropietario(textPropietario.getText());
 		pojo.setPersonaEncargada(textPersonaEncargada.getText());
 		pojo.setCategoria(textCategoria.getText());
+		
 		
 		if(selectedItems!=null && !selectedItems.isEmpty())
 		{
@@ -333,6 +356,15 @@ public ControllerRecurso() {}
 	
 	public void LimpiarPantalla(){
 
+		textEmail.setText("");
+		textFacebook.setText("");
+		textHorario.setText("");
+		textInstagram.setText("");
+		textRespuestas.setText("");
+		textSeguridad.setText("");
+		textTelefono.setText("");
+		textTwitter.setText("");
+		tablePreRes.setItems(null);
 		textNombre.setText("");
 		textDescripcion.setText("");
 		textInfGeneral.setText("");

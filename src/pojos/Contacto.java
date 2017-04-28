@@ -6,7 +6,18 @@ public class Contacto {
     private String telefono;
     private String facebook;
     private  String twitter;
+    private  String instagram;
     private String email;
+
+    
+
+    public String getInstagram() {
+		return instagram;
+	}
+
+	public void setInstagram(String instagram) {
+		this.instagram = instagram;
+	}
 
     public Contacto() {
     }
