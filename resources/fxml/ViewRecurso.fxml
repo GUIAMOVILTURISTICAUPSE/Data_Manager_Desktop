@@ -23,14 +23,7 @@
         <panes>
           <TitledPane animated="false" text="Accesibilidad">
                <content>
-                  <VBox prefHeight="82.0" prefWidth="256.0">
-                     <children>
-                        <CheckBox fx:id="checkAcceso1" mnemonicParsing="false" text="Sillas de ruedas" />
-                        <CheckBox fx:id="checkAcceso2" mnemonicParsing="false" text="Rampas" />
-                        <CheckBox fx:id="checkAcceso3" mnemonicParsing="false" text="Otros medios" />
-                        <CheckBox fx:id="checkAcceso4" mnemonicParsing="false" text="Acceso4" />
-                     </children>
-                  </VBox>
+                  <ListView fx:id="listTipoAccesibilidad" prefHeight="79.0" prefWidth="264.0" />
                </content>
             </TitledPane>
           <TitledPane animated="false" text="Idiomas">

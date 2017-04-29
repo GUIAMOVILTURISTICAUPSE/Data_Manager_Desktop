@@ -28,7 +28,7 @@ public class Recurso {
     private String personaEncargada;
     	
     private ArrayList<Costo> costoRecursos = new ArrayList<Costo>();
-    private ArrayList<AccesibilidadRecurso> opcionesAccesibilidad = new ArrayList<AccesibilidadRecurso>();
+    private ArrayList<TipoAccesibilidad> opcionesTipoAccesibilidad = new ArrayList<TipoAccesibilidad>();
     private ArrayList<Facilidad> facilidadRecurso = new ArrayList<Facilidad>();
     private ArrayList<Recomendacion> recomendacion = new ArrayList<Recomendacion>();
     private Contacto infContacto;
@@ -42,6 +42,8 @@ public class Recurso {
     private ArrayList<Comentario> comentarios = new ArrayList<Comentario>();
     private ArrayList<TipoAtractivo> tipoAtractivo = new ArrayList<TipoAtractivo>();
     private ArrayList<String> tiposParqueo = new ArrayList<>();
+	private ArrayList<AccesibilidadRecurso> opcionesAccesibilidad;
+ 
     //constructor
 
     public Recurso(){
@@ -267,13 +269,7 @@ public class Recurso {
 		this.costoRecursos = costoRecursos;
 	}
 
-	public ArrayList<AccesibilidadRecurso> getOpcionesAccesibilidad() {
-		return opcionesAccesibilidad;
-	}
 
-	public void setOpcionesAccesibilidad(ArrayList<AccesibilidadRecurso> opcionesAccesibilidad) {
-		this.opcionesAccesibilidad = opcionesAccesibilidad;
-	}
 
 	public ArrayList<Facilidad> getFacilidadRecurso() {
 		return facilidadRecurso;
@@ -347,7 +343,14 @@ public class Recurso {
 		this.tiposParqueo = tiposParqueo;
 	}
 	
-    
+	public ArrayList<TipoAccesibilidad> getOpcionesTipoAccesibilidad() {
+		return opcionesTipoAccesibilidad;
+	}
+
+	public void setOpcionesTipoAccesibilidad(ArrayList<TipoAccesibilidad> opcionesTipoAccesibilidad) {
+		this.opcionesTipoAccesibilidad = opcionesTipoAccesibilidad;
+	}
+	
 	@Override
 	public String toString() {
 		return "Recurso [ horario=" + horario + ", seguridad=" + seguridad + ", preguntasF="
@@ -361,5 +364,7 @@ public class Recurso {
 				+ ", posicion=" + posicion + ", estado=" + estado + ", idiomasInformac=" + idiomasInformac
 			    + ", comentarios=" + comentarios + ", tipoAtractivo="+ tipoAtractivo + ", tiposParqueo=" + tiposParqueo + "]";
 	}
+
+	
 
 }
