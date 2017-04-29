@@ -3,7 +3,7 @@ package pojos;
 public class PreguntasFrecuentes {
 
 	public String preguntas;
-	public String respuestas;
+	public String respPreguntas;
 
 	
 	public String getPreguntas() {
@@ -13,14 +13,16 @@ public class PreguntasFrecuentes {
 	public void setPreguntas(String preguntas) {
 		this.preguntas = preguntas;
 	}
+	
 
-	public String getRespuestas() {
-		return respuestas;
+	public String getRespPreguntas() {
+		return respPreguntas;
 	}
 
-	public void setRespuestas(String respuestas) {
-		this.respuestas = respuestas;
+	public void setRespPreguntas(String respPreguntas) {
+		this.respPreguntas = respPreguntas;
 	}
+	
 
 	
 	public PreguntasFrecuentes() {
@@ -29,7 +31,7 @@ public class PreguntasFrecuentes {
 	
 	@Override
 	public String toString() {
-		return "PreguntasFrecuentes [preguntas=" + preguntas + ", respuestas=" + respuestas + "]";
+		return "PreguntasFrecuentes [preguntas=" + preguntas + ", respuestas=" + respPreguntas + "]";
 	}
 
 	

@@ -134,13 +134,13 @@
             <TextArea fx:id="textpreguntasf" layoutX="82.0" layoutY="10.0" maxHeight="1.7976931348623157E308" prefHeight="25.0" prefWidth="465.0" wrapText="true" />
             <TableView fx:id="tablePreRes" layoutX="7.0" layoutY="99.0" prefHeight="132.0" prefWidth="617.0">
               <columns>
-                <TableColumn prefWidth="294.0" text="Preguntas" />
-                <TableColumn prefWidth="320.0" text="Respuesta" />
+                <TableColumn fx:id="columPregunta" prefWidth="294.0" text="Preguntas" />
+                <TableColumn fx:id="columRespuestas" prefWidth="320.0" text="Respuesta" />
               </columns>
             </TableView>
             <TextArea fx:id="textRespuestas" layoutX="82.0" layoutY="50.0" maxHeight="1.7976931348623157E308" prefHeight="25.0" prefWidth="465.0" wrapText="true" />
             <Label layoutX="7.0" layoutY="53.0" text="RESPUESTAS:" />
-            <Button layoutX="560.0" layoutY="10.0" mnemonicParsing="false" onAction="#cargarPreguntas" text="AÑADIR" />
+            <Button layoutX="560.0" layoutY="10.0" mnemonicParsing="false" onAction="#guardarPreguntas" text="AÑADIR" />
          </children>
       </AnchorPane>
       <Pane fx:id="gcinco" layoutX="676.0" layoutY="13.0" prefHeight="170.0" prefWidth="324.0">

@@ -11,11 +11,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Recurso {
 
-	private ArrayList<Contacto> contactos = new ArrayList<Contacto>();
 	private String horario;
 	private String seguridad;
-	private ArrayList<PreguntasFrecuentes> preguntasF = new ArrayList<PreguntasFrecuentes>();
-	
+	private ArrayList<PreguntasFrecuentes> preguntasF = new ArrayList<PreguntasFrecuentes>();	
 	private String id;
 	private String rev;
     private String nombre;
@@ -41,7 +39,6 @@ public class Recurso {
     private String posicion;
     private Estado estado;
     private ArrayList<Idiomas> idiomasInformac = new ArrayList<Idiomas>();
-    private ArrayList<String> preguntasFrecuentes = new ArrayList<String>();
     private ArrayList<Comentario> comentarios = new ArrayList<Comentario>();
     private ArrayList<TipoAtractivo> tipoAtractivo = new ArrayList<TipoAtractivo>();
     private ArrayList<String> tiposParqueo = new ArrayList<>();
@@ -74,14 +71,7 @@ public class Recurso {
 	public void setPreguntasF(ArrayList<PreguntasFrecuentes> preguntasF) {
 		this.preguntasF = preguntasF;
 	}
-    
-	public ArrayList<Contacto> getContactos() {
-		return contactos;
-	}
 
-	public void setContactos(ArrayList<Contacto> contactos) {
-		this.contactos = contactos;
-	}
 
 	public String getHorario() {
 		return horario;
@@ -341,18 +331,6 @@ public class Recurso {
 		this.idiomasInformac = idiomasInformac;
 	}
 
-	public ArrayList<String> getPreguntasFrecuentes() {
-		return preguntasFrecuentes;
-	}
-
-	public void setPreguntasFrecuentes(ArrayList<String> preguntasFrecuentes) {
-		this.preguntasFrecuentes = preguntasFrecuentes;
-	}
-
-	public ArrayList<Comentario> getComentarios() {
-		return comentarios;
-	}
-
 	public void setComentarios(ArrayList<Comentario> comentarios) {
 		this.comentarios = comentarios;
 	}
@@ -372,7 +350,7 @@ public class Recurso {
     
 	@Override
 	public String toString() {
-		return "Recurso [contactos=" + contactos + ", horario=" + horario + ", seguridad=" + seguridad + ", preguntasF="
+		return "Recurso [ horario=" + horario + ", seguridad=" + seguridad + ", preguntasF="
 				+ preguntasF + ", id=" + id + ", rev=" + rev + ", nombre=" + nombre + ", descripcion=" + descripcion
 				+ ", informacionGeneral=" + informacionGeneral + ", direccion=" + direccion + ", provincia=" + provincia
 				+ ", canton=" + canton + ", parroquia=" + parroquia + ", categoria=" + categoria + ", propietario="
@@ -381,8 +359,7 @@ public class Recurso {
 				+ ", recomendacion=" + recomendacion + ", infContacto=" + infContacto + ", ranking=" + ranking
 				+ ", galeria=" + galeria + ", imagenPrincipal=" + imagenPrincipal + ", sendero=" + sendero
 				+ ", posicion=" + posicion + ", estado=" + estado + ", idiomasInformac=" + idiomasInformac
-				+ ", preguntasFrecuentes=" + preguntasFrecuentes + ", comentarios=" + comentarios + ", tipoAtractivo="
-				+ tipoAtractivo + ", tiposParqueo=" + tiposParqueo + "]";
+			    + ", comentarios=" + comentarios + ", tipoAtractivo="+ tipoAtractivo + ", tiposParqueo=" + tiposParqueo + "]";
 	}
 
 }

@@ -1,7 +1,10 @@
 package controllers;
 
+import java.awt.List;
 //import java.awt.ScrollPane;
 import java.util.ArrayList;
+
+import org.springframework.beans.PropertyValue;
 
 import ch.qos.logback.core.pattern.color.ForegroundCompositeConverterBase;
 import javafx.beans.value.ChangeListener;
@@ -21,9 +24,12 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
@@ -52,6 +58,8 @@ public ControllerRecurso() {}
 	@FXML private TextField textSeguridad;
 	@FXML private TextField textHorario;
 	@FXML private TableView<PreguntasFrecuentes> tablePreRes ;
+	@FXML private TableColumn<PreguntasFrecuentes, String> columPregunta;
+	@FXML private TableColumn<PreguntasFrecuentes, String> columRespuestas;
 	@FXML private TextArea textRespuestas;
 	
 	@FXML private TextField textNombre;
@@ -84,13 +92,20 @@ public ControllerRecurso() {}
 	@FXML private ListView<String> listPreguntas;
 	@FXML private ListView<TipoAtractivo> listTiposAtractivos;
 	@FXML private Button btnCargarWS;
+	
+	
 	ObservableList<Idiomas> selectedItems;
 	ObservableList<Imagen> selectedItemsImagen;
 	ArrayList<AccesibilidadRecurso> pojoOpcionesAccesibilidad;
 	ObservableList<Sendero> selectItemsSenderos;
 	ObservableList<TipoAtractivo> selectItemsAtractivo;
 	ObservableList<String> selectItemsTiposParqueo;
+	ObservableList<PreguntasFrecuentes> preguntastable;
+	ArrayList<PreguntasFrecuentes> listapreguntas = new ArrayList<PreguntasFrecuentes>();
+	ArrayList<PreguntasFrecuentes> listpreguntas = new ArrayList<>();
+	
 	public void initialize(){
+		
 		setPromptText();
 		ObservableList<String> tiposParqueo = FXCollections.observableArrayList("Bicicleta","Moto","Vehiculo","Casilleros");
 		listTiposParqueo.setItems(tiposParqueo);
@@ -223,7 +238,7 @@ public ControllerRecurso() {}
 		ObservableList<Recomendacion> recomendaciones = FXCollections.observableArrayList(recomendacionlista);
 		comboRecomendacion.setItems(recomendaciones);
 		
-		Contacto pojoCT1 = new Contacto();
+		/*Contacto pojoCT1 = new Contacto();
 		pojoCT1.setNombreResponsable("Nombre 1");
 		pojoCT1.setTelefono("Telefono 1");
 		Contacto pojoCT2 = new Contacto();
@@ -233,8 +248,8 @@ public ControllerRecurso() {}
 		contactolista.add(pojoCT1);
 		contactolista.add(pojoCT2);
 		ObservableList<Contacto> contactos = FXCollections.observableArrayList(contactolista);
-		comboContactos.setItems(contactos);
-		
+		comboContactos.setItems(contactos);*/
+
 	}
 
 	
@@ -275,6 +290,8 @@ public ControllerRecurso() {}
 	
 	public Recurso Guardar(){
 		Recurso pojo = new Recurso();
+		Contacto datoscontactos = new Contacto();
+		
 	//	pojo.setId(textId.getText().trim());
 		pojo.setNombre(textNombre.getText());
 		pojo.setDescripcion(textDescripcion.getText());
@@ -287,8 +304,24 @@ public ControllerRecurso() {}
 		pojo.setPropietario(textPropietario.getText());
 		pojo.setPersonaEncargada(textPersonaEncargada.getText());
 		pojo.setCategoria(textCategoria.getText());
+		pojo.setHorario(textHorario.getText());
+		pojo.setSeguridad(textSeguridad.getText());
 		
+		datoscontactos.setTelefono(textTelefono.getText());
+		datoscontactos.setTwitter(textTwitter.getText());
+		datoscontactos.setFacebook(textFacebook.getText());
+		datoscontactos.setEmail(textEmail.getText());
+		datoscontactos.setInstagram(textInstagram.getText());
+		pojo.setInfContacto(datoscontactos);
 		
+		pojo.setPreguntasF(listapreguntas);
+		/*preguntas1.setPreguntas(textpreguntasf.getText());
+		preguntas1.setRespuestas(textRespuestas.getText());
+		ArrayList<PreguntasFrecuentes> cargarpreguntas = new ArrayList<PreguntasFrecuentes>();
+		cargarpreguntas.add(preguntas1);
+		pojo.setPreguntasF(cargarpreguntas);
+		
+		*/
 		if(selectedItems!=null && !selectedItems.isEmpty())
 		{
 			for(Idiomas s : selectedItems){
@@ -344,7 +377,7 @@ public ControllerRecurso() {}
 		pojo.setOpcionesAccesibilidad(pojoOpcionesAccesibilidad);
 		pojo.getFacilidadRecurso().add(comboFacilidad.getValue());
 		pojo.getRecomendacion().add(comboRecomendacion.getValue());
-		pojo.setInfContacto(comboContactos.getValue());
+		//pojo.setInfContacto(comboContactos.getValue());
 		
 		for(Imagen i : selectedItemsImagen){
 			 pojo.getGaleria().add(i);
@@ -390,7 +423,7 @@ public ControllerRecurso() {}
 		comboRecomendacion.setValue(null);
 		comboContactos.setValue(null);
 		textCategoria.setText("");
-		listPreguntas.setItems(null);
+		tablePreRes.setItems(null);
 		initialize();
 	}
 	
@@ -466,6 +499,14 @@ public ControllerRecurso() {}
 		textPropietario.setText(pojo.getPropietario());
 		textPersonaEncargada.setText(pojo.getPersonaEncargada());
 		textCategoria.setText(pojo.getCategoria());
+		textSeguridad.setText(pojo.getSeguridad());
+		textHorario.setText(pojo.getHorario());
+		
+		textFacebook.setText(pojo.getInfContacto().getFacebook());
+		textInstagram.setText(pojo.getInfContacto().getInstagram());
+		textEmail.setText(pojo.getInfContacto().getEmail());
+		textTwitter.setText(pojo.getInfContacto().getTwitter());
+		textTelefono.setText(pojo.getInfContacto().getTwitter());
 		
 		ObservableList<Idiomas> idiomasSeleccionado = FXCollections.observableArrayList(pojo.getIdiomasInformac());
 		listViewIdiomas.setItems(idiomasSeleccionado);
@@ -475,9 +516,13 @@ public ControllerRecurso() {}
 		listTiposAtractivos.setItems(TatractivoSeleccionado);
 		ObservableList<Sendero> senderoSeleccionado = FXCollections.observableArrayList(pojo.getSendero());
 		listViewSenderos.setItems(senderoSeleccionado);
-		
 		comboCosto.setValue(pojo.getCostoRecursos().get(0));
-		
+		listpreguntas = pojo.getPreguntasF();
+		System.out.println("estas son las preguntas "+listpreguntas);
+		ObservableList<PreguntasFrecuentes> data = FXCollections.observableArrayList(listpreguntas);
+		columPregunta.setCellValueFactory(new PropertyValueFactory<>("Preguntas"));
+		columRespuestas.setCellValueFactory(new PropertyValueFactory<>("respPreguntas"));
+		tablePreRes.setItems(data);
 			if(act==1){
 				checkActivo.setSelected(true);
 			}else{
@@ -497,7 +542,7 @@ public ControllerRecurso() {}
 			}
 		comboFacilidad.setValue(pojo.getFacilidadRecurso().get(0));
 		comboRecomendacion.setValue(pojo.getRecomendacion().get(0));
-		comboContactos.setValue(pojo.getInfContacto());
+		//comboContactos.setValue(pojo.getInfContacto());
 		
 		ObservableList<Imagen> imagenesSeleccionado = FXCollections.observableArrayList(pojo.getGaleria());
 		listViewImagenes.setItems(imagenesSeleccionado);
@@ -526,11 +571,29 @@ public ControllerRecurso() {}
 			}				
 	}
 	
-	public void cargarPreguntas(){
-		preguntas.add(textpreguntasf.getText());
+	public void guardarPreguntas(){
+		PreguntasFrecuentes preguntas1 = new PreguntasFrecuentes();
+		preguntas1.setPreguntas(textpreguntasf.getText());
+		preguntas1.setRespPreguntas(textRespuestas.getText());
+		listapreguntas.add(preguntas1);
+		System.out.println(listapreguntas);
+		cargarDatosTabla();
 		textpreguntasf.setText("");
-		ObservableList<String> preguntas1 = FXCollections.observableArrayList(preguntas);
-		listPreguntas.setItems(preguntas1);
+		textRespuestas.setText("");
 	}
 	
+
+	public void cargarDatosTabla(){
+		if(tablePreRes.getItems().size()>0)
+		{
+			preguntastable.removeAll(preguntastable);
+			tablePreRes.setItems(preguntastable);
+		}
+		preguntastable = FXCollections.observableArrayList(listapreguntas);
+		tablePreRes.setEditable(true);
+	
+		columPregunta.setCellValueFactory(new PropertyValueFactory<>("Preguntas"));
+		columRespuestas.setCellValueFactory(new PropertyValueFactory<>("respPreguntas"));
+		tablePreRes.setItems(preguntastable);
+	}
 }
