@@ -1,3 +1,6 @@
+#Spring Boot config file
+src/main/resources/application.properties
+
 target/
 bin/
 tmp/
