@@ -1,15 +1,16 @@
 package webservices;
 
 import java.lang.reflect.Array;
+import java.net.URI;
 import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
+import com.couchbase.client.java.document.json.JsonObject;
 import com.couchbase.client.java.transcoder.JacksonTransformers;
 
 public class GenericWebService<X> implements ConsumableWebService<X>{
@@ -79,7 +80,24 @@ public class GenericWebService<X> implements ConsumableWebService<X>{
 		}
 		return respuesta;
 	}
-
+	
+	@Override
+	public void consumeDelete(String url, String id, String rev) {
+		RestTemplate restTemplate = new RestTemplate();
+		
+		try{
+			String urlCompleto = url + "/" + id + "?" + "rev="+rev;
+			System.out.println("URL para Delete: " + urlCompleto);
+			URI deleteURI = new URI(urlCompleto);
+			restTemplate.delete(deleteURI);
+			
+		}catch (Exception e) {
+			System.err.println("Error en el webservice");
+			System.err.println("Causa:" + e.getCause());
+			System.err.println("Mensaje: " + e.getMessage());
+			e.printStackTrace();
+		}
+	}
 	
 	@SuppressWarnings("unchecked")
 	@Override
@@ -105,6 +123,8 @@ public class GenericWebService<X> implements ConsumableWebService<X>{
 	     
 	     return Arrays.asList(arrayOfx);
 	}
+
+
 
 	
 }
