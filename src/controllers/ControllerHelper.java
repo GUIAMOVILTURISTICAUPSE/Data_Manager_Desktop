@@ -54,6 +54,17 @@ public class ControllerHelper<R> {
 		}	
 	}
 	
+	public void borrarDatosWebService(String id, String rev, Class<R> clase)
+	{
+		String urlBase = PropertyManager.getURLBase();
+		
+		String urlRelativo = propertyManager.getUrlRelativoDesdeClase(clase.getName());
+		String urlFinal = urlBase.concat("/").concat(urlRelativo);
+		GenericWebService<R> webService = new GenericWebService<R>(clase);
+		webService.consumeDelete(urlFinal, id, rev);
+		
+	}
+	
 	public List<R> cargarListaDatosWebService(Class<R> clase)
 	{
 		List<R> listaPojosCargado = null;
