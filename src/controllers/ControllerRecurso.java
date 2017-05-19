@@ -1,8 +1,8 @@
 package controllers;
 
-import java.awt.List;
-//import java.awt.ScrollPane;
+
 import java.util.ArrayList;
+import java.util.Optional;
 
 import org.springframework.beans.PropertyValue;
 
@@ -18,7 +18,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
@@ -38,7 +41,8 @@ import main.java.Main;
 import pojos.*;
 
 public class ControllerRecurso {
-public ControllerRecurso() {}
+
+	public ControllerRecurso() {}
 
 	@FXML private Button btnBuscarID;
 	@FXML private TextField textId;
@@ -100,6 +104,7 @@ public ControllerRecurso() {}
 	ArrayList<PreguntasFrecuentes> listapreguntas = new ArrayList<PreguntasFrecuentes>();
 	ArrayList<PreguntasFrecuentes> listpreguntas = new ArrayList<>();
 	ObservableList<TipoAccesibilidad> selectItemsTipoAccesibilidad;
+	
 	public void initialize(){
 		
 		setPromptText();
@@ -249,7 +254,6 @@ public ControllerRecurso() {}
 		comboRecomendacion.setItems(recomendaciones);
 
 	}
-
 	
 	private void setPromptText() {
 		textNombre.setPromptText("Nombre");
@@ -276,88 +280,98 @@ public ControllerRecurso() {}
 		textTwitter.setPromptText("Twitter");
 		
 	}
+	
 	Recurso pojo = new Recurso();
 	
 	public Recurso Guardar(){
-		Recurso pojo = new Recurso();
+		
+		Recurso pojoTemp = new Recurso();
 		Contacto datoscontactos = new Contacto();
 		
+		//Para no poder informacion que puede estar ya cargada en el pojo desde el Ws
+		//pero que no esta representada en la GUI
+		if(pojo!=null)
+		{
+			pojoTemp = pojo;
+		}
+		
+		
 	//	pojo.setId(textId.getText().trim());
-		pojo.setNombre(textNombre.getText());
-		pojo.setDescripcion(textDescripcion.getText());
-		pojo.setInformacionGeneral(textInfGeneral.getText());
-		pojo.setDireccion(textDireccion.getText());
-		pojo.setPosicion(textPosicion.getText());
-		pojo.setProvincia(textProvincia.getText());
-		pojo.setCanton(textCanton.getText());
-		pojo.setParroquia(textParroquia.getText());
-		pojo.setPropietario(textPropietario.getText());
-		pojo.setPersonaEncargada(textPersonaEncargada.getText());
-		pojo.setCategoria(textCategoria.getText());
-		pojo.setHorario(textHorario.getText());
-		pojo.setSeguridad(textSeguridad.getText());
+		pojoTemp.setNombre(textNombre.getText());
+		pojoTemp.setDescripcion(textDescripcion.getText());
+		pojoTemp.setInformacionGeneral(textInfGeneral.getText());
+		pojoTemp.setDireccion(textDireccion.getText());
+		pojoTemp.setPosicion(textPosicion.getText());
+		pojoTemp.setProvincia(textProvincia.getText());
+		pojoTemp.setCanton(textCanton.getText());
+		pojoTemp.setParroquia(textParroquia.getText());
+		pojoTemp.setPropietario(textPropietario.getText());
+		pojoTemp.setPersonaEncargada(textPersonaEncargada.getText());
+		pojoTemp.setCategoria(textCategoria.getText());
+		pojoTemp.setHorario(textHorario.getText());
+		pojoTemp.setSeguridad(textSeguridad.getText());
 		
 		datoscontactos.setTelefono(textTelefono.getText());
 		datoscontactos.setTwitter(textTwitter.getText());
 		datoscontactos.setFacebook(textFacebook.getText());
 		datoscontactos.setEmail(textEmail.getText());
 		datoscontactos.setInstagram(textInstagram.getText());
-		pojo.setInfContacto(datoscontactos);
+		pojoTemp.setInfContacto(datoscontactos);
 		
-		pojo.setPreguntasF(listapreguntas);
+		pojoTemp.setPreguntasF(listapreguntas);
 		if(selectedItems!=null && !selectedItems.isEmpty())
 		{
 			for(Idiomas s : selectedItems){
-				 pojo.getIdiomasInformac().add(s);
+				 pojoTemp.getIdiomasInformac().add(s);
 				 System.out.println("selected item " + s.toString());
 	        }
 		}
 		
-		pojo.getCostoRecursos().add(comboCosto.getValue());
+		pojoTemp.getCostoRecursos().add(comboCosto.getValue());
 		float ranking = Float.parseFloat(textRanking.getText());
-		pojo.setRanking(ranking);
+		pojoTemp.setRanking(ranking);
 		
 		if (checkActivo.isSelected()== true){
-			pojo.setEstado(Estado.ACTIVO);
+			pojoTemp.setEstado(Estado.ACTIVO);
 			
 		}
 		else{
-			pojo.setEstado(Estado.INACTIVO);
+			pojoTemp.setEstado(Estado.INACTIVO);
 		}
 		
 		
 			for (TipoAtractivo a : selectItemsAtractivo) {
-				pojo.getTipoAtractivo().add(a);
+				pojoTemp.getTipoAtractivo().add(a);
 				System.out.println("seleccion  " + a.toString());
 			}
 		
 		
 			for (String b :selectItemsTiposParqueo ) {
-				pojo.getTiposParqueo().add(b);
+				pojoTemp.getTiposParqueo().add(b);
 				System.out.println("seleccion  " + b.toString());
 			}
 
 		
 		
 			for (Sendero c: selectItemsSenderos) {
-				pojo.getSendero().add(c);
+				pojoTemp.getSendero().add(c);
 				System.out.println("seleccion  " + c.toString());
 			}
 		
 			for (TipoAccesibilidad d :selectItemsTipoAccesibilidad) {
-				pojo.getOpcionesTipoAccesibilidad().add(d);
+				pojoTemp.getOpcionesTipoAccesibilidad().add(d);
 				System.out.println("seleccion  " + d.toString());
 			}
-		pojo.getFacilidadRecurso().add(comboFacilidad.getValue());
-		pojo.getRecomendacion().add(comboRecomendacion.getValue());
+		pojoTemp.getFacilidadRecurso().add(comboFacilidad.getValue());
+		pojoTemp.getRecomendacion().add(comboRecomendacion.getValue());
 		//pojo.setInfContacto(comboContactos.getValue());
 		
 		for(Imagen i : selectedItemsImagen){
-			 pojo.getGaleria().add(i);
+			 pojoTemp.getGaleria().add(i);
 			 System.out.println("selected item " + i.toString());
        }	
 		
-		return pojo;
+		return pojoTemp;
 	}
 	
 	public void LimpiarPantalla(){
@@ -404,6 +418,7 @@ public ControllerRecurso() {}
 		System.out.println(r);
 		if(r!=null)
 		{
+			pojo = r;
 			CargarDatos(r);
 		}
 	}
@@ -420,6 +435,58 @@ public ControllerRecurso() {}
 			System.err.println("No se pudo guardar los datos a traves del web service.");
 		}
 		
+	}
+	
+	public void borrarDatosWebService()
+	{
+		ControllerHelper<Recurso> controllerHelper= new ControllerHelper<Recurso>();
+		Recurso pojoTemp = Guardar();
+		System.out.println("El pojo a borrar en el WS es: " + pojoTemp);
+		
+		System.out.println("Sync para obtener el rev: " + pojoTemp.get_sync());
+		
+		if(pojoTemp!=null && pojoTemp.get_sync()!=null && pojoTemp.get_sync().getRev()!=null && pojoTemp.getId()!=null)
+		{
+			//Enviar pantalla modal para confirmar que desea borrar
+			//Hacer Leo
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setTitle("Confirmar Borrado");
+
+			String s = "Confirme que desea borrar el recurso. El proceso no es reversible!";
+
+			alert.setContentText(s);
+			Optional<ButtonType> result = alert.showAndWait();
+			//Ejecutar borrado
+			
+			System.out.println("antes de borrar");
+			if ((result.isPresent()) && (result.get() == ButtonType.OK))
+			{
+				System.out.println("Borrando");
+				try{
+					controllerHelper.borrarDatosWebService(pojoTemp.getId(), pojoTemp.get_sync().getRev(), Recurso.class);
+					
+					Alert alertBorradoCorrecto = new Alert(AlertType.INFORMATION);
+					alertBorradoCorrecto.setTitle("Borrado Correcto");
+
+					String message = "Borrado realizado con exito.";
+					alertBorradoCorrecto.setContentText(message);
+					alertBorradoCorrecto.show();
+					
+				}catch(Exception e)
+				{
+					System.err.println("Excepcion:" + e);
+					e.printStackTrace();
+					System.err.println("Mensaje de la excepcion:" + e.getMessage());
+					
+					Alert alertError = new Alert(AlertType.ERROR);
+					alertError.setTitle("Error al borrar");
+
+					String errorMessage = "Problema para borrar el recurso. " + e.toString();
+					alertError.setContentText(errorMessage);
+					alertError.show();
+				}
+			}
+		}
 	}
 	
 	private String id_;
@@ -455,6 +522,7 @@ public ControllerRecurso() {}
 			e.printStackTrace();
 		}
 	}
+	
 	public void CargarDatos(Recurso pojo){
 		textNombre.setText(pojo.getId());
 		textDescripcion.setText(pojo.getDescripcion());
