@@ -15,6 +15,9 @@ public class Recurso {
 	private String seguridad;
 	private ArrayList<PreguntasFrecuentes> preguntasF = new ArrayList<PreguntasFrecuentes>();	
 	private String id;
+	
+	private Sync _sync;
+	
 	private String rev;
     private String nombre;
     private String descripcion;
@@ -351,19 +354,38 @@ public class Recurso {
 		this.opcionesTipoAccesibilidad = opcionesTipoAccesibilidad;
 	}
 	
+	public Sync get_sync() {
+		return _sync;
+	}
+
+	public void set_sync(Sync _sync) {
+		this._sync = _sync;
+	}
+
+	public String getRev() {
+		return rev;
+	}
+
+	public void setRev(String rev) {
+		this.rev = rev;
+	}
+
+	
 	@Override
 	public String toString() {
-		return "Recurso [ horario=" + horario + ", seguridad=" + seguridad + ", preguntasF="
-				+ preguntasF + ", id=" + id + ", rev=" + rev + ", nombre=" + nombre + ", descripcion=" + descripcion
+		return "Recurso [horario=" + horario + ", seguridad=" + seguridad + ", preguntasF=" + preguntasF + ", id=" + id
+				+ ", _sync=" + _sync + ", rev=" + rev + ", nombre=" + nombre + ", descripcion=" + descripcion
 				+ ", informacionGeneral=" + informacionGeneral + ", direccion=" + direccion + ", provincia=" + provincia
 				+ ", canton=" + canton + ", parroquia=" + parroquia + ", categoria=" + categoria + ", propietario="
 				+ propietario + ", personaEncargada=" + personaEncargada + ", costoRecursos=" + costoRecursos
-				+ ", opcionesAccesibilidad=" + opcionesAccesibilidad + ", facilidadRecurso=" + facilidadRecurso
+				+ ", opcionesTipoAccesibilidad=" + opcionesTipoAccesibilidad + ", facilidadRecurso=" + facilidadRecurso
 				+ ", recomendacion=" + recomendacion + ", infContacto=" + infContacto + ", ranking=" + ranking
 				+ ", galeria=" + galeria + ", imagenPrincipal=" + imagenPrincipal + ", sendero=" + sendero
 				+ ", posicion=" + posicion + ", estado=" + estado + ", idiomasInformac=" + idiomasInformac
-			    + ", comentarios=" + comentarios + ", tipoAtractivo="+ tipoAtractivo + ", tiposParqueo=" + tiposParqueo + "]";
+				+ ", comentarios=" + comentarios + ", tipoAtractivo=" + tipoAtractivo + ", tiposParqueo=" + tiposParqueo
+				+ ", opcionesAccesibilidad=" + opcionesAccesibilidad + "]";
 	}
+
 
 	
 
