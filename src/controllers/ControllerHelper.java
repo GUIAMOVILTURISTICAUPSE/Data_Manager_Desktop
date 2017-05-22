@@ -3,7 +3,7 @@ package controllers;
 import java.util.List;
 
 import configuration.PropertyManager;
-import webservices.GenericWebService;
+import webservices.GenericWebServiceConsumer;
 
 public class ControllerHelper<R> {
 
@@ -17,7 +17,7 @@ public class ControllerHelper<R> {
 			String urlBase = PropertyManager.getURLBase();
 			
 			String urlRelativo = propertyManager.getUrlRelativoDesdeClase(clase.getName());
-			GenericWebService<R> webService = new GenericWebService<R>(clase);
+			GenericWebServiceConsumer<R> webService = new GenericWebServiceConsumer<R>(clase);
 			
 			
 			
@@ -41,7 +41,7 @@ public class ControllerHelper<R> {
 		String urlBase = PropertyManager.getURLBase();
 		
 		String urlRelativo = propertyManager.getUrlRelativoDesdeClase(clase.getName());
-		GenericWebService<R> webService = new GenericWebService<R>(clase);
+		GenericWebServiceConsumer<R> webService = new GenericWebServiceConsumer<R>(clase);
 		String respuesta = webService.consumePost(r, urlBase, urlRelativo);
 		System.out.println("La respuesta es: " + respuesta);
 		if(respuesta== null || respuesta.equals(""))
@@ -60,7 +60,7 @@ public class ControllerHelper<R> {
 		
 		String urlRelativo = propertyManager.getUrlRelativoDesdeClase(clase.getName());
 		String urlFinal = urlBase.concat("/").concat(urlRelativo);
-		GenericWebService<R> webService = new GenericWebService<R>(clase);
+		GenericWebServiceConsumer<R> webService = new GenericWebServiceConsumer<R>(clase);
 		webService.consumeDelete(urlFinal, id, rev);
 		
 	}
@@ -73,7 +73,7 @@ public class ControllerHelper<R> {
 			String urlBase = PropertyManager.getURLBase();
 			
 			String urlRelativo = propertyManager.getUrlRelativoDesdeClase(clase.getName());
-			GenericWebService<R> webService = new GenericWebService<R>(clase);
+			GenericWebServiceConsumer<R> webService = new GenericWebServiceConsumer<R>(clase);
 			
 			String urlFinal = urlBase.concat("/").concat(urlRelativo);
 			
