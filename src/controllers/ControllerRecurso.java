@@ -287,7 +287,7 @@ public class ControllerRecurso {
 	public Recurso Guardar(){
 		
 		Recurso pojoTemp = new Recurso();
-		Contacto datoscontactos = new Contacto();
+		
 		
 		//Para no poder informacion que puede estar ya cargada en el pojo desde el Ws
 		//pero que no esta representada en la GUI
@@ -312,12 +312,17 @@ public class ControllerRecurso {
 		pojoTemp.setHorario(textHorario.getText());
 		pojoTemp.setSeguridad(textSeguridad.getText());
 		
+		
+		Contacto datoscontactos = new Contacto();
 		datoscontactos.setTelefono(textTelefono.getText());
 		datoscontactos.setTwitter(textTwitter.getText());
 		datoscontactos.setFacebook(textFacebook.getText());
 		datoscontactos.setEmail(textEmail.getText());
 		datoscontactos.setInstagram(textInstagram.getText());
-		pojoTemp.setInfContacto(datoscontactos);
+		
+		Optional<Contacto> contactoOptional = Optional.of(datoscontactos);
+		pojoTemp.setInfContacto(contactoOptional);
+		
 		
 		pojoTemp.setPreguntasF(listapreguntas);
 		if(selectedItems!=null && !selectedItems.isEmpty())
@@ -421,6 +426,13 @@ public class ControllerRecurso {
 		{
 			pojo = r;
 			CargarDatos(r);
+		}else{
+			Alert alertError = new Alert(AlertType.ERROR);
+			alertError.setTitle("Error al cargar Recurso");
+
+			String errorMessage = "Problema para cargar el recurso, probablemente no existe el recurso con el id: " + nombre;
+			alertError.setContentText(errorMessage);
+			alertError.show();
 		}
 	}
 	
@@ -472,6 +484,7 @@ public class ControllerRecurso {
 					String message = "Borrado realizado con exito.";
 					alertBorradoCorrecto.setContentText(message);
 					alertBorradoCorrecto.show();
+					LimpiarPantalla();
 					
 				}catch(Exception e)
 				{
@@ -535,16 +548,23 @@ public class ControllerRecurso {
 		textProvincia.setText(pojo.getProvincia());
 		textParroquia.setText(pojo.getParroquia());
 		textPropietario.setText(pojo.getPropietario());
-		textPersonaEncargada.setText(pojo.getPersonaEncargada());
+		
+		
+		textPersonaEncargada.setText(pojo.getPersonaEncargada().isPresent()?pojo.getPersonaEncargada().get():"");
+		
 		textCategoria.setText(pojo.getCategoria());
 		textSeguridad.setText(pojo.getSeguridad());
 		textHorario.setText(pojo.getHorario());
 		
-		textFacebook.setText(pojo.getInfContacto().getFacebook());
-		textInstagram.setText(pojo.getInfContacto().getInstagram());
-		textEmail.setText(pojo.getInfContacto().getEmail());
-		textTwitter.setText(pojo.getInfContacto().getTwitter());
-		textTelefono.setText(pojo.getInfContacto().getTwitter());
+		if(pojo.getInfContacto().isPresent())
+		{
+			Contacto c = pojo.getInfContacto().get();
+			textFacebook.setText(c.getFacebook());
+			textInstagram.setText(c.getInstagram());
+			textEmail.setText(c.getEmail());
+			textTwitter.setText(c.getTwitter());
+			textTelefono.setText(c.getTwitter());
+		}
 		
 		ObservableList<Idiomas> idiomasSeleccionado = FXCollections.observableArrayList(pojo.getIdiomasInformac());
 		listViewIdiomas.setItems(idiomasSeleccionado);
@@ -557,16 +577,27 @@ public class ControllerRecurso {
 		ObservableList<TipoAccesibilidad> TaccesibilidadSelecionados = FXCollections.observableArrayList(pojo.getOpcionesTipoAccesibilidad());
 		listTipoAccesibilidad.setItems(TaccesibilidadSelecionados);
 		
-		comboCosto.setValue(pojo.getCostoRecursos().get(0));
+		if(pojo.getCostoRecursos()!=null && pojo.getCostoRecursos().size()>0)
+		{
+			comboCosto.setValue(pojo.getCostoRecursos().get(0));
+		}
+		
 		listpreguntas = pojo.getPreguntasF();
 		System.out.println("estas son las preguntas "+listpreguntas);
 		ObservableList<PreguntasFrecuentes> data = FXCollections.observableArrayList(listpreguntas);
 		columPregunta.setCellValueFactory(new PropertyValueFactory<>("Preguntas"));
 		columRespuestas.setCellValueFactory(new PropertyValueFactory<>("respPreguntas"));
 		tablePreRes.setItems(data);
-			
-		comboFacilidad.setValue(pojo.getFacilidadRecurso().get(0));
-		comboRecomendacion.setValue(pojo.getRecomendacion().get(0));		
+		
+		if(pojo.getFacilidadRecurso()!=null && pojo.getFacilidadRecurso().size()>0)
+		{
+			comboFacilidad.setValue(pojo.getFacilidadRecurso().get(0));
+		}
+		if(pojo.getRecomendacion()!=null && pojo.getRecomendacion().size()>0)
+		{
+			comboRecomendacion.setValue(pojo.getRecomendacion().get(0));
+		}
+		
 		ObservableList<Imagen> imagenesSeleccionado = FXCollections.observableArrayList(pojo.getGaleria());
 		listViewImagenes.setItems(imagenesSeleccionado);
 		

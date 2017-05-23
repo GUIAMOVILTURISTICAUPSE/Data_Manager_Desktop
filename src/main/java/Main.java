@@ -14,12 +14,11 @@ import javafx.stage.Stage;
 import pojos.Recurso;
 import pojos.Usuario;
 import pojos.UsuarioAntiguo;
-import webservices.GenericWebService;
+import webservices.GenericWebServiceConsumer;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 
-//@SpringBootApplication
 public class Main extends Application {
 
 	@Override
@@ -36,33 +35,6 @@ public class Main extends Application {
 	}
 	
 	public static void main(String[] args) {
-
 		launch(args);
-		
-		//saveTest();
-		//getTest();
-		//consumirWebService();
-		//consumirWebServiceLista();
 	}
-	
-	
-	public static void consumirWebService()
-	{
-		 RestTemplate restTemplate = new RestTemplate();
-	     Recurso r = restTemplate.getForObject("http://186.178.10.221:8080/api/recursos/La Chocolatera", Recurso.class);
-	     System.out.println(r.toString());	
-	}
-	
-	public static void consumirWebServiceLista()
-	{
-		/*
-		GenericWebService<Recurso> wsg = new GenericWebService<>(Recurso.class);
-		List<Recurso> lista= wsg.consumeGetAll("http://186.178.10.221:8080/api/recursos/");
-		System.out.println("Lista de Entidades/Objetos:");
-		System.out.println(lista);*/
-		
-		ControllerViewListaRecursos cvlr= new ControllerViewListaRecursos();
-		cvlr.cargarDatosWebService();
-	}
-	
 }

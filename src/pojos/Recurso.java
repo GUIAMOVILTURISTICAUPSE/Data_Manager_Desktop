@@ -1,6 +1,7 @@
 package pojos;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -11,15 +12,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Recurso {
 
-	private String horario;
-	private String seguridad;
-	private ArrayList<PreguntasFrecuentes> preguntasF = new ArrayList<PreguntasFrecuentes>();	
 	private String id;
-	
 	private Sync _sync;
-	
 	private String rev;
-    private String nombre;
+    
+	private String nombre;
     private String descripcion;
     private String informacionGeneral;
     private String direccion;
@@ -28,13 +25,13 @@ public class Recurso {
     private String parroquia;
     private String categoria;
     private String propietario;
-    private String personaEncargada;
+    private Optional<String> personaEncargada = Optional.empty();
     	
     private ArrayList<Costo> costoRecursos = new ArrayList<Costo>();
     private ArrayList<TipoAccesibilidad> opcionesTipoAccesibilidad = new ArrayList<TipoAccesibilidad>();
     private ArrayList<Facilidad> facilidadRecurso = new ArrayList<Facilidad>();
     private ArrayList<Recomendacion> recomendacion = new ArrayList<Recomendacion>();
-    private Contacto infContacto;
+    private Optional<Contacto> infContacto = Optional.empty();
     private float ranking;
     private ArrayList<Imagen> galeria = new ArrayList<Imagen>();
     private Imagen imagenPrincipal;
@@ -47,6 +44,10 @@ public class Recurso {
     private ArrayList<String> tiposParqueo = new ArrayList<>();
 	private ArrayList<AccesibilidadRecurso> opcionesAccesibilidad;
  
+	private String horario;
+	private String seguridad;
+	private ArrayList<PreguntasFrecuentes> preguntasF = new ArrayList<PreguntasFrecuentes>();	
+	
     //constructor
 
     public Recurso(){
@@ -228,12 +229,13 @@ public class Recurso {
 		this.propietario = propietario;
 	}
 
-	public String getPersonaEncargada() {
+	public Optional<String> getPersonaEncargada() {
 		return personaEncargada;
 	}
 
 	public void setPersonaEncargada(String personaEncargada) {
-		this.personaEncargada = personaEncargada;
+		Optional<String> optionalPersonaEncargada = Optional.ofNullable(personaEncargada);
+		this.personaEncargada = optionalPersonaEncargada;
 	}
 	
 	public ArrayList<TipoAtractivo> getTipoAtractivo() {
@@ -282,13 +284,13 @@ public class Recurso {
 		this.facilidadRecurso = facilidadRecurso;
 	}
 
-	public Contacto getInfContacto() {
+	public Optional<Contacto> getInfContacto() {
 		return infContacto;
 	}
 
-	public void setInfContacto(Contacto infContacto) {
+	public void setInfContacto(Optional<Contacto> infContacto) {
 		this.infContacto = infContacto;
-	}
+	}	
 
 	public ArrayList<Imagen> getGaleria() {
 		return galeria;

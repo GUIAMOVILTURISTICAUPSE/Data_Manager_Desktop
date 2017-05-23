@@ -5,6 +5,7 @@ import java.net.URI;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -13,12 +14,12 @@ import org.springframework.web.client.RestTemplate;
 import com.couchbase.client.java.document.json.JsonObject;
 import com.couchbase.client.java.transcoder.JacksonTransformers;
 
-public class GenericWebService<X> implements ConsumableWebService<X>{
+public class GenericWebServiceConsumer<X> implements ConsumableWebService<X>{
 
 	private final Class<X> valueTypeParameterClass;
 	//private final Class<X[]> valueTypeParameterClassArray;
 	
-	 public GenericWebService(final Class<X> valueClass)
+	 public GenericWebServiceConsumer(final Class<X> valueClass)
 	 {
 	    	this.valueTypeParameterClass = valueClass;
 	 //   	this.valueTypeParameterClassArray

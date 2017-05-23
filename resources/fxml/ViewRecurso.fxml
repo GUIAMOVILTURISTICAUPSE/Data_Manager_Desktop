@@ -136,7 +136,8 @@
       </AnchorPane>
       <Pane fx:id="gcinco" layoutX="676.0" layoutY="13.0" prefHeight="170.0" prefWidth="324.0">
          <children>
-            <ListView fx:id="listViewImagenes" layoutX="5.0" layoutY="1.0" prefHeight="170.0" prefWidth="316.0" />
+            <ListView fx:id="listViewImagenes" layoutX="5.0" layoutY="25.0" prefHeight="146.0" prefWidth="316.0" />
+            <Label layoutY="6.0" text="Imagenes del Recurso" />
          </children>
       </Pane>
       <Pane fx:id="gtres" layoutX="680.0" layoutY="194.0" prefHeight="98.0" prefWidth="275.0">
