@@ -45,6 +45,7 @@ public class ControllerRecurso {
 	public ControllerRecurso() {}
 
 	@FXML private Button btnBuscarID;
+	@FXML private Button BtnSenderos;
 	@FXML private TextField textId;
 	@FXML private Pane guno;
 	@FXML private Accordion gdos;
