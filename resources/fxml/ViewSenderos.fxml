@@ -11,7 +11,7 @@
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="500.0" prefWidth="800.0" styleClass="root" stylesheets="/Formato.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ControllerSendero">
+<AnchorPane prefHeight="500.0" prefWidth="800.0" stylesheets="/Estilo.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ControllerSenderos">
    <children>
       <Label layoutX="63.0" layoutY="35.0" prefHeight="17.0" prefWidth="101.0" styleClass="submenu" text="ID" />
       <TextField fx:id="id" layoutX="133.0" layoutY="31.0" />
@@ -88,6 +88,6 @@
             </Accordion>
          </children>
       </AnchorPane>
-      <ListView id="listImagenes" layoutX="352.0" layoutY="289.0" prefHeight="152.0" prefWidth="291.0" />
+      <ListView fx:id="listImagenes" layoutX="352.0" layoutY="289.0" prefHeight="152.0" prefWidth="291.0" />
    </children>
 </AnchorPane>

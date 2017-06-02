@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.client.RestTemplate;
+
 
 import configuration.PropertyManager;
 import controllers.ControllerViewListaRecursos;

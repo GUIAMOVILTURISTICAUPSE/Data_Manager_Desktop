@@ -1,6 +1,7 @@
 package controllers;
 
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -645,5 +646,21 @@ public class ControllerRecurso {
 		columPregunta.setCellValueFactory(new PropertyValueFactory<>("Preguntas"));
 		columRespuestas.setCellValueFactory(new PropertyValueFactory<>("respPreguntas"));
 		tablePreRes.setItems(preguntastable);
+	}
+	
+	public void pantSendero()
+	{
+		try {
+			Parent parent = FXMLLoader.load(getClass().getResource("/ViewSenderos.fxml"));
+			Stage stage = new Stage();
+			Scene scene = new Scene(parent,1025,650);
+			stage.setScene(scene);
+			stage.setTitle(" SENDEROS ");
+			stage.show();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

@@ -74,7 +74,7 @@
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="152.0" prefWidth="264.0">
                      <children>
                         <ListView fx:id="listViewSenderos" layoutX="3.0" prefHeight="123.0" prefWidth="259.0" />
-                        <Button fx:id="BtnSenderos" layoutX="198.0" layoutY="115.0" mnemonicParsing="false" text="Senderos" />
+                        <Button fx:id="BtnSenderos" layoutX="198.0" layoutY="115.0" mnemonicParsing="false"  onAction="#pantSendero" text="Senderos" />
                      </children>
                   </AnchorPane>
               </content>
@@ -134,10 +134,10 @@
             <Button layoutX="560.0" layoutY="10.0" mnemonicParsing="false" onAction="#guardarPreguntas" text="AÑADIR" />
          </children>
       </AnchorPane>
-      <Pane fx:id="gcinco" layoutX="676.0" layoutY="13.0" prefHeight="170.0" prefWidth="324.0">
+      <Pane fx:id="gcinco" layoutX="676.0" layoutY="24.0" prefHeight="170.0" prefWidth="324.0">
          <children>
-            <ListView fx:id="listViewImagenes" layoutX="5.0" layoutY="25.0" prefHeight="146.0" prefWidth="316.0" />
-            <Label layoutY="6.0" text="Imagenes del Recurso" />
+            <ListView fx:id="listViewImagenes" layoutX="5.0" layoutY="29.0" prefHeight="146.0" prefWidth="316.0" />
+            <Label layoutY="11.0" text="Imagenes del Recurso" />
          </children>
       </Pane>
       <Pane fx:id="gtres" layoutX="680.0" layoutY="194.0" prefHeight="98.0" prefWidth="275.0">
