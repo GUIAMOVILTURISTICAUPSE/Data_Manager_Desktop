@@ -2,6 +2,7 @@ package webservices;
 
 import java.lang.reflect.Array;
 import java.net.URI;
+import java.net.URLEncoder;
 import java.util.Arrays;
 import java.util.List;
 
@@ -87,9 +88,11 @@ public class GenericWebServiceConsumer<X> implements ConsumableWebService<X>{
 		RestTemplate restTemplate = new RestTemplate();
 		
 		try{
-			String urlCompleto = url + "/" + id + "?" + "rev="+rev;
+			//String urlCompleto = url + "/" + URLEncoder.encode(id, "UTF-8") + "?" + "rev="+rev;
+			String urlCompleto = url + "/" + id.replace(" ","%20") + "?" + "rev="+rev;
 			System.out.println("URL para Delete: " + urlCompleto);
 			URI deleteURI = new URI(urlCompleto);
+			//No elimina..!! 
 			restTemplate.delete(deleteURI);
 			
 		}catch (Exception e) {

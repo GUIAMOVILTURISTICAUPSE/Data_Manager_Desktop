@@ -286,18 +286,17 @@ public class ControllerRecurso {
 	
 	public Recurso Guardar(){
 		
-		Recurso pojoTemp = new Recurso();
-		
+		Recurso pojoTemp = new Recurso();		
 		
 		//Para no poder informacion que puede estar ya cargada en el pojo desde el Ws
 		//pero que no esta representada en la GUI
 		if(pojo!=null)
 		{
 			pojoTemp = pojo;
-		}
-		
+		}		
 		
 	//	pojo.setId(textId.getText().trim());
+		
 		pojoTemp.setNombre(textNombre.getText());
 		pojoTemp.setDescripcion(textDescripcion.getText());
 		pojoTemp.setInformacionGeneral(textInfGeneral.getText());
@@ -345,37 +344,46 @@ public class ControllerRecurso {
 			pojoTemp.setEstado(Estado.INACTIVO);
 		}
 		
-		
-			for (TipoAtractivo a : selectItemsAtractivo) {
+		if(selectItemsAtractivo  != null ){
+			for (TipoAtractivo a : selectItemsAtractivo ) {
 				pojoTemp.getTipoAtractivo().add(a);
 				System.out.println("seleccion  " + a.toString());
 			}
+	
+		}
 		
-		
+		if (selectItemsTiposParqueo != null ){
 			for (String b :selectItemsTiposParqueo ) {
 				pojoTemp.getTiposParqueo().add(b);
 				System.out.println("seleccion  " + b.toString());
 			}
+	
+		}
+		
+		if (selectItemsSenderos != null){
 
-		
-		
 			for (Sendero c: selectItemsSenderos) {
 				pojoTemp.getSendero().add(c);
 				System.out.println("seleccion  " + c.toString());
 			}
-		
+			
+		}
+		if (selectItemsTipoAccesibilidad != null){
 			for (TipoAccesibilidad d :selectItemsTipoAccesibilidad) {
 				pojoTemp.getOpcionesTipoAccesibilidad().add(d);
 				System.out.println("seleccion  " + d.toString());
-			}
+			}	
+		}
 		pojoTemp.getFacilidadRecurso().add(comboFacilidad.getValue());
 		pojoTemp.getRecomendacion().add(comboRecomendacion.getValue());
 		//pojo.setInfContacto(comboContactos.getValue());
 		
-		for(Imagen i : selectedItemsImagen){
-			 pojoTemp.getGaleria().add(i);
-			 System.out.println("selected item " + i.toString());
-       }	
+		if (selectedItemsImagen != null){
+			for(Imagen i : selectedItemsImagen){
+				 pojoTemp.getGaleria().add(i);
+				 System.out.println("selected item " + i.toString());
+	       }	
+		}	
 		
 		return pojoTemp;
 	}
@@ -477,7 +485,7 @@ public class ControllerRecurso {
 				System.out.println("Borrando");
 				try{
 					controllerHelper.borrarDatosWebService(pojoTemp.getId(), pojoTemp.get_sync().getRev(), Recurso.class);
-					
+					//No se elimina el recurso si el id o nombre tiene espacios...
 					Alert alertBorradoCorrecto = new Alert(AlertType.INFORMATION);
 					alertBorradoCorrecto.setTitle("Borrado Correcto");
 
