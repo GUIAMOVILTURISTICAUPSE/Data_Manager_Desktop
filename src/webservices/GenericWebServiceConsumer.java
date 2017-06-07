@@ -89,7 +89,9 @@ public class GenericWebServiceConsumer<X> implements ConsumableWebService<X>{
 		
 		try{
 			//String urlCompleto = url + "/" + URLEncoder.encode(id, "UTF-8") + "?" + "rev="+rev;
-			String urlCompleto = url + "/" + id.replace(" ","%20") + "?" + "rev="+rev;
+			String urlCompleto = url + "/" + id.replaceAll(" ","%20") + "?" + "rev="+rev;
+			//String urlCompleto = url + "/" + id + "?" + "rev="+rev;
+			//urlCompleto = URLEncoder.encode(urlCompleto, "UTF-8");
 			System.out.println("URL para Delete: " + urlCompleto);
 			URI deleteURI = new URI(urlCompleto);
 			//No elimina..!! 
