@@ -469,8 +469,6 @@ public class ControllerRecurso {
 		
 		if(pojoTemp!=null && pojoTemp.get_sync()!=null && pojoTemp.get_sync().getRev()!=null && pojoTemp.getId()!=null)
 		{
-			//Enviar pantalla modal para confirmar que desea borrar
-			//Hacer Leo
 			Alert alert = new Alert(AlertType.CONFIRMATION);
 			alert.setTitle("Confirmar Borrado");
 
@@ -486,7 +484,6 @@ public class ControllerRecurso {
 				System.out.println("Borrando");
 				try{
 					controllerHelper.borrarDatosWebService(pojoTemp.getId(), pojoTemp.get_sync().getRev(), Recurso.class);
-					//No se elimina el recurso si el id o nombre tiene espacios...
 					Alert alertBorradoCorrecto = new Alert(AlertType.INFORMATION);
 					alertBorradoCorrecto.setTitle("Borrado Correcto");
 
@@ -526,7 +523,7 @@ public class ControllerRecurso {
 
 	public void abrirListaRecurso(){
 		try {
-			Recurso pojo_ = new Recurso();
+			//Recurso pojo_ = new Recurso();
 			FXMLLoader loader = new FXMLLoader();
 	        loader.setLocation(Main.class.getResource("/ViewTableRecurso.fxml"));
 	        AnchorPane page = (AnchorPane) loader.load();
@@ -539,7 +536,9 @@ public class ControllerRecurso {
 	        controller.setDialogStage(stage);
 	        stage.showAndWait();
 	        
-	        pojo_ = controller.getPojo();
+	        Recurso pojo_ = controller.getPojo();
+	        System.out.println(pojo_);
+	        pojo=pojo_;
 	        CargarDatos(pojo_);
 		} catch(Exception e) {
 			e.printStackTrace();
