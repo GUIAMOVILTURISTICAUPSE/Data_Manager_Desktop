@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="549.0" prefWidth="460.0" stylesheets="/Estilo.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Controlador">
+   <children>
+      <GridPane layoutX="18.0" layoutY="18.0" prefHeight="481.0" prefWidth="423.0">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="112.0" minWidth="10.0" prefWidth="107.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="237.0" minWidth="10.0" prefWidth="207.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="165.0" minWidth="8.0" prefWidth="8.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="165.0" minWidth="5.0" prefWidth="98.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="165.0" minWidth="0.0" prefWidth="0.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label styleClass="submenu" text="ID" />
+            <Label styleClass="submenu" text="DESCRIPCION" GridPane.rowIndex="1" />
+            <Label styleClass="submenu" text="TITULO" GridPane.rowIndex="2" />
+            <Label styleClass="submenu" text="FECHA" GridPane.rowIndex="3" />
+            <Label styleClass="submenu" text="URL" GridPane.rowIndex="6" />
+            <Label styleClass="submenu" text="BASE64" GridPane.rowIndex="7" />
+            <Label styleClass="submenu" text="AUTOR" GridPane.rowIndex="8" />
+            <Label styleClass="submenu" text="ETIQUETAS" GridPane.rowIndex="9" />
+            <TextField fx:id="ID1" GridPane.columnIndex="1" />
+            <TextField fx:id="titulo1" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <DatePicker fx:id="fecha1" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Spinner fx:id="spinner" amountToStepBy="1" initialValue="0" max="1000" min="0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+        		<max>
+            		<Integer fx:constant="MAX_VALUE" />
+       		    </max>
+    		</Spinner>
+           	 <Spinner fx:id="spinner1" amountToStepBy="1" initialValue="0" max="1000" min="0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+        		<max>
+            		<Integer fx:constant="MAX_VALUE" />
+       		    </max>
+    		</Spinner>
+            <TextField fx:id="url1" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <TextField fx:id="base641" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <TextField fx:id="autor1" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <Label styleClass="submenu" text="LONGITUD" GridPane.rowIndex="12" />
+            <TextArea fx:id="descripcion1" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label styleClass="submenu" text="ESTADO" GridPane.rowIndex="10" />
+            <TextField fx:id="longitud1" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+            <ComboBox fx:id="etiqueta1" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+            <Text fx:id="votosc1" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+            <Label styleClass="submenu" text="VOTOS FAVOR" GridPane.rowIndex="4" />
+            <Label styleClass="submenu" text="VOTOS CONTRA" GridPane.rowIndex="5" />
+            <CheckBox fx:id="Reportado" mnemonicParsing="false" styleClass="submenu" text="REPORTADO" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+            <Text fx:id="votosc1" strokeType="OUTSIDE" strokeWidth="0.0" text="0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+            <Text fx:id="votosf1" strokeType="OUTSIDE" strokeWidth="0.0" text="0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+            <Label styleClass="submenu" text="LATITUD" GridPane.rowIndex="13" />
+            <TextField fx:id="latitud1" GridPane.columnIndex="1" GridPane.rowIndex="13" />
+            <Label contentDisplay="CENTER" prefHeight="17.0" prefWidth="122.0" styleClass="submenu" text="COORDENADAS" GridPane.columnIndex="1" GridPane.rowIndex="11">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </Label>
+            <Button mnemonicParsing="false" onAction="#carga_pojo1" styleClass="botones" text="CARGA_POJO" GridPane.columnIndex="3" GridPane.rowIndex="12" />
+         </children>
+      </GridPane>
+      <Button layoutX="14.0" layoutY="510.0" mnemonicParsing="false" onAction="#guardar" styleClass="botones" text="GUARDAR" />
+      <Button layoutX="98.0" layoutY="510.0" mnemonicParsing="false" onAction="#limpiarPantalla" styleClass="botones" text="LIMPIAR" />
+      <Button layoutX="178.0" layoutY="510.0" mnemonicParsing="false" onAction="#cargar" styleClass="botones" text="CARGAR" />
+      <Button layoutX="385.0" layoutY="510.0" mnemonicParsing="false" onAction="#salir" styleClass="botones" text="SALIR" />
+      <Button layoutX="266.0" layoutY="510.0" mnemonicParsing="false" onAction="#carga_llenos" styleClass="botones" text="CARGA_LLENOS" />
+   </children>
+</AnchorPane>

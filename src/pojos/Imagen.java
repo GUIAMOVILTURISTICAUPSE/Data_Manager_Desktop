@@ -1,13 +1,13 @@
 package pojos;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Imagen {
 	private String id;
     private String descripcion;
     private String titulo;
-    private Date fecha;
+    private LocalDate fecha;
     private String coordenadas;
     private int votosFavor;
     private int votosContra;
@@ -49,12 +49,12 @@ public class Imagen {
         this.titulo = titulo;
     }
 
-    public Date getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
+    public void setFecha(LocalDate date) {
+        this.fecha = date;
     }
 
     public String getCoordenadas() {
