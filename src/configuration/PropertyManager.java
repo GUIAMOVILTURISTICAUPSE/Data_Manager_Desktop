@@ -14,6 +14,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
 import pojos.Recurso;
+import pojos.Sendero;
 
 @Configuration
 @ComponentScan
@@ -29,7 +30,7 @@ public class PropertyManager {
 	public static String baseURL;
 	
 	private String recursosPath;
-	
+	private String senderosPath;
 	public Map<String, String> mapClaseURLRelativo;
 	
 	public PropertyManager() {
@@ -50,6 +51,7 @@ public class PropertyManager {
 		serverPort = props.getProperty("server.port");
 		servicesIndexPath = props.getProperty("services.index.path");
 		recursosPath = props.getProperty("recursos.path");
+		senderosPath = props.getProperty("senderos.path");
 		baseURL = "http://"+serverHostname+":"+serverPort+"/"+servicesIndexPath; 
 		mensajeCargaCorrectaPropiedades();
 		mapearClasesAPropiedadURLRelativo();
@@ -59,7 +61,7 @@ public class PropertyManager {
 	{
 		mapClaseURLRelativo = new HashMap<String, String>();
 		mapClaseURLRelativo.put(Recurso.class.getName(), recursosPath);
-		
+		mapClaseURLRelativo.put(Sendero.class.getName(), senderosPath);
 	}
 	
 	public String getUrlRelativoDesdeClase(String nombreClase)
@@ -124,6 +126,16 @@ public class PropertyManager {
 	public void setRecursosPath(String recursosPath) {
 		this.recursosPath = recursosPath;
 	}
+
+	public String getSenderosPath() {
+		return senderosPath;
+	}
+
+	public void setSenderosPath(String senderosPath) {
+		this.senderosPath = senderosPath;
+	}
+	
+	
 	
 	
 }
