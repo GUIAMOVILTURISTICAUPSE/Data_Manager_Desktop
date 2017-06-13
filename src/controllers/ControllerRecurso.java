@@ -47,6 +47,7 @@ public class ControllerRecurso {
 
 	@FXML private Button btnBuscarID;
 	@FXML private Button BtnSenderos;
+	@FXML private Button btnIrImagen;
 	@FXML private TextField textId;
 	@FXML private Pane guno;
 	@FXML private Accordion gdos;
@@ -665,6 +666,28 @@ public class ControllerRecurso {
 			stage.setTitle(" SENDEROS ");
 			stage.show();
 			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public void irImagen()
+	{
+		try {
+			Parent parent = FXMLLoader.load(getClass().getResource("/Controlador.fxml"));
+			Stage stage = new Stage();
+			Scene scene = new Scene(parent,460,549);
+			stage.setScene(scene);
+			stage.setTitle(" VISTA DE IMAGEN ");
+			stage.show();
+			/*
+			Parent parent = FXMLLoader.load(getClass().getResource("/ViewSenderos.fxml"));
+			Stage stage = new Stage();
+			Scene scene = new Scene(parent,1025,650);
+			stage.setScene(scene);
+			stage.setTitle(" SENDEROS ");
+			stage.show();
+			*/
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
