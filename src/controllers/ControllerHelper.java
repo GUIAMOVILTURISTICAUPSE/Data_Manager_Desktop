@@ -3,6 +3,8 @@ package controllers;
 import java.util.List;
 
 import configuration.PropertyManager;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import webservices.GenericWebServiceConsumer;
 
 public class ControllerHelper<R> {
@@ -88,5 +90,13 @@ public class ControllerHelper<R> {
 		}
 		return listaPojosCargado;
 		
+	}
+
+	public static void mostrarAlertaError(String mensaje)
+	{
+		Alert alertError = new Alert(AlertType.ERROR);
+		alertError.setTitle("Error");
+		alertError.setContentText(mensaje);
+		alertError.show();
 	}
 }

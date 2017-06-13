@@ -499,12 +499,7 @@ public class ControllerRecurso {
 					e.printStackTrace();
 					System.err.println("Mensaje de la excepcion:" + e.getMessage());
 					
-					Alert alertError = new Alert(AlertType.ERROR);
-					alertError.setTitle("Error al borrar");
-
-					String errorMessage = "Problema para borrar el recurso. " + e.toString();
-					alertError.setContentText(errorMessage);
-					alertError.show();
+					ControllerHelper.mostrarAlertaError("Error al borrar " + e.getMessage());
 				}
 			}
 		}

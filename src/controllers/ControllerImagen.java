@@ -1,35 +1,35 @@
 package controllers;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 //Librerias
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import javafx.util.converter.LocalDateStringConverter;
 import pojos.Imagen;
 
-import java.util.Random;
+import javax.imageio.ImageIO;
+
+import cloud.GoogleCloudStorageWorker;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.scene.text.Text;
-import javafx.scene.chart.PieChart.Data;
+import javafx.stage.FileChooser;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.RadioButton;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.text.Text;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
-public class Controlador{
-	
-	Imagen pojo = new Imagen();
-
-	public Controlador() {
+public class ControllerImagen{
 		
-	}
-	
 	@FXML private TextField ID1;
 	@FXML private TextArea descripcion1;
 	@FXML private TextField titulo1;
@@ -46,6 +46,14 @@ public class Controlador{
 	@FXML private CheckBox Reportado;
 	@FXML private Spinner<Integer> spinner;
 	@FXML private Spinner<Integer> spinner1;
+	@FXML private ImageView imgImagen;
+	
+	GoogleCloudStorageWorker googleStorageWorker = new GoogleCloudStorageWorker();
+	Imagen pojo = new Imagen();
+	
+	public ControllerImagen() {
+		
+	}
 	
 	public void limpiarPantalla(){
 		ID1.setText("");
@@ -71,6 +79,41 @@ public class Controlador{
 		pojo.setDescripcion(descripcion1.getText());
 		pojo.setFecha(fecha1.getValue());
 		pojo.setTitulo(titulo1.getText());
+		
+		if(!url1.getText().trim().equals(""))
+		{
+			if(googleStorageWorker.checkIfImageExists(ID1.getText(), url1.getText().trim()))
+			{
+				pojo.setUrl(url1.getText());
+			}else{
+				String mensajeError = "No se puede guardar porque el url no es valido.";
+				System.err.println(mensajeError);
+				ControllerHelper.mostrarAlertaError(mensajeError);
+				return;
+			}
+			
+		}else{
+		
+			if(imgImagen.getImage()!=null)
+			{
+				try {
+					almacenarNube(convertirImagenEnImageViewAByteArray());
+				} catch (IOException e) {
+					String mensajeErrorTransformarImagen =  "Error en al almacenar la imagen en la nube. " + e;
+					ControllerHelper.mostrarAlertaError(mensajeErrorTransformarImagen);
+					System.err.println(mensajeErrorTransformarImagen);
+					e.printStackTrace();
+					return;
+				}
+			}else{
+				String mensajeError = "No se puede guardar porque no hay cargada una imagen en el imageView.";
+				System.err.println(mensajeError);
+				ControllerHelper.mostrarAlertaError(mensajeError);
+				return;
+			}			
+		}
+		
+		
 		pojo.setUrl(url1.getText());
 		pojo.setBase64(base641.getText());
 		pojo.setAutor(autor1.getText());
@@ -174,14 +217,12 @@ public class Controlador{
 	}
 	
 	ObservableList<String> etiquetaList = FXCollections.observableArrayList();
-	@FXML
+
+
 	public void initialize(){
-		pojo.getEtiquetas().add("SALINAS");
-		pojo.getEtiquetas().add("PLAYA");
-		pojo.getEtiquetas().add("PAISAJE");
-		pojo.getEtiquetas().add("ARENA");
-		etiquetaList.addAll(pojo.getEtiquetas());
-		etiqueta1.setItems(etiquetaList);
+		imgImagen.setFitWidth(400);
+		imgImagen.setFitHeight(400);
+		imgImagen.setPreserveRatio(true);
 	}
 	
 	////////////////////////////////////////////////////////////
@@ -212,6 +253,57 @@ public class Controlador{
 	public void carga_pojo1(){
 		System.out.println(crearPojoImagen());
 		carga_pojo(pojo);
+	}
+	
+	public void cargarImagenDesdeArchivo()
+	{
+		//Tomado de http://java-buddy.blogspot.com/2013/01/use-javafx-filechooser-to-open-image.html
+		FileChooser fileChooser = new FileChooser();
+        
+        //Set extension filter
+        FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
+        FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
+        fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
+        File file = fileChooser.showOpenDialog(imgImagen.getScene().getWindow());  
+
+        cargarImagenEnImageView(file);
+	}
+	
+	private void cargarImagenEnImageView(File file)
+	{
+        try {
+            BufferedImage bufferedImage = ImageIO.read(file);
+            
+            Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+            imgImagen.setImage(image);
+        } catch (IOException ex) {
+            System.err.println("Error al cargar imagen");
+            ex.printStackTrace();
+        }
+	}
+	
+	private byte[] convertirImagenEnImageViewAByteArray() throws IOException
+	{
+		BufferedImage bufferedImage = SwingFXUtils.fromFXImage(imgImagen.getImage(), null);
+		ByteArrayOutputStream s = new ByteArrayOutputStream();
+		ImageIO.write(bufferedImage, "jpg", s);
+		byte[] res = s.toByteArray();
+		return res;
+	}
+	
+	public void almacenarNube(byte[] imagen)
+	{
+		if(pojo.getId()!=null && !pojo.getId().trim().isEmpty())
+		{
+			String url = googleStorageWorker.saveImage(pojo.getId(), imagen);
+			url1.setText(url);
+			url1.setDisable(true);
+		}else{
+			String mensajeErrorID = "No hay ide de imagen valido";
+			System.err.println(mensajeErrorID);	
+			ControllerHelper.mostrarAlertaError(mensajeErrorID);
+		
+		}
 	}
 
 }

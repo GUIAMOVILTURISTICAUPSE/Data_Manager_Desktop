@@ -16,7 +16,8 @@ import com.google.cloud.storage.StorageOptions;
 public class GoogleCloudStorageWorker {
 
 	private String bucketName = "guiamovilse_recursos_storage";
-	public void saveImage(String blobId, byte[] content)
+	
+	public String saveImage(String blobId, byte[] content)
 	{
 	    // Instantiates a client
 	    Storage storage = (Storage) StorageOptions.getDefaultInstance().getService();
@@ -33,6 +34,7 @@ public class GoogleCloudStorageWorker {
 	    Blob blob = bucket.create(blobId, content, BlobTargetOption.doesNotExist());
 	    System.out.println(blob.getSelfLink());
 	    System.out.printf("Bucket %s created.%n", bucket.getName());
+	    return blob.getSelfLink();
 	}
 	
 	//Tomado de https://stackoverflow.com/questions/25141998/how-to-download-a-file-from-google-cloud-storage-with-java
@@ -60,6 +62,14 @@ public class GoogleCloudStorageWorker {
 			e.printStackTrace();
 		}
 		return blob.getContent();
+		
+	}
+	
+	public boolean checkIfImageExists(String blobId, String url)
+	{
+		Storage storage = (Storage) StorageOptions.getDefaultInstance().getService();
+		Blob blob = storage.get(bucketName, blobId);
+		return blob.getSelfLink().equalsIgnoreCase(url);
 		
 	}
 }
