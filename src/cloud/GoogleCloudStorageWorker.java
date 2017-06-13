@@ -36,7 +36,7 @@ public class GoogleCloudStorageWorker {
 	}
 	
 	//Tomado de https://stackoverflow.com/questions/25141998/how-to-download-a-file-from-google-cloud-storage-with-java
-	public void readImage(String blobId)
+	public byte[] readImage(String blobId)
 	{
 		/*Storage storage = StorageOptions.newBuilder()
 	            .setProjectId(projectId)
@@ -59,6 +59,7 @@ public class GoogleCloudStorageWorker {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return blob.getContent();
 		
 	}
 }
