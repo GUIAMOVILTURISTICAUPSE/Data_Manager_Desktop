@@ -12,7 +12,6 @@ public class Imagen {
     private int votosFavor;
     private int votosContra;
     private String url;
-    private String base64;
     private String autor;
     private Usuario autorUsuario;
     private ArrayList<String> etiquetas = new ArrayList<String>();
@@ -89,14 +88,6 @@ public class Imagen {
         this.url = url;
     }
 
-    public String getBase64() {
-        return base64;
-    }
-
-    public void setBase64(String base64) {
-        this.base64 = base64;
-    }
-
     public String getAutor() {
         return autor;
     }
@@ -149,10 +140,18 @@ public class Imagen {
 
     }
 
+	public String toStringComplete() {
+		return "Imagen [id=" + id + ", descripcion=" + descripcion + ", titulo=" + titulo + ", fecha=" + fecha
+				+ ", coordenadas=" + coordenadas + ", votosFavor=" + votosFavor + ", votosContra=" + votosContra
+				+ ", url=" + url + ", autor=" + autor + ", autorUsuario=" + autorUsuario + ", etiquetas=" + etiquetas
+				+ ", reportado=" + reportado + "]";
+	}
+
 	@Override
 	public String toString() {
 		return "Titulo:" + titulo + ", url:" + url ;
 	}
-    
+
+	
     
 }

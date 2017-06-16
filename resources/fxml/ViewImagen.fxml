@@ -1,144 +1,99 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
+<?import java.lang.Integer?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="549.0" prefWidth="460.0" stylesheets="/Estilo.css"
-	xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="controllers.ControllerImagen">
+<AnchorPane prefHeight="549.0" prefWidth="460.0" stylesheets="/Estilo.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ControllerImagen">
 	<children>
 		<HBox>
-			<GridPane layoutX="18.0" layoutY="18.0" prefHeight="481.0"
-				prefWidth="423.0">
+			<GridPane layoutX="18.0" layoutY="18.0" prefHeight="481.0" prefWidth="423.0">
 				<columnConstraints>
-					<ColumnConstraints hgrow="SOMETIMES" maxWidth="112.0"
-						minWidth="10.0" prefWidth="107.0" />
-					<ColumnConstraints hgrow="SOMETIMES" maxWidth="237.0"
-						minWidth="10.0" prefWidth="207.0" />
-					<ColumnConstraints hgrow="SOMETIMES" maxWidth="165.0"
-						minWidth="8.0" prefWidth="8.0" />
-					<ColumnConstraints hgrow="SOMETIMES" maxWidth="165.0"
-						minWidth="5.0" prefWidth="98.0" />
-					<ColumnConstraints hgrow="SOMETIMES" maxWidth="165.0"
-						minWidth="0.0" prefWidth="0.0" />
+					<ColumnConstraints hgrow="SOMETIMES" maxWidth="112.0" minWidth="10.0" prefWidth="107.0" />
+					<ColumnConstraints hgrow="SOMETIMES" maxWidth="237.0" minWidth="10.0" prefWidth="207.0" />
+					<ColumnConstraints hgrow="SOMETIMES" maxWidth="165.0" minWidth="8.0" prefWidth="8.0" />
 				</columnConstraints>
 				<rowConstraints>
-					<RowConstraints minHeight="10.0" prefHeight="30.0"
-						vgrow="SOMETIMES" />
-					<RowConstraints minHeight="10.0" prefHeight="30.0"
-						vgrow="SOMETIMES" />
-					<RowConstraints minHeight="10.0" prefHeight="30.0"
-						vgrow="SOMETIMES" />
-					<RowConstraints minHeight="10.0" prefHeight="30.0"
-						vgrow="SOMETIMES" />
-					<RowConstraints minHeight="10.0" prefHeight="30.0"
-						vgrow="SOMETIMES" />
-					<RowConstraints minHeight="10.0" prefHeight="30.0"
-						vgrow="SOMETIMES" />
-					<RowConstraints minHeight="10.0" prefHeight="30.0"
-						vgrow="SOMETIMES" />
-					<RowConstraints minHeight="10.0" prefHeight="30.0"
-						vgrow="SOMETIMES" />
-					<RowConstraints minHeight="10.0" prefHeight="30.0"
-						vgrow="SOMETIMES" />
-					<RowConstraints minHeight="10.0" prefHeight="30.0"
-						vgrow="SOMETIMES" />
-					<RowConstraints minHeight="10.0" prefHeight="30.0"
-						vgrow="SOMETIMES" />
-					<RowConstraints minHeight="10.0" prefHeight="30.0"
-						vgrow="SOMETIMES" />
-					<RowConstraints minHeight="10.0" prefHeight="30.0"
-						vgrow="SOMETIMES" />
-					<RowConstraints minHeight="10.0" prefHeight="30.0"
-						vgrow="SOMETIMES" />
+					<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+					<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+					<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+					<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+					<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+					<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+					<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+					<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+					<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+					<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+					<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+					<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+					<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
 				</rowConstraints>
 				<children>
-					<Label styleClass="submenu" text="ID" />
-					<Label styleClass="submenu" text="DESCRIPCION"
-						GridPane.rowIndex="1" />
-					<Label styleClass="submenu" text="TITULO" GridPane.rowIndex="2" />
-					<Label styleClass="submenu" text="FECHA" GridPane.rowIndex="3" />
-					<Label styleClass="submenu" text="URL" GridPane.rowIndex="6" />
-					<Label styleClass="submenu" text="BASE64" GridPane.rowIndex="7" />
-					<Label styleClass="submenu" text="AUTOR" GridPane.rowIndex="8" />
-					<Label styleClass="submenu" text="ETIQUETAS"
-						GridPane.rowIndex="9" />
+					<Label focusTraversable="false" styleClass="submenu" text="ID" />
 					<TextField fx:id="ID1" GridPane.columnIndex="1" />
-					<TextField fx:id="titulo1" GridPane.columnIndex="1"
-						GridPane.rowIndex="2" />
-					<DatePicker fx:id="fecha1" GridPane.columnIndex="1"
-						GridPane.rowIndex="3" />
-					<Spinner fx:id="spinner" amountToStepBy="1" initialValue="0"
-						max="1000" min="0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+					<Label focusTraversable="false" styleClass="submenu" text="DESCRIPCION" GridPane.rowIndex="1" />
+					<TextArea fx:id="descripcion1" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+					<Label focusTraversable="false" styleClass="submenu" text="TITULO" GridPane.rowIndex="2" />
+					<TextField fx:id="titulo1" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+					<Label focusTraversable="false" styleClass="submenu" text="FECHA" GridPane.rowIndex="3" />
+					<DatePicker fx:id="fecha1" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+					<Label focusTraversable="false" styleClass="submenu" text="VOTOS FAVOR" GridPane.rowIndex="4" />
+					<Spinner fx:id="spinner" amountToStepBy="1" initialValue="0" max="1000" min="0" GridPane.columnIndex="1" GridPane.rowIndex="4">
 						<max>
 							<Integer fx:constant="MAX_VALUE" />
 						</max>
 					</Spinner>
-					<Spinner fx:id="spinner1" amountToStepBy="1" initialValue="0"
-						max="1000" min="0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+					<Label focusTraversable="false" styleClass="submenu" text="VOTOS CONTRA" GridPane.rowIndex="5" />
+					<Spinner fx:id="spinner1" amountToStepBy="1" initialValue="0" max="1000" min="0" GridPane.columnIndex="1" GridPane.rowIndex="5">
 						<max>
 							<Integer fx:constant="MAX_VALUE" />
 						</max>
 					</Spinner>
-					<TextField fx:id="url1" GridPane.columnIndex="1"
-						GridPane.rowIndex="6" />
-					<TextField fx:id="base641" GridPane.columnIndex="1"
-						GridPane.rowIndex="7" />
-					<TextField fx:id="autor1" GridPane.columnIndex="1"
-						GridPane.rowIndex="8" />
-					<Label styleClass="submenu" text="LONGITUD"
-						GridPane.rowIndex="12" />
-					<TextArea fx:id="descripcion1" prefHeight="200.0"
-						prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-					<Label styleClass="submenu" text="ESTADO" GridPane.rowIndex="10" />
-					<TextField fx:id="longitud1" GridPane.columnIndex="1"
-						GridPane.rowIndex="12" />
-					<ComboBox fx:id="etiqueta1" prefWidth="150.0"
-						GridPane.columnIndex="1" GridPane.rowIndex="9" />
-					<Text fx:id="votosc1" strokeType="OUTSIDE" strokeWidth="0.0"
-						GridPane.columnIndex="2" GridPane.rowIndex="5" />
-					<Label styleClass="submenu" text="VOTOS FAVOR"
-						GridPane.rowIndex="4" />
-					<Label styleClass="submenu" text="VOTOS CONTRA"
-						GridPane.rowIndex="5" />
-					<CheckBox fx:id="Reportado" mnemonicParsing="false"
-						styleClass="submenu" text="REPORTADO" GridPane.columnIndex="1"
-						GridPane.rowIndex="10" />
-					<Text fx:id="votosc1" strokeType="OUTSIDE" strokeWidth="0.0"
-						text="0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-					<Text fx:id="votosf1" strokeType="OUTSIDE" strokeWidth="0.0"
-						text="0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-					<Label styleClass="submenu" text="LATITUD" GridPane.rowIndex="13" />
-					<TextField fx:id="latitud1" GridPane.columnIndex="1"
-						GridPane.rowIndex="13" />
-					<Label contentDisplay="CENTER" prefHeight="17.0" prefWidth="122.0"
-						styleClass="submenu" text="COORDENADAS" GridPane.columnIndex="1"
-						GridPane.rowIndex="11">
+					<Label focusTraversable="false" styleClass="submenu" text="URL" GridPane.rowIndex="6" />
+					<TextField fx:id="url1" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+					<Label focusTraversable="false" styleClass="submenu" text="AUTOR" GridPane.rowIndex="7" />
+					<TextField fx:id="autor1" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+					<Label focusTraversable="false" styleClass="submenu" text="ETIQUETAS" GridPane.rowIndex="8" />
+					<ComboBox fx:id="etiqueta1" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+					<Label focusTraversable="false" styleClass="submenu" text="ESTADO" GridPane.rowIndex="9" />
+					<CheckBox fx:id="Reportado" mnemonicParsing="false" styleClass="submenu" text="REPORTADO" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+					<Label contentDisplay="CENTER" focusTraversable="false" prefHeight="17.0" prefWidth="122.0" styleClass="submenu" text="COORDENADAS" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="10">
 						<opaqueInsets>
 							<Insets />
 						</opaqueInsets>
 					</Label>
-					<Button mnemonicParsing="false" onAction="#carga_pojo1"
-						styleClass="botones" text="CARGA_POJO" GridPane.columnIndex="3"
-						GridPane.rowIndex="12" />
+					<Label focusTraversable="false" styleClass="submenu" text="LONGITUD" GridPane.rowIndex="11" />
+					<TextField fx:id="longitud1" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+					<Label focusTraversable="false" styleClass="submenu" text="LATITUD" GridPane.rowIndex="12" />
+					<TextField fx:id="latitud1" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+					<Text fx:id="votosc1" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+					<Text fx:id="votosc1" strokeType="OUTSIDE" strokeWidth="0.0" text="0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+					<Text fx:id="votosf1" strokeType="OUTSIDE" strokeWidth="0.0" text="0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
 				</children>
 			</GridPane>
-			<VBox >
+			<VBox>
 				<ImageView fx:id="imgImagen" />
-				<Button text="Cargar Imagen de Archivo" fx:id="btnCargarImagenArchivo" onAction="#cargarImagenDesdeArchivo"/>
+				<Button fx:id="btnCargarImagenArchivo" onAction="#cargarImagenDesdeArchivo" text="Cargar Imagen de Archivo" />
 			</VBox>
 		</HBox>
       <Button layoutX="14.0" layoutY="510.0" mnemonicParsing="false" onAction="#guardar" styleClass="botones" text="GUARDAR" />
       <Button layoutX="98.0" layoutY="510.0" mnemonicParsing="false" onAction="#limpiarPantalla" styleClass="botones" text="LIMPIAR" />
       <Button layoutX="178.0" layoutY="510.0" mnemonicParsing="false" onAction="#cargar" styleClass="botones" text="CARGAR" />
-      <Button layoutX="385.0" layoutY="510.0" mnemonicParsing="false" onAction="#salir" styleClass="botones" text="SALIR" />
-      <Button layoutX="266.0" layoutY="510.0" mnemonicParsing="false" onAction="#carga_llenos" styleClass="botones" text="CARGA_LLENOS" />
+      <Button layoutX="253.0" layoutY="510.0" mnemonicParsing="false" onAction="#salir" styleClass="botones" text="SALIR" />
    </children>
 </AnchorPane>
