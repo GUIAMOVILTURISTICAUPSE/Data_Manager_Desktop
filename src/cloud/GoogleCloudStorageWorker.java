@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import com.google.auth.Credentials;
 import com.google.cloud.ReadChannel;
 import com.google.cloud.storage.Blob;
 //Imports the Google Cloud client library
@@ -20,6 +21,8 @@ public class GoogleCloudStorageWorker {
 	public String saveImage(String blobId, byte[] content)
 	{
 	    // Instantiates a client
+		//Credentials credentials;
+		//StorageOptions.newBuilder().setCredentials(credentials).build();
 	    Storage storage = (Storage) StorageOptions.getDefaultInstance().getService();
 
 	    
@@ -32,9 +35,9 @@ public class GoogleCloudStorageWorker {
 	    Bucket bucket = storage. get(bucketName);
 	    
 	    Blob blob = bucket.create(blobId, content, BlobTargetOption.doesNotExist());
-	    System.out.println(blob.getSelfLink());
+	    System.out.println(blob.getMediaLink());
 	    System.out.printf("Bucket %s created.%n", bucket.getName());
-	    return blob.getSelfLink();
+	    return blob.getMediaLink();
 	}
 	
 	//Tomado de https://stackoverflow.com/questions/25141998/how-to-download-a-file-from-google-cloud-storage-with-java
