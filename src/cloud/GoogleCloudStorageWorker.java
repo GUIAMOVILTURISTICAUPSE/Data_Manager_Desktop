@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+
 import com.google.auth.Credentials;
 import com.google.cloud.ReadChannel;
 import com.google.cloud.storage.Blob;
@@ -13,6 +14,7 @@ import com.google.cloud.storage.Bucket.BlobTargetOption;
 import com.google.cloud.storage.BucketInfo;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
+import com.google.auth.oauth2.*;
 
 public class GoogleCloudStorageWorker {
 
@@ -23,9 +25,13 @@ public class GoogleCloudStorageWorker {
 	    // Instantiates a client
 		//Credentials credentials;
 		//StorageOptions.newBuilder().setCredentials(credentials).build();
-	    Storage storage = (Storage) StorageOptions.getDefaultInstance().getService();
+		try {
+			//GoogleCredentials credential = GoogleCredential.getApplicationDefault();
+			Credentials c = GoogleCredentials.getApplicationDefault();
+			StorageOptions.getDefaultInstance();
+			Storage storage = (Storage) StorageOptions.newBuilder().setCredentials(c).build().getService();
 
-	    
+	    //StorageOptions.Builder().newBuilder().setCredentials(credential).build();
 	    // The name for the new bucket
 	    
 
@@ -38,6 +44,11 @@ public class GoogleCloudStorageWorker {
 	    System.out.println(blob.getMediaLink());
 	    System.out.printf("Bucket %s created.%n", bucket.getName());
 	    return blob.getMediaLink();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
 	//Tomado de https://stackoverflow.com/questions/25141998/how-to-download-a-file-from-google-cloud-storage-with-java

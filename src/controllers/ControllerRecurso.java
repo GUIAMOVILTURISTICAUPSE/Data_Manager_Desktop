@@ -669,7 +669,7 @@ public class ControllerRecurso {
 	public void irImagen()
 	{
 		try {
-			Parent parent = FXMLLoader.load(getClass().getResource("/Controlador.fxml"));
+			Parent parent = FXMLLoader.load(getClass().getResource("/ViewImagen.fxml"));
 			Stage stage = new Stage();
 			Scene scene = new Scene(parent,460,549);
 			stage.setScene(scene);
