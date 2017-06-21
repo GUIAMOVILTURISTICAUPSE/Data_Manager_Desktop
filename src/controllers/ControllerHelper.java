@@ -1,10 +1,16 @@
 package controllers;
 
+import java.io.IOException;
 import java.util.List;
 
 import configuration.PropertyManager;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.stage.Stage;
 import webservices.GenericWebServiceConsumer;
 
 public class ControllerHelper<R> {
@@ -98,5 +104,34 @@ public class ControllerHelper<R> {
 		alertError.setTitle("Error");
 		alertError.setContentText(mensaje);
 		alertError.show();
+	}
+	
+	public void llamarGUI(String uri, Node node, String title)
+	{
+		try {
+			Parent root = FXMLLoader.load(getClass().getResource(uri));
+			Stage escenario = new Stage();
+			Scene escena = new Scene(root);
+			escenario.setTitle(title);
+			escenario.setScene(escena);
+			escenario.show();
+			Stage stageImagen = (Stage) node.getScene().getWindow();
+			stageImagen.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void llamarGUI(Scene scene, Node node, String title)
+	{
+		Stage escenario = new Stage();
+
+		escenario.setTitle(title);
+		escenario.setScene(scene);
+		escenario.show();
+		Stage stageImagen = (Stage) node.getScene().getWindow();
+		stageImagen.close();
+
 	}
 }

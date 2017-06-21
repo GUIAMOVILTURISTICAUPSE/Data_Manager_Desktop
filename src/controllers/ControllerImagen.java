@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import javafx.util.converter.LocalDateStringConverter;
 import pojos.Imagen;
+import pojos.Recurso;
 
 import javax.imageio.ImageIO;
 
@@ -17,8 +18,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -52,6 +57,9 @@ public class ControllerImagen{
 	
 	GoogleCloudStorageWorker googleStorageWorker = new GoogleCloudStorageWorker();
 	Imagen pojo = new Imagen();
+	
+	Context context = Context.getInstance();
+	ControllerHelper<Imagen> controllerHelper = new ControllerHelper<Imagen>();
 	
 	public ControllerImagen() {
 		
@@ -121,6 +129,15 @@ public class ControllerImagen{
 		//falta votos favor y contra del spinner :C segundo parcial segun indicaciones
 		System.out.println("******DATOS GUARDADOS*****");
 		System.out.println(pojo.toStringComplete());
+		
+		Recurso r = context.getRecurso();
+		r.getGaleria().add(pojo);
+		context.setRecurso(r);
+		
+		//controllerHelper.llamarGUI("/ViewRecurso.fxml", ID1, "VISTA RECURSO");
+		if(context != null && context.getScene() != null)
+			controllerHelper.llamarGUI(context.getScene(), ID1, "VISTA RECURSO");
+		
 	}
 	
 	public void cargar(){
@@ -224,6 +241,11 @@ public class ControllerImagen{
 		//falta votos favor y contra del spinner :C para segundo parcial segun indicaciones
 		
 		System.out.println("******DATOS LIMPIOS*****");
+	}
+	
+	public void cancelar(){
+		if(context != null && context.getScene() != null)
+			controllerHelper.llamarGUI(context.getScene(), ID1, "VISTA RECURSO");
 	}
 	
 	public void salir(){
