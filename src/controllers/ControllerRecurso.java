@@ -321,8 +321,7 @@ public class ControllerRecurso {
 		datoscontactos.setEmail(textEmail.getText());
 		datoscontactos.setInstagram(textInstagram.getText());
 		
-		Optional<Contacto> contactoOptional = Optional.of(datoscontactos);
-		pojoTemp.setInfContacto(contactoOptional);
+		pojoTemp.setInfContacto(datoscontactos);
 		
 		
 		pojoTemp.setPreguntasF(listapreguntas);
@@ -554,15 +553,15 @@ public class ControllerRecurso {
 		textPropietario.setText(pojo.getPropietario());
 		
 		
-		textPersonaEncargada.setText(pojo.getPersonaEncargada().isPresent()?pojo.getPersonaEncargada().get():"");
+		textPersonaEncargada.setText(pojo.getPersonaEncargada()!=null?pojo.getPersonaEncargada():"");
 		
 		textCategoria.setText(pojo.getCategoria());
 		textSeguridad.setText(pojo.getSeguridad());
 		textHorario.setText(pojo.getHorario());
 		
-		if(pojo.getInfContacto().isPresent())
+		if(pojo.getInfContacto()!=null)
 		{
-			Contacto c = pojo.getInfContacto().get();
+			Contacto c = pojo.getInfContacto();
 			textFacebook.setText(c.getFacebook());
 			textInstagram.setText(c.getInstagram());
 			textEmail.setText(c.getEmail());
