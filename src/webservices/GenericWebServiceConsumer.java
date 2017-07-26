@@ -10,6 +10,7 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import com.couchbase.client.java.document.json.JsonObject;
@@ -73,6 +74,12 @@ public class GenericWebServiceConsumer<X> implements ConsumableWebService<X>{
 			//respuesta = restTemplate.postForObject(urlCompleto, x, String.class);
 			
 
+		}catch (RestClientException e) {
+			System.err.println("Error en el webservice");
+			System.err.println("Causa:" + e.getCause());
+			System.err.println("Mensaje: " + e.getMostSpecificCause());
+			e.printStackTrace();
+			respuesta = null;
 		}catch (Exception e) {
 			System.err.println("Error en el webservice");
 			System.err.println("Causa:" + e.getCause());
