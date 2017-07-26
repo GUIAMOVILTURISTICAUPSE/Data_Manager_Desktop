@@ -25,13 +25,13 @@ public class Recurso {
     private String parroquia;
     private String categoria;
     private String propietario;
-    private Optional<String> personaEncargada = Optional.empty();
+    private String personaEncargada;
     	
     private ArrayList<Costo> costoRecursos = new ArrayList<Costo>();
     private ArrayList<TipoAccesibilidad> opcionesTipoAccesibilidad = new ArrayList<TipoAccesibilidad>();
     private ArrayList<Facilidad> facilidadRecurso = new ArrayList<Facilidad>();
     private ArrayList<Recomendacion> recomendacion = new ArrayList<Recomendacion>();
-    private Optional<Contacto> infContacto = Optional.empty();
+    private Contacto infContacto;
     private float ranking;
     private ArrayList<Imagen> galeria = new ArrayList<Imagen>();
     private Imagen imagenPrincipal;
@@ -229,13 +229,12 @@ public class Recurso {
 		this.propietario = propietario;
 	}
 
-	public Optional<String> getPersonaEncargada() {
+	public String getPersonaEncargada() {
 		return personaEncargada;
 	}
 
 	public void setPersonaEncargada(String personaEncargada) {
-		Optional<String> optionalPersonaEncargada = Optional.ofNullable(personaEncargada);
-		this.personaEncargada = optionalPersonaEncargada;
+		this.personaEncargada = personaEncargada;
 	}
 	
 	public ArrayList<TipoAtractivo> getTipoAtractivo() {
@@ -284,11 +283,11 @@ public class Recurso {
 		this.facilidadRecurso = facilidadRecurso;
 	}
 
-	public Optional<Contacto> getInfContacto() {
+	public Contacto getInfContacto() {
 		return infContacto;
 	}
 
-	public void setInfContacto(Optional<Contacto> infContacto) {
+	public void setInfContacto(Contacto infContacto) {
 		this.infContacto = infContacto;
 	}	
 
