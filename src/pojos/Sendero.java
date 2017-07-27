@@ -3,6 +3,10 @@ package pojos;
 import java.util.ArrayList;
 
 public class Sendero {
+	
+	private Sync _sync;
+	private String rev;
+	
 	private String _id;
     //recorrido
     private ArrayList<String> recorrido = new ArrayList<String>();
@@ -172,7 +176,21 @@ public class Sendero {
     public void setDisponibilidadSenalCelular(DisponibilidadCelular disponibilidadSenalCelular) {
         this.disponibilidadSenalCelular = disponibilidadSenalCelular;
     }
-
+	public Sync get_sync() {
+		return _sync;
+	}
+	
+	public void set_sync(Sync _sync) {
+		this._sync = _sync;
+	}
+	
+	public String getRev() {
+		return rev;
+	}
+	
+	public void setRev(String rev) {
+		this.rev = rev;
+	}
     //Metodos
     public void comentar(){
 
@@ -198,6 +216,8 @@ public class Sendero {
 		return "Sendero [nombre=" + nombre + ", descripcion=" + descripcion + ", recorrido=" + recorrido + 
 				", duracion=" + duracion + ", distancia=" + distancia + ", dificultad=" + dificultad +"]";
 	}
+
+	
     
     
 }
