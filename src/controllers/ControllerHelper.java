@@ -3,8 +3,15 @@ package controllers;
 import java.util.List;
 
 import configuration.PropertyManager;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import main.java.Main;
+import pojos.Recurso;
 import webservices.GenericWebServiceConsumer;
 
 public class ControllerHelper<R> {
@@ -98,5 +105,29 @@ public class ControllerHelper<R> {
 		alertError.setTitle("Error");
 		alertError.setContentText(mensaje);
 		alertError.show();
+	}
+	
+	public static <X> X abrirVistaModal(String uriVista, String titulo, X x){
+		X x1 = null;
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource(uriVista));
+			AnchorPane page = (AnchorPane) loader.load();
+			Stage stage = new Stage();
+			stage.setTitle(titulo);
+			stage.initModality(Modality.WINDOW_MODAL);
+			Scene scene = new Scene(page);
+			stage.setScene(scene);
+			ControllerModalBase<X> controller = loader.getController();
+			controller.setPojo(x);
+			controller.setDialogStage(stage);
+			stage.showAndWait();
+
+			x1 = controller.getPojo();
+			System.out.println(x1);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return x1;
 	}
 }

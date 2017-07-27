@@ -149,8 +149,8 @@ public class Sendero {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setNombre(String Nombre) {
+        this.nombre = Nombre;
     }
 
     public String getDescripcion() {
@@ -211,10 +211,21 @@ public class Sendero {
 
     }
 
-	@Override
+	/*@Override
 	public String toString() {
-		return "Sendero [nombre=" + nombre + ", descripcion=" + descripcion + ", recorrido=" + recorrido + 
-				", duracion=" + duracion + ", distancia=" + distancia + ", dificultad=" + dificultad +"]";
+		return "Sendero [ _id=" + _id + ", recorrido=" + recorrido
+				+ ", atractivos=" + atractivos + ", duracion=" + duracion + ", distancia=" + distancia + ", dificultad="
+				+ dificultad + ", locacionAtractivos=" + locacionAtractivos + ", estado=" + estado + ", instrucciones="
+				+ instrucciones + ", transporte=" + transporte + ", equipamento=" + equipamento + ", galeria=" + galeria
+				+ ", imagenPrincipal=" + imagenPrincipal + ", animacion=" + animacion + ", Nombre=" + Nombre
+				+ ", descripcion=" + descripcion + ", comentarios=" + comentarios + ", disponibilidadSenalCelular="
+				+ disponibilidadSenalCelular + "]";
+	}*/
+	
+	@Override
+	public String toString()
+	{
+		return nombre;
 	}
 
 	

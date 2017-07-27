@@ -77,7 +77,8 @@
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="152.0" prefWidth="264.0">
                      <children>
                         <ListView fx:id="listViewSenderos" layoutX="3.0" prefHeight="123.0" prefWidth="259.0" />
-                        <Button fx:id="BtnSenderos" layoutX="198.0" layoutY="115.0" mnemonicParsing="false" onAction="#pantSendero" text="Senderos" />
+                        <Button fx:id="btnCrearSenderos" layoutX="60.0" layoutY="115.0" mnemonicParsing="false" onAction="#abrirPantallaModalNuevoSendero" text="Crear Sendero" />
+                        <Button fx:id="btnCargarSendero" layoutX="160.0" layoutY="115.0" mnemonicParsing="false" onAction="#abrirPantallaModalCargarSendero" text="Cargar Senderos" />
                      </children>
                   </AnchorPane>
               </content>
@@ -115,7 +116,7 @@
             <Label layoutX="192.0" layoutY="431.0" text="PERSONA ENCARGADA" />
             <TextField fx:id="textPropietario" layoutX="13.0" layoutY="447.0" prefHeight="25.0" prefWidth="157.0" />
             <TextField fx:id="textPersonaEncargada" layoutX="182.0" layoutY="447.0" prefHeight="25.0" prefWidth="157.0" />
-            <Button fx:id="btnBuscarID" layoutX="241.0" layoutY="17.0" mnemonicParsing="false" onAction="#abrirListaRecurso" prefHeight="25.0" prefWidth="101.0" text="CargarListaRrc" />
+            <Button fx:id="btnBuscarID" layoutX="241.0" layoutY="17.0" mnemonicParsing="false" onAction="#abrirPantallaModalListaRecurso" prefHeight="25.0" prefWidth="101.0" text="CargarListaRrc" />
             <Label layoutX="13.0" layoutY="478.0" text="Horario" />
             <Label layoutX="13.0" layoutY="508.0" text="Seguridad" />
             <TextField fx:id="textSeguridad" layoutX="100.0" layoutY="502.0" prefHeight="25.0" prefWidth="239.0" />
@@ -158,7 +159,7 @@
          <children>
             <Button layoutX="160.0" layoutY="23.0" mnemonicParsing="false" onAction="#guardarDatosWebService" text="GUARDAR" />
             <Button layoutX="320.0" layoutY="19.0" mnemonicParsing="false" onAction="#Salir" prefHeight="34.0" prefWidth="56.0" text="SALIR" />
-            <Button layoutX="246.0" layoutY="24.0" mnemonicParsing="false" onAction="#LimpiarPantalla" text="LIMPIAR" />
+            <Button layoutX="246.0" layoutY="24.0" mnemonicParsing="false" onAction="#limpiarPantalla" text="LIMPIAR" />
           	<Button layoutX="14.0" layoutY="17.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="59.0" text="ATRAS" />
             <Button layoutX="85.0" layoutY="23.0" mnemonicParsing="false" onAction="#borrarDatosWebService" text="BORRAR" />
          </children>

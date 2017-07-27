@@ -15,18 +15,22 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import pojos.Recurso;
 
-public class ControllerTableRecurso {
+public class ControllerTableRecurso implements ControllerModalBase<Recurso> {
 	
 	private Recurso pojo = new Recurso();
-	public Recurso getPojo() { return pojo;}
+	
 	public void setPojo(Recurso pojo) { this.pojo = pojo; }
 	
 	@FXML private TableView<Recurso> tvRecurso ;
 	@FXML private Label lblRecurso;
+	
 	private Stage stage;
+	
+	@Override
 	public void setDialogStage(Stage stage) {
         this.stage = stage;
     }
+	
 	private List<Recurso> listaRecursos = new ArrayList<Recurso>();
 	ControllerHelper<Recurso> controllerHelper;
 	
@@ -39,6 +43,7 @@ public class ControllerTableRecurso {
 	{
 		listaRecursos =  controllerHelper.cargarListaDatosWebService(Recurso.class);
 	}
+	
 	public void initialize()
 	{
 		cargarDatosWebService();
@@ -63,4 +68,7 @@ public class ControllerTableRecurso {
         	}
 		});
 	}
+	
+	@Override
+	public Recurso getPojo() { return pojo;}
 }

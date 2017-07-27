@@ -1,7 +1,6 @@
 package controllers;
 
 import java.awt.Image;
-import java.awt.List;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Optional;
@@ -19,6 +18,7 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.stage.Stage;
 import pojos.Atractivo;
 import pojos.Comentario;
 import pojos.DificultadRecorrido;
@@ -31,12 +31,8 @@ import pojos.Sendero;
 import pojos.TransporteSendero;
 import javafx.event.Event;
 
-/**
- * Created by ChicoLoco & Joao on 14/12/2016.
- */
+public class ControllerSenderos implements ControllerModalBase<Sendero>{
 
-public class ControllerSenderos {
-	
 	@FXML private TextField txtid;
 	@FXML private TextField txtduracion;
 	@FXML private TextArea txtdescripcion;
@@ -53,9 +49,11 @@ public class ControllerSenderos {
 	@FXML private ListView<Imagen> listImagenes;
 	@FXML private ComboBox<Comentario> comboComentario;
 	@FXML private ListView<Atractivo> listatractivos; 
-	
+
+	Sendero pojo = new Sendero();
+
 	public ControllerSenderos() {
-		
+
 	}
 	ObservableList<Imagen> selectedItemsImagen;
 	ObservableList<DificultadRecorrido> LTipoDificultad;
@@ -64,11 +62,11 @@ public class ControllerSenderos {
 	ObservableList<LocacionAtractivo> TipoLocacionAtractivo;
 	ObservableList<String> TipoEquipamento;
 	ObservableList<Atractivo> tipoAtractivo;
-	
-	
-	public void initialize(){		
-		
-		 setPromptText();
+	private Stage stage;
+
+	public void initialize(){
+
+		setPromptText(); 
 		/**********comentario*********/
 		Comentario comenta = new Comentario();
 		comenta.set_id("001");
@@ -142,10 +140,10 @@ public class ControllerSenderos {
 				// TODO Auto-generated method stub
 				selectedItemsImagen = listImagenes.getSelectionModel().getSelectedItems();
 			}
-			
+
 		});
-		
-				
+
+
 		ObservableList<DificultadRecorrido> listaDificultad = FXCollections.observableArrayList(DificultadRecorrido.values());
 		listDificultadRecorrido.setItems(listaDificultad);
 		listDificultadRecorrido.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
@@ -157,7 +155,7 @@ public class ControllerSenderos {
 				LTipoDificultad = listDificultadRecorrido.getSelectionModel().getSelectedItems();
 			}
 		});
-		
+
 		ObservableList<DisponibilidadCelular> listaDispoCelular = FXCollections.observableArrayList(DisponibilidadCelular.values());
 		listDisponibilidadCelular.setItems(listaDispoCelular);
 		listDisponibilidadCelular.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
@@ -169,8 +167,8 @@ public class ControllerSenderos {
 				TipoDisponibilidadCelular=listDisponibilidadCelular.getSelectionModel().getSelectedItems();
 			}
 		});
-		
-		
+
+
 		ObservableList<TransporteSendero> listaTransporte = FXCollections.observableArrayList(TransporteSendero.values());
 		listTransporteSendero.setItems(listaTransporte);
 		listTransporteSendero.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -182,7 +180,7 @@ public class ControllerSenderos {
 				TipoTransporteSendero=listTransporteSendero.getSelectionModel().getSelectedItems();
 			}
 		});
-		
+
 		ObservableList<String> ListaEquipamiento= FXCollections.observableArrayList ("Equipa 1", "Equipa 2");
 		listEquipamiento.setItems(ListaEquipamiento);
 		listEquipamiento.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -193,9 +191,9 @@ public class ControllerSenderos {
 				TipoEquipamento=listEquipamiento.getSelectionModel().getSelectedItems();
 			}			
 		});
-		
+
 	}
-	
+
 	private void setPromptText() {
 		txtid.setPromptText("Ingrese Id");
 		txtduracion.setPromptText("Ingrese Duracion");
@@ -221,68 +219,76 @@ public class ControllerSenderos {
 		listImagenes.setItems(null);
 		listTransporteSendero.setItems(null);
 		listatractivos.setItems(null);
-		initialize();
 	}
-	Sendero pojo = new Sendero();
+
 	public Sendero guardar(){
-		
-		
-		Sendero pojos = new Sendero();
+
+
+		Sendero pojotemp = new Sendero();
 		if (pojo!=null) {
-			pojos = pojo;
+			pojotemp = pojo;
 		}
-		pojos.set_id(txtid.getText());
-		pojos.setNombre(txtnombre.getText());
+		pojotemp.set_id(txtnombre.getText().trim());
+		pojotemp.setNombre(txtnombre.getText());
 		float distancia = Float.parseFloat(txtdistancia.getText());
-		pojos.setDistancia(distancia);
+		pojotemp.setDistancia(distancia);
 		float duracion = Float.parseFloat(txtduracion.getText());
-		pojos.setDuracion(duracion);
-		pojos.setDescripcion(txtdescripcion.getText());
-		pojos.setInstrucciones(txtinstrucciones.getText());
+		pojotemp.setDuracion(duracion);
+		pojotemp.setDescripcion(txtdescripcion.getText());
+		pojotemp.setInstrucciones(txtinstrucciones.getText());
 		if (checkActivo.isSelected()== true){
-			pojos.setEstado(Estado.ACTIVO);
-			
+			pojotemp.setEstado(Estado.ACTIVO);
+
 		}
 		else{
-			pojos.setEstado(Estado.INACTIVO);
+			pojotemp.setEstado(Estado.INACTIVO);
 		}
-		
-		pojos.getComentarios().add(comboComentario.getValue());
-		
+
+		pojotemp.getComentarios().add(comboComentario.getValue());
+
 		for (DificultadRecorrido dr : LTipoDificultad) {
-	
-			pojos.setDificultad(dr);
+
+			pojotemp.setDificultad(dr);
 		}
 		for (DisponibilidadCelular dc : TipoDisponibilidadCelular) {
-			pojos.setDisponibilidadSenalCelular(dc);
+			pojotemp.setDisponibilidadSenalCelular(dc);
 		}
 		for (TransporteSendero ts : TipoTransporteSendero) {
-			pojos.getTransporte().add(ts);
+			pojotemp.getTransporte().add(ts);
 			System.out.println("seleccion " + ts.toString());
 		}
-		
+
 		for (LocacionAtractivo a : TipoLocacionAtractivo) {
-			pojos.getLocacionAtractivos().add(a);
+			pojotemp.getLocacionAtractivos().add(a);
 		}
-		
+
 		for (String eq : TipoEquipamento) {
-			pojos.getEquipamento().add(eq);
+			pojotemp.getEquipamento().add(eq);
 		}
 		for (Imagen i: selectedItemsImagen) {
-			pojos.getGaleria().add(i);
-			
+			pojotemp.getGaleria().add(i);
+
 		}
-		return pojos;
+		
+		stage.close();
+		pojo = pojotemp;
+		return pojotemp;
 	}
-	
+
 	public void cargarDatos(Sendero pojos){
+		if(pojo==null)
+		{
+			pojo = new Sendero();
+		}
+		
+		System.out.println("pojo capturado  "+pojos.getNombre().toString());
 		txtid.setText(pojos.get_id());
 		txtdescripcion.setText(pojos.getDescripcion());
 		txtdistancia.setText(String.valueOf(pojos.getDistancia()));
 		txtduracion.setText(String.valueOf(pojos.getDuracion()));
 		txtinstrucciones.setText(pojos.getInstrucciones());
-		txtnombre.setText(pojos.getNombre());
-		
+		txtnombre.setText(pojos.getNombre().toString());
+
 		ObservableList<LocacionAtractivo> LatractivoSelecionado = FXCollections.observableArrayList(pojos.getLocacionAtractivos());
 		listLAtractivos.setItems(LatractivoSelecionado);
 		ObservableList<TransporteSendero> LtransporteSendero = FXCollections.observableArrayList(pojos.getTransporte());
@@ -300,7 +306,6 @@ public class ControllerSenderos {
 		if (pojos.getComentarios()!=null && pojos.getComentarios().size()>0) {
 			comboComentario.setValue(pojos.getComentarios().get(0));
 		}
-		
 	}
 	public void checkActivo(){
 		if(checkActivo.isSelected()){
@@ -308,14 +313,14 @@ public class ControllerSenderos {
 			checkInactivo.setSelected(false);			
 		}
 	}
-		
+
 	public void checkInactivo(){
-			if(checkInactivo.isSelected()){
-				checkActivo.setSelected(false);
-				checkInactivo.setSelected(true);
-			}				
+		if(checkInactivo.isSelected()){
+			checkActivo.setSelected(false);
+			checkInactivo.setSelected(true);
+		}				
 	}
-	
+
 	public void cargarDatosWebService()
 	{
 		String nombre = txtnombre.getText();
@@ -335,6 +340,7 @@ public class ControllerSenderos {
 			alertError.show();
 		}
 	}
+	
 	public void guardarDatosWebService()
 	{
 		ControllerHelper<Sendero> controllerHelper= new ControllerHelper<Sendero>();
@@ -346,17 +352,17 @@ public class ControllerSenderos {
 		}else{
 			System.err.println("No se pudo guardar los datos a traves del web service.");
 		}
-		
+
 	}
-	
+
 	public void borrarDatosWebService()
 	{
-		ControllerHelper<Recurso> controllerHelper= new ControllerHelper<Recurso>();
+		ControllerHelper<Sendero> controllerHelper= new ControllerHelper<Sendero>();
 		Sendero pojos = guardar();
 		System.out.println("El pojo a borrar en el WS es: " + pojos);
-		
+
 		System.out.println("Sync para obtener el rev: " + pojos.get_sync());
-		
+
 		if(pojos!=null && pojos.get_sync()!=null && pojos.get_sync().getRev()!=null && pojos.get_id()!=null)
 		{
 			//Enviar pantalla modal para confirmar que desea borrar
@@ -369,14 +375,13 @@ public class ControllerSenderos {
 			alert.setContentText(s);
 			Optional<ButtonType> result = alert.showAndWait();
 			//Ejecutar borrado
-			
+
 			System.out.println("antes de borrar");
 			if ((result.isPresent()) && (result.get() == ButtonType.OK))
 			{
 				System.out.println("Borrando");
 				try{
-					controllerHelper.borrarDatosWebService(pojos.get_id(), pojos.get_sync().getRev(), Recurso.class);
-					
+					controllerHelper.borrarDatosWebService(pojos.getNombre(), pojos.get_sync().getRev(),Sendero.class);
 					Alert alertBorradoCorrecto = new Alert(AlertType.INFORMATION);
 					alertBorradoCorrecto.setTitle("Borrado Correcto");
 
@@ -384,13 +389,13 @@ public class ControllerSenderos {
 					alertBorradoCorrecto.setContentText(message);
 					alertBorradoCorrecto.show();
 					limpiar();
-					
+
 				}catch(Exception e)
 				{
 					System.err.println("Excepcion:" + e);
 					e.printStackTrace();
 					System.err.println("Mensaje de la excepcion:" + e.getMessage());
-					
+
 					Alert alertError = new Alert(AlertType.ERROR);
 					alertError.setTitle("Error al borrar");
 
@@ -401,11 +406,28 @@ public class ControllerSenderos {
 			}
 		}
 	}
+	
 	public void salir(){
 		System.out.println("************** EXIT *********\n");
-		System.exit(0);
+		stage.close();
 	}
-	
+
+	@Override
+	public Sendero getPojo() {
+		return pojo;
+	}
+
+	@Override
+	public void setPojo(Sendero x) {
+		pojo = x;
+		if(x!=null)
+			cargarDatos(x);
+	}
+
+	@Override
+	public void setDialogStage(Stage stage) {
+		this.stage = stage;
+	}
 }
 
 
