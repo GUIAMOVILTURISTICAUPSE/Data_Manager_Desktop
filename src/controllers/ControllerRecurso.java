@@ -3,9 +3,12 @@ package controllers;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.PropertyValue;
+
+import com.couchbase.client.core.config.loader.Loader;
 
 import ch.qos.logback.core.pattern.color.ForegroundCompositeConverterBase;
 import javafx.beans.value.ChangeListener;
@@ -43,7 +46,6 @@ import pojos.*;
 
 public class ControllerRecurso {
 
-	public ControllerRecurso() {}
 
 	@FXML private Button btnBuscarID;
 	@FXML private Button BtnSenderos;
@@ -95,8 +97,6 @@ public class ControllerRecurso {
 	@FXML private ListView<TipoAtractivo> listTiposAtractivos;
 	@FXML private ListView<TipoAccesibilidad> listTipoAccesibilidad;
 	@FXML private Button btnCargarWS;
-	
-	
 	ObservableList<Idiomas> selectedItems;
 	ObservableList<Imagen> selectedItemsImagen;
 	ObservableList<Sendero> selectItemsSenderos;
@@ -106,155 +106,30 @@ public class ControllerRecurso {
 	ArrayList<PreguntasFrecuentes> listapreguntas = new ArrayList<PreguntasFrecuentes>();
 	ArrayList<PreguntasFrecuentes> listpreguntas = new ArrayList<>();
 	ObservableList<TipoAccesibilidad> selectItemsTipoAccesibilidad;
+	/*private String id_;
+	public String getId_() {
+		return id_;
+	}
+	public void setId_(String id_) {
+		this.id_ = id_;
+	}*/
+
+	private Sendero pojos = new Sendero();
+	public Sendero getPojos() {return pojos;}
+	public void setPojos(Sendero pojos) {this.pojos = pojos;}
+	public String id_sendero_cap;
+	public ControllerRecurso()
+	{	
+	}
 	
 	public void initialize(){
-		
 		setPromptText();
-		ObservableList<String> tiposParqueo = FXCollections.observableArrayList("Bicicleta","Moto","Vehiculo","Casilleros");
-		listTiposParqueo.setItems(tiposParqueo);
-		listTiposParqueo.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-		listTiposParqueo.setOnMouseClicked(new EventHandler<Event>() {
-
-			@Override
-			public void handle(Event event) {
-				selectItemsTiposParqueo = listTiposParqueo.getSelectionModel().getSelectedItems();
-			}
-		});
-		
-		Sendero sendero1 = new Sendero();
-		sendero1.setNombre("Camino Hacia el terror");
-		ArrayList<Sendero> nombreSenderos = new ArrayList<Sendero>();
-		nombreSenderos.add(sendero1);	
-			ObservableList<Sendero> senderosList = FXCollections.observableArrayList(nombreSenderos);
-			listViewSenderos.setItems(senderosList);
-			listViewSenderos.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-			listViewSenderos.setOnMouseClicked(new EventHandler<Event>() {
-				@Override
-				public void handle(Event event) {
-					// TODO Auto-generated method stub
-					selectItemsSenderos = listViewSenderos.getSelectionModel().getSelectedItems();
-				}
-			});
-			
-		ObservableList<TipoAccesibilidad> tipoAccesibilidad = FXCollections.observableArrayList(TipoAccesibilidad.values());
-		listTipoAccesibilidad.setItems(tipoAccesibilidad);
-		listTipoAccesibilidad.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-		listTipoAccesibilidad.setOnMouseClicked(new EventHandler<Event>() {
-
-			@Override
-			public void handle(Event event) {
-				selectItemsTipoAccesibilidad = listTipoAccesibilidad.getSelectionModel().getSelectedItems();
-				
-			}
-		});
-		
-		
-		ObservableList<Idiomas> testes = FXCollections.observableArrayList(Idiomas.values());
-		listViewIdiomas.setItems(testes);
-		listViewIdiomas.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-		listViewIdiomas.setOnMouseClicked(new EventHandler<Event>() {
-
-            @Override
-            public void handle(Event event) {
-                selectedItems =  listViewIdiomas.getSelectionModel().getSelectedItems();
-            }
-
-        });
-		
-		ObservableList<TipoAtractivo> tipoAtractivos = FXCollections.observableArrayList(TipoAtractivo.values());
-		listTiposAtractivos.setItems(tipoAtractivos);
-		listTiposAtractivos.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-		listTiposAtractivos.setOnMouseClicked(new EventHandler<Event>() {
-
-			@Override
-			public void handle(Event event) {
-				selectItemsAtractivo = listTiposAtractivos.getSelectionModel().getSelectedItems();
-				
-			}
-		});
-		
-		Imagen pojoI1 = new Imagen();
-		pojoI1.setTitulo("Foto1");
-		pojoI1.setUrl("imagenes/foto1.jpg");
-		Imagen pojoI2 = new Imagen();
-		pojoI2.setTitulo("Foto2");
-		pojoI2.setUrl("imagenes/foto2.jpg");
-		Imagen pojoI3 = new Imagen();
-		pojoI3.setTitulo("Foto3");
-		pojoI3.setUrl("imagenes/foto3.jpg");
-		Imagen pojoI4 = new Imagen();
-		pojoI4.setTitulo("Foto4");
-		pojoI4.setUrl("imagenes/foto4.jpg");
-		ArrayList<Imagen> imagenlista = new ArrayList<Imagen>();
-		imagenlista.add(pojoI1);
-		imagenlista.add(pojoI2);
-		imagenlista.add(pojoI3);
-		imagenlista.add(pojoI4);
-		
-		ObservableList<Imagen> testesImagen = FXCollections.observableArrayList(imagenlista);
-		listViewImagenes.setItems(testesImagen);
-		listViewImagenes.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-		listViewImagenes.setOnMouseClicked(new EventHandler<Event>() {
-
-            @Override
-            public void handle(Event event) {
-            	selectedItemsImagen =  listViewImagenes.getSelectionModel().getSelectedItems();
-            }
-        });
-		
-		textRanking.textProperty().addListener(new ChangeListener<String>() {
-	        @Override
-	        public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-	        	if (!textRanking.getText().matches("^[0-9]*\\.?[0-9]*$")) {
-	        		textRanking.setText("");
-                }
-	        }
-	    });
-		
-		Costo pojoC1 = new Costo();
-		pojoC1.setDescripcion("Comida");
-		pojoC1.setCosto(14);
-		Costo pojoC2 = new Costo();
-		pojoC2.setDescripcion("Hotel");
-		pojoC2.setCosto(19);
-		Costo pojoC3 = new Costo();
-		pojoC3.setDescripcion("Motel");
-		pojoC3.setCosto(19);
-		ArrayList<Costo> costoslista = new ArrayList<Costo>();
-		costoslista.add(pojoC1);
-		costoslista.add(pojoC2);
-		costoslista.add(pojoC3);
-		ObservableList<Costo> costos = FXCollections.observableArrayList(costoslista);
-		comboCosto.setItems(costos);
-		
-		Facilidad pojoA1 = new Facilidad();
-		pojoA1.setTitulo("Facilidad1");
-		pojoA1.setDescripcion("La facilidad1 es muy chevere");
-		Facilidad pojoA2 = new Facilidad();
-		pojoA2.setTitulo("Facilidad2");
-		pojoA2.setDescripcion("La facilidad nos vamos en las dos");
-		Facilidad pojoA3 = new Facilidad();
-		pojoA3.setTitulo("Facilidad3");
-		pojoA3.setDescripcion("Super facilidad");
-		ArrayList<Facilidad> facilidadlista = new ArrayList<Facilidad>();
-		facilidadlista.add(pojoA1);
-		facilidadlista.add(pojoA2);
-		facilidadlista.add(pojoA3);
-		ObservableList<Facilidad> facilidades = FXCollections.observableArrayList(facilidadlista);
-		comboFacilidad.setItems(facilidades);
-		
-		Recomendacion pojoR1 = new Recomendacion();
-		pojoR1.setTitulo("Recomendacion1");
-		pojoR1.setDescripcion("La Recomendacion1 es muy chevere");
-		Recomendacion pojoR2 = new Recomendacion();
-		pojoR2.setTitulo("Recomendacion2");
-		pojoR2.setDescripcion("La recomendacion nos vamos en las dos");
-		ArrayList<Recomendacion> recomendacionlista = new ArrayList<Recomendacion>();
-		recomendacionlista.add(pojoR1);
-		recomendacionlista.add(pojoR2);
-		ObservableList<Recomendacion> recomendaciones = FXCollections.observableArrayList(recomendacionlista);
-		comboRecomendacion.setItems(recomendaciones);
-
+		//cargarListViewSendero();
+		cargarTipoAccesibilidad();
+		cargarIdiomas();
+		cargarTipoAtractivo();
+		cargarTiposDeParqueo();
+		cargarListasConString();
 	}
 	
 	private void setPromptText() {
@@ -271,7 +146,6 @@ public class ControllerRecurso {
 		textPersonaEncargada.setPromptText("Persona Encargada ");
 		textpreguntasf.setPromptText("Escriba su Pregunta");
 		textCategoria.setPromptText("Categoria ");
-		
 		textEmail.setPromptText("Email");
 		textFacebook.setPromptText("Facebook");
 		textHorario.setPromptText("Horario");
@@ -280,24 +154,17 @@ public class ControllerRecurso {
 		textSeguridad.setPromptText("Seguridad");
 		textTelefono.setPromptText("Telefono");
 		textTwitter.setPromptText("Twitter");
-		
 	}
 	
 	Recurso pojo = new Recurso();
-	
 	public Recurso Guardar(){
-		
 		Recurso pojoTemp = new Recurso();
-		
-		
 		//Para no poder informacion que puede estar ya cargada en el pojo desde el Ws
 		//pero que no esta representada en la GUI
 		if(pojo!=null)
 		{
 			pojoTemp = pojo;
 		}
-		
-		
 	//	pojo.setId(textId.getText().trim());
 		pojoTemp.setNombre(textNombre.getText());
 		pojoTemp.setDescripcion(textDescripcion.getText());
@@ -380,9 +247,8 @@ public class ControllerRecurso {
 		
 		return pojoTemp;
 	}
-	
-	public void LimpiarPantalla(){
 
+	public void LimpiarPantalla(){
 		textEmail.setText("");
 		textFacebook.setText("");
 		textHorario.setText("");
@@ -435,8 +301,8 @@ public class ControllerRecurso {
 			alertError.setContentText(errorMessage);
 			alertError.show();
 		}
+		
 	}
-	
 	public void guardarDatosWebService()
 	{
 		ControllerHelper<Recurso> controllerHelper= new ControllerHelper<Recurso>();
@@ -504,18 +370,7 @@ public class ControllerRecurso {
 		}
 	}
 	
-	private String id_;
 	
-	public String getId_() {
-		return id_;
-	}
-
-
-	public void setId_(String id_) {
-		this.id_ = id_;
-	}
-
-
 	public void abrirListaRecurso(){
 		try {
 			Recurso pojo_ = new Recurso();
@@ -549,14 +404,10 @@ public class ControllerRecurso {
 		textProvincia.setText(pojo.getProvincia());
 		textParroquia.setText(pojo.getParroquia());
 		textPropietario.setText(pojo.getPropietario());
-		
-		
 		textPersonaEncargada.setText(pojo.getPersonaEncargada().isPresent()?pojo.getPersonaEncargada().get():"");
-		
 		textCategoria.setText(pojo.getCategoria());
 		textSeguridad.setText(pojo.getSeguridad());
 		textHorario.setText(pojo.getHorario());
-		
 		if(pojo.getInfContacto().isPresent())
 		{
 			Contacto c = pojo.getInfContacto().get();
@@ -566,7 +417,6 @@ public class ControllerRecurso {
 			textTwitter.setText(c.getTwitter());
 			textTelefono.setText(c.getTwitter());
 		}
-		
 		ObservableList<Idiomas> idiomasSeleccionado = FXCollections.observableArrayList(pojo.getIdiomasInformac());
 		listViewIdiomas.setItems(idiomasSeleccionado);
 		ObservableList<String> ParqueoSeleccionado = FXCollections.observableArrayList(pojo.getTiposParqueo());
@@ -575,6 +425,16 @@ public class ControllerRecurso {
 		listTiposAtractivos.setItems(TatractivoSeleccionado);
 		ObservableList<Sendero> senderoSeleccionado = FXCollections.observableArrayList(pojo.getSendero());
 		listViewSenderos.setItems(senderoSeleccionado);
+		listViewSenderos.setOnMouseClicked(new EventHandler<Event>() {
+
+			@Override
+			public void handle(Event event) {
+				// TODO Auto-generated method stub
+				System.out.println("clicked on " + listViewSenderos.getSelectionModel().getSelectedItem());
+				pojos = listViewSenderos.getSelectionModel().getSelectedItem();
+				//System.out.println(pojos);				
+			}
+		});
 		ObservableList<TipoAccesibilidad> TaccesibilidadSelecionados = FXCollections.observableArrayList(pojo.getOpcionesTipoAccesibilidad());
 		listTipoAccesibilidad.setItems(TaccesibilidadSelecionados);
 		
@@ -650,17 +510,196 @@ public class ControllerRecurso {
 	
 	public void pantSendero()
 	{
+		
 		try {
-			Parent parent = FXMLLoader.load(getClass().getResource("/ViewSenderos.fxml"));
-			Stage stage = new Stage();
-			Scene scene = new Scene(parent,1025,650);
-			stage.setScene(scene);
-			stage.setTitle(" SENDEROS ");
-			stage.show();
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			FXMLLoader loader = new FXMLLoader();
+	        loader.setLocation(Main.class.getResource("/ViewSenderos.fxml"));        
+	        AnchorPane page = (AnchorPane) loader.load();
+	        Stage stage = new Stage();
+	        stage.setTitle("Sendero");
+	        stage.initModality(Modality.WINDOW_MODAL);
+	        ControllerSenderos controller = loader.getController();
+	        controller.cargarDatos(pojos);
+	        controller.setDialogStage(stage);
+	        Scene scene = new Scene(page);
+	        stage.setScene(scene);
+	        stage.showAndWait();
+	        
+		} catch(Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	/*public void cargarListViewSendero()
+	{
+		cargarDatosWebService2();
+		ObservableList<Sendero> data = FXCollections.observableArrayList();
+		for(int i = 0 ; i < listaSenderos.size() ; i++ ){
+			data.addAll(listaSenderos);
+		}
+		listViewSenderos.setItems(data);
+		listViewSenderos.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		listViewSenderos.setOnMouseClicked(new EventHandler<Event>() {
+			@Override
+			public void handle(Event event) {
+				// TODO Auto-generated method stub
+				selectItemsSenderos = listViewSenderos.getSelectionModel().getSelectedItems();
+				//pojos = listaSenderos.get(listViewSenderos.getSelectionModel().getSelectedIndex());
+			}
+		});
+	}
+	*/
+	public void cargarTipoAccesibilidad()
+	{
+		//********TIPO ACCESIBILIDAD
+		ObservableList<TipoAccesibilidad> tipoAccesibilidad = FXCollections.observableArrayList(TipoAccesibilidad.values());
+		listTipoAccesibilidad.setItems(tipoAccesibilidad);
+		listTipoAccesibilidad.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		listTipoAccesibilidad.setOnMouseClicked(new EventHandler<Event>() {
+			@Override
+			public void handle(Event event) {
+				selectItemsTipoAccesibilidad = listTipoAccesibilidad.getSelectionModel().getSelectedItems();
+				
+			}
+		});
+	}
+	public void cargarIdiomas()
+	{
+		ObservableList<Idiomas> testes = FXCollections.observableArrayList(Idiomas.values());
+		listViewIdiomas.setItems(testes);
+		listViewIdiomas.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		listViewIdiomas.setOnMouseClicked(new EventHandler<Event>() {
+            @Override
+            public void handle(Event event) {
+                selectedItems =  listViewIdiomas.getSelectionModel().getSelectedItems();
+            }
+
+        });
+		
+	}
+	public void cargarTipoAtractivo()
+	{
+		
+		 //*********TIPO ATRACTIVO	
+		ObservableList<TipoAtractivo> tipoAtractivos = FXCollections.observableArrayList(TipoAtractivo.values());
+		listTiposAtractivos.setItems(tipoAtractivos);
+		listTiposAtractivos.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		listTiposAtractivos.setOnMouseClicked(new EventHandler<Event>() {
+			@Override
+			public void handle(Event event) {
+				selectItemsAtractivo = listTiposAtractivos.getSelectionModel().getSelectedItems();
+				
+			}
+		});
+	}
+	public void cargarTiposDeParqueo()
+	{
+		//******* TIPOS DE PARQUEOS
+		ObservableList<String> tiposParqueo = FXCollections.observableArrayList("Bicicleta","Moto","Vehiculo","Casilleros");
+		listTiposParqueo.setItems(tiposParqueo);
+		listTiposParqueo.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		listTiposParqueo.setOnMouseClicked(new EventHandler<Event>() {
+			@Override
+			public void handle(Event event) {
+				selectItemsTiposParqueo = listTiposParqueo.getSelectionModel().getSelectedItems();
+			}
+		});
+	}
+	public void cargarListasConString()
+	{
+		/*Sendero sendero1 = new Sendero();
+		sendero1.setNombre("Camino Hacia el terror");
+		ArrayList<Sendero> nombreSenderos = new ArrayList<Sendero>();
+		nombreSenderos.add(sendero1);	
+			ObservableList<Sendero> senderosList = FXCollections.observableArrayList(nombreSenderos);
+			listViewSenderos.setItems(senderosList);
+			listViewSenderos.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+			listViewSenderos.setOnMouseClicked(new EventHandler<Event>() {
+				@Override
+				public void handle(Event event) {
+					// TODO Auto-generated method stub
+					selectItemsSenderos = listViewSenderos.getSelectionModel().getSelectedItems();
+				}
+			});
+			*/
+		
+		Imagen pojoI1 = new Imagen();
+		pojoI1.setTitulo("Foto1");
+		pojoI1.setUrl("imagenes/foto1.jpg");
+		Imagen pojoI2 = new Imagen();
+		pojoI2.setTitulo("Foto2");
+		pojoI2.setUrl("imagenes/foto2.jpg");
+		Imagen pojoI3 = new Imagen();
+		pojoI3.setTitulo("Foto3");
+		pojoI3.setUrl("imagenes/foto3.jpg");
+		Imagen pojoI4 = new Imagen();
+		pojoI4.setTitulo("Foto4");
+		pojoI4.setUrl("imagenes/foto4.jpg");
+		ArrayList<Imagen> imagenlista = new ArrayList<Imagen>();
+		imagenlista.add(pojoI1);
+		imagenlista.add(pojoI2);
+		imagenlista.add(pojoI3);
+		imagenlista.add(pojoI4);
+		ObservableList<Imagen> testesImagen = FXCollections.observableArrayList(imagenlista);
+		listViewImagenes.setItems(testesImagen);
+		listViewImagenes.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		listViewImagenes.setOnMouseClicked(new EventHandler<Event>() {
+            @Override
+            public void handle(Event event) {
+            	selectedItemsImagen =  listViewImagenes.getSelectionModel().getSelectedItems();
+            }
+        });
+		Costo pojoC1 = new Costo();
+		pojoC1.setDescripcion("Comida");
+		pojoC1.setCosto(14);
+		Costo pojoC2 = new Costo();
+		pojoC2.setDescripcion("Hotel");
+		pojoC2.setCosto(19);
+		Costo pojoC3 = new Costo();
+		pojoC3.setDescripcion("Motel");
+		pojoC3.setCosto(19);
+		ArrayList<Costo> costoslista = new ArrayList<Costo>();
+		costoslista.add(pojoC1);
+		costoslista.add(pojoC2);
+		costoslista.add(pojoC3);
+		ObservableList<Costo> costos = FXCollections.observableArrayList(costoslista);
+		comboCosto.setItems(costos);
+		
+		Facilidad pojoA1 = new Facilidad();
+		pojoA1.setTitulo("Facilidad1");
+		pojoA1.setDescripcion("La facilidad1 es muy chevere");
+		Facilidad pojoA2 = new Facilidad();
+		pojoA2.setTitulo("Facilidad2");
+		pojoA2.setDescripcion("La facilidad nos vamos en las dos");
+		Facilidad pojoA3 = new Facilidad();
+		pojoA3.setTitulo("Facilidad3");
+		pojoA3.setDescripcion("Super facilidad");
+		ArrayList<Facilidad> facilidadlista = new ArrayList<Facilidad>();
+		facilidadlista.add(pojoA1);
+		facilidadlista.add(pojoA2);
+		facilidadlista.add(pojoA3);
+		ObservableList<Facilidad> facilidades = FXCollections.observableArrayList(facilidadlista);
+		comboFacilidad.setItems(facilidades);
+		
+		Recomendacion pojoR1 = new Recomendacion();
+		pojoR1.setTitulo("Recomendacion1");
+		pojoR1.setDescripcion("La Recomendacion1 es muy chevere");
+		Recomendacion pojoR2 = new Recomendacion();
+		pojoR2.setTitulo("Recomendacion2");
+		pojoR2.setDescripcion("La recomendacion nos vamos en las dos");
+		ArrayList<Recomendacion> recomendacionlista = new ArrayList<Recomendacion>();
+		recomendacionlista.add(pojoR1);
+		recomendacionlista.add(pojoR2);
+		ObservableList<Recomendacion> recomendaciones = FXCollections.observableArrayList(recomendacionlista);
+		comboRecomendacion.setItems(recomendaciones);
+		
+		textRanking.textProperty().addListener(new ChangeListener<String>() {
+	        @Override
+	        public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+	        	if (!textRanking.getText().matches("^[0-9]*\\.?[0-9]*$")) {
+	        		textRanking.setText("");
+                }
+	        }
+	    });
 	}
 }

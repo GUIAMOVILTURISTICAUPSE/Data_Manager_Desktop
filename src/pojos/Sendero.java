@@ -23,7 +23,7 @@ public class Sendero {
     private ArrayList<Imagen> galeria = new ArrayList<Imagen>();
     private Imagen imagenPrincipal;
     private Animacion animacion;
-    private String nombre;
+    private String Nombre;
     private String descripcion;
     private ArrayList<Comentario> comentarios = new ArrayList<Comentario>();
     private DisponibilidadCelular disponibilidadSenalCelular;
@@ -146,11 +146,11 @@ public class Sendero {
     }
 
     public String getNombre() {
-        return nombre;
+        return Nombre;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setNombre(String Nombre) {
+        this.Nombre = Nombre;
     }
 
     public String getDescripcion() {
@@ -213,8 +213,13 @@ public class Sendero {
 
 	@Override
 	public String toString() {
-		return "Sendero [nombre=" + nombre + ", descripcion=" + descripcion + ", recorrido=" + recorrido + 
-				", duracion=" + duracion + ", distancia=" + distancia + ", dificultad=" + dificultad +"]";
+		return "Sendero [ _id=" + _id + ", recorrido=" + recorrido
+				+ ", atractivos=" + atractivos + ", duracion=" + duracion + ", distancia=" + distancia + ", dificultad="
+				+ dificultad + ", locacionAtractivos=" + locacionAtractivos + ", estado=" + estado + ", instrucciones="
+				+ instrucciones + ", transporte=" + transporte + ", equipamento=" + equipamento + ", galeria=" + galeria
+				+ ", imagenPrincipal=" + imagenPrincipal + ", animacion=" + animacion + ", Nombre=" + Nombre
+				+ ", descripcion=" + descripcion + ", comentarios=" + comentarios + ", disponibilidadSenalCelular="
+				+ disponibilidadSenalCelular + "]";
 	}
 
 	
