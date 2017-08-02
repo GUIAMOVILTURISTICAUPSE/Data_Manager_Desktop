@@ -28,7 +28,8 @@ import pojos.Imagen;
 import pojos.LocacionAtractivo;
 import pojos.Recurso;
 import pojos.Sendero;
-import pojos.TransporteSendero;
+import pojos.TipoTransporte;
+import pojos.Transporte;
 import javafx.event.Event;
 
 public class ControllerSenderos implements ControllerModalBase<Sendero>{
@@ -43,7 +44,7 @@ public class ControllerSenderos implements ControllerModalBase<Sendero>{
 	@FXML private CheckBox checkInactivo;
 	@FXML private ListView<DisponibilidadCelular> listDisponibilidadCelular;
 	@FXML private ListView<String> listEquipamiento;
-	@FXML private ListView<TransporteSendero> listTransporteSendero;
+	@FXML private ListView<Transporte> listTransporteSendero;
 	@FXML private ListView<LocacionAtractivo> listLAtractivos;
 	@FXML private ListView<DificultadRecorrido> listDificultadRecorrido;
 	@FXML private ListView<Imagen> listImagenes;
@@ -58,7 +59,7 @@ public class ControllerSenderos implements ControllerModalBase<Sendero>{
 	ObservableList<Imagen> selectedItemsImagen;
 	ObservableList<DificultadRecorrido> LTipoDificultad;
 	ObservableList<DisponibilidadCelular> TipoDisponibilidadCelular;
-	ObservableList<TransporteSendero> TipoTransporteSendero;
+	ObservableList<Transporte> TipoTransporteSendero;
 	ObservableList<LocacionAtractivo> TipoLocacionAtractivo;
 	ObservableList<String> TipoEquipamento;
 	ObservableList<Atractivo> tipoAtractivo;
@@ -168,8 +169,8 @@ public class ControllerSenderos implements ControllerModalBase<Sendero>{
 			}
 		});
 
-
-		ObservableList<TransporteSendero> listaTransporte = FXCollections.observableArrayList(TransporteSendero.values());
+		//TODO Corregir esta lista transporte, traer llena si amerita (desde base de Datos).
+		ObservableList<Transporte> listaTransporte = FXCollections.observableArrayList();
 		listTransporteSendero.setItems(listaTransporte);
 		listTransporteSendero.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		listTransporteSendero.setOnMouseClicked(new EventHandler<Event>() {
@@ -253,9 +254,9 @@ public class ControllerSenderos implements ControllerModalBase<Sendero>{
 		for (DisponibilidadCelular dc : TipoDisponibilidadCelular) {
 			pojotemp.setDisponibilidadSenalCelular(dc);
 		}
-		for (TransporteSendero ts : TipoTransporteSendero) {
-			pojotemp.getTransporte().add(ts);
-			System.out.println("seleccion " + ts.toString());
+		for (Transporte t : TipoTransporteSendero) {
+			pojotemp.getTransporte().add(t);
+			System.out.println("seleccion " + t.toString());
 		}
 
 		for (LocacionAtractivo a : TipoLocacionAtractivo) {
@@ -291,7 +292,7 @@ public class ControllerSenderos implements ControllerModalBase<Sendero>{
 
 		ObservableList<LocacionAtractivo> LatractivoSelecionado = FXCollections.observableArrayList(pojos.getLocacionAtractivos());
 		listLAtractivos.setItems(LatractivoSelecionado);
-		ObservableList<TransporteSendero> LtransporteSendero = FXCollections.observableArrayList(pojos.getTransporte());
+		ObservableList<Transporte> LtransporteSendero = FXCollections.observableArrayList(pojos.getTransporte());
 		listTransporteSendero.setItems(LtransporteSendero);
 		ObservableList<String> Lequipamiento = FXCollections.observableArrayList(pojos.getEquipamento());
 		listEquipamiento.setItems(Lequipamiento);
