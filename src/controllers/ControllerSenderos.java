@@ -59,7 +59,7 @@ public class ControllerSenderos implements ControllerModalBase<Sendero>{
 	ObservableList<Imagen> selectedItemsImagen;
 	ObservableList<DificultadRecorrido> LTipoDificultad;
 	ObservableList<DisponibilidadCelular> TipoDisponibilidadCelular;
-	ObservableList<Transporte> TipoTransporteSendero;
+	ObservableList<Transporte> TransporteOpciones;
 	ObservableList<LocacionAtractivo> TipoLocacionAtractivo;
 	ObservableList<String> TipoEquipamento;
 	ObservableList<Atractivo> tipoAtractivo;
@@ -178,7 +178,7 @@ public class ControllerSenderos implements ControllerModalBase<Sendero>{
 			@Override
 			public void handle(Event event) {
 				// TODO Auto-generated method stub
-				TipoTransporteSendero=listTransporteSendero.getSelectionModel().getSelectedItems();
+				TransporteOpciones=listTransporteSendero.getSelectionModel().getSelectedItems();
 			}
 		});
 
@@ -254,7 +254,9 @@ public class ControllerSenderos implements ControllerModalBase<Sendero>{
 		for (DisponibilidadCelular dc : TipoDisponibilidadCelular) {
 			pojotemp.setDisponibilidadSenalCelular(dc);
 		}
-		for (Transporte t : TipoTransporteSendero) {
+		
+		if(TransporteOpciones!=null)
+		for (Transporte t : TransporteOpciones) {
 			pojotemp.getTransporte().add(t);
 			System.out.println("seleccion " + t.toString());
 		}
