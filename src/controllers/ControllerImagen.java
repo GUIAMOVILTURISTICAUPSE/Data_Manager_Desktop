@@ -173,6 +173,7 @@ public class ControllerImagen{
             BufferedImage bufferedImage = ImageIO.read(file);
             
             Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+
             imgImagen.setImage(image);
         } catch (IOException ex) {
             System.err.println("Error al cargar imagen");
