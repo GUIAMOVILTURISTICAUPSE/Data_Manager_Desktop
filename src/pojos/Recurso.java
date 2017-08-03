@@ -42,11 +42,11 @@ public class Recurso {
     private ArrayList<Comentario> comentarios = new ArrayList<Comentario>();
     private ArrayList<TipoAtractivo> tipoAtractivo = new ArrayList<TipoAtractivo>();
     private ArrayList<String> tiposParqueo = new ArrayList<>();
-	private ArrayList<AccesibilidadRecurso> opcionesAccesibilidad;
+    private ArrayList<AccesibilidadRecurso> opcionesAccesibilidad;
  
-	private String horario;
-	private String seguridad;
-	private ArrayList<PreguntasFrecuentes> preguntasF = new ArrayList<PreguntasFrecuentes>();	
+    private String horario;
+    private String seguridad;
+    private ArrayList<PreguntasFrecuentes> preguntasF = new ArrayList<PreguntasFrecuentes>();	
 	
     //constructor
 
