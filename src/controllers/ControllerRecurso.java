@@ -562,8 +562,7 @@ public class ControllerRecurso {
 		
 	}
 	public void cargarTipoAtractivo()
-	{
-		
+	{	
 		 //*********TIPO ATRACTIVO	
 		ObservableList<TipoAtractivo> tipoAtractivos = FXCollections.observableArrayList(TipoAtractivo.values());
 		listTiposAtractivos.setItems(tipoAtractivos);
