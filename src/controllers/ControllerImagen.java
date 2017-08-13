@@ -13,8 +13,13 @@ import java.io.IOException;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+
 import java.util.Iterator;
 
+import javafx.util.converter.LocalDateStringConverter;
+import pojos.Imagen;
+import pojos.Recurso;
+import pojos.Sendero;
 import pojos.Imagen;
 
 import cloud.GoogleCloudStorageWorker;
@@ -22,8 +27,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -33,7 +42,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class ControllerImagen{
+public class ControllerImagen implements ControllerModalBase<Imagen>{
 		
 	@FXML private TextField ID1;
 	@FXML private TextArea descripcion1;
@@ -57,9 +66,14 @@ public class ControllerImagen{
 	
 	GoogleCloudStorageWorker googleStorageWorker = new GoogleCloudStorageWorker();
 	Imagen pojo = new Imagen();
+	//Recurso recurso;
+	private Stage stage;
 
 	//BufferedImage para tener la imagen en memoria y poder procesarla correctamente. No borrar HP!
 	BufferedImage bufferedImageToExchage;
+	
+	Context context = Context.getInstance();
+	ControllerHelper<Imagen> controllerHelper = new ControllerHelper<Imagen>();
 	
 	public ControllerImagen() {
 		twelveMonkeyLibraryTestForImage();
@@ -82,22 +96,27 @@ public class ControllerImagen{
 	/**
 	 * Metodo valido, creado por Ivan en Junio 2017
 	 */
-	public void guardar(){
-		pojo.setId(ID1.getText());
-		pojo.setDescripcion(descripcion1.getText());
-		pojo.setFecha(fecha1.getValue());
-		pojo.setTitulo(titulo1.getText());
+	public Imagen guardar(){
+		Imagen pojoTemp = new Imagen();
+		if(pojo!=null)
+		{
+			pojoTemp = pojo;
+		}
+		pojoTemp.setId(ID1.getText());
+		pojoTemp.setDescripcion(descripcion1.getText());
+		pojoTemp.setFecha(fecha1.getValue());
+		pojoTemp.setTitulo(titulo1.getText());
 		
 		if(!url1.getText().trim().equals(""))
 		{
 			if(googleStorageWorker.checkIfImageExists(ID1.getText(), url1.getText().trim()))
 			{
-				pojo.setUrl(url1.getText());
+				pojoTemp.setUrl(url1.getText());
 			}else{
 				String mensajeError = "No se puede guardar porque el url no es valido.";
 				System.err.println(mensajeError);
 				ControllerHelper.mostrarAlertaError(mensajeError);
-				return;
+				return null;
 			}
 			
 		}else{
@@ -105,31 +124,33 @@ public class ControllerImagen{
 			if(imgImagen.getImage()!=null)
 			{
 				try {
+					//Solucion temporal para que el id no vaya vacio, llenar el pojo con pojoTemp en este punto
+					pojo = pojoTemp;
 					almacenarNube(convertirImagenEnImageViewAByteArray());
 				} catch (IOException e) {
 					String mensajeErrorTransformarImagen =  "Error en al almacenar la imagen en la nube. " + e;
 					ControllerHelper.mostrarAlertaError(mensajeErrorTransformarImagen);
 					System.err.println(mensajeErrorTransformarImagen);
 					e.printStackTrace();
-					return;
+					return null;
 				}
 			}else{
 				String mensajeError = "No se puede guardar porque no hay cargada una imagen en el imageView.";
 				System.err.println(mensajeError);
 				ControllerHelper.mostrarAlertaError(mensajeError);
-				return;
+				return null;
 			}			
 		}
 		
 		
-		pojo.setUrl(url1.getText());
-		pojo.setAutor(autor1.getText());
-		pojo.setCoordenadas(latitud1.getText()+","+longitud1.getText());
+		pojoTemp.setUrl(url1.getText());
+		pojoTemp.setAutor(autor1.getText());
+		pojoTemp.setCoordenadas(latitud1.getText()+","+longitud1.getText());
 		//TODO Soportar agregar a un usuario como autor de la imagen (a futuro).
 		//pojo.setAutorUsuario(); 
-		pojo.setReportado(Reportado.isSelected());
-		pojo.setVotosFavor(spinner.getValue());
-		pojo.setVotosContra(spinner1.getValue());
+		pojoTemp.setReportado(Reportado.isSelected());
+		pojoTemp.setVotosFavor(spinner.getValue());
+		pojoTemp.setVotosContra(spinner1.getValue());
 		//TODO Permitir agregar y editar etiquetas con un generador de Strings a traves de GUI
 		//pojo.setEtiquetas(etiqueta1.getValue().toString());  ***************************************** ETIQUETAS ????? LATITUD Y LONGITUD ?????
 		//falta etiquetas array list combobox
@@ -137,6 +158,10 @@ public class ControllerImagen{
 		//falta votos favor y contra del spinner :C segundo parcial segun indicaciones
 		System.out.println("******DATOS GUARDADOS*****");
 		System.out.println(pojo.toStringComplete());
+		
+		stage.close();
+		pojo = pojoTemp;
+		return pojoTemp;
 	}
 	
 	public void cargar(){
@@ -154,7 +179,7 @@ public class ControllerImagen{
 		autor1.setText(i.getAutor());
 		Reportado.setSelected(i.isReportado());
 		etiqueta1.setValue(i.getEtiquetas().toString());
-		if(i.getCoordenadas().contains(","))
+		if(i.getCoordenadas()!=null && i.getCoordenadas().contains(","))
 		{
 			latitud1.setText(i.getCoordenadas().split(",")[0]);
 			longitud1.setText(i.getCoordenadas().split(",")[1]);
@@ -264,7 +289,31 @@ public class ControllerImagen{
 	}
 	
 	public void salir(){		
-		System.exit(0);
+		System.out.println("************** EXIT *********\n");
+		stage.close();
+	}
+
+	@Override
+	public Imagen getPojo() {
+		return pojo;
+	}
+
+	@Override
+	public void setDialogStage(Stage stage) {
+		this.stage = stage;
+	}
+
+	@Override
+	public void setPojo(Imagen x) {
+		pojo = x;
+		if(x!=null)
+			cargar();
+	}
+
+	@Override
+	public void cancelar() {
+		pojo = null;
+		stage.close();
 	}
 }
 

@@ -4,7 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-
+import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.auth.Credentials;
 import com.google.cloud.ReadChannel;
 import com.google.cloud.storage.Blob;
@@ -28,6 +28,7 @@ public class GoogleCloudStorageWorker {
 		try {
 			//GoogleCredentials credential = GoogleCredential.getApplicationDefault();
 			Credentials c = GoogleCredentials.getApplicationDefault();
+			//GoogleCredential c1 = GoogleCredential.getApplicationDefault();
 			StorageOptions.getDefaultInstance();
 			Storage storage = (Storage) StorageOptions.newBuilder().setCredentials(c).build().getService();
 
