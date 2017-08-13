@@ -71,4 +71,10 @@ public class ControllerTableRecurso implements ControllerModalBase<Recurso> {
 	
 	@Override
 	public Recurso getPojo() { return pojo;}
+
+	@Override
+	public void cancelar() {
+		pojo = null;
+		stage.close();
+	}
 }
