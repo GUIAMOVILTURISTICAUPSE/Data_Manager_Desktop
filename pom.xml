@@ -90,9 +90,20 @@
             <artifactId>spring-web</artifactId>
         </dependency>
         <dependency>
-    		<groupId>com.google.cloud</groupId>
-    		<artifactId>google-cloud-storage</artifactId>
-    		<version>1.0.1</version>
+    			<groupId>com.google.cloud</groupId>
+    			<artifactId>google-cloud-storage</artifactId>
+    			<version>1.0.1</version>
 		</dependency>
+		<!-- Para procesar la imagen y evitar esos colores raros -->
+		<dependency>
+        		<groupId>com.twelvemonkeys.imageio</groupId>
+        		<artifactId>imageio-jpeg</artifactId>
+        		<version>3.3.2</version> <!-- Alternatively, build your own version -->
+    		</dependency>
+	    <dependency>
+	        <groupId>com.twelvemonkeys.imageio</groupId>
+	        <artifactId>imageio-tiff</artifactId>
+	        <version>3.3.2</version> <!-- Alternatively, build your own version -->
+	    </dependency>
   </dependencies>
 </project>

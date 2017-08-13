@@ -2,15 +2,20 @@ package controllers;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 //Librerias
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Iterator;
+
 import javafx.util.converter.LocalDateStringConverter;
 import pojos.Imagen;
 
 import javax.imageio.ImageIO;
+import javax.imageio.ImageReader;
 
 import cloud.GoogleCloudStorageWorker;
 import javafx.collections.FXCollections;
@@ -53,8 +58,19 @@ public class ControllerImagen{
 	GoogleCloudStorageWorker googleStorageWorker = new GoogleCloudStorageWorker();
 	Imagen pojo = new Imagen();
 	
+	Image image2;
+	BufferedImage bufferedImageToExchage;
+	
 	public ControllerImagen() {
-		
+		twelveMonkeyLibraryTestForImage();
+	}
+
+	private void twelveMonkeyLibraryTestForImage() {
+		ImageIO.scanForPlugins();
+		Iterator<ImageReader> readers = ImageIO.getImageReadersByFormatName("JPEG");
+		while (readers.hasNext()) {
+		    System.out.println("reader: " + readers.next());
+		}
 	}
 	
 	public void initialize(){
@@ -169,11 +185,11 @@ public class ControllerImagen{
 	private void cargarImagenEnImageView(File file)
 	{
         try {
-        	
-            BufferedImage bufferedImage = ImageIO.read(file);
-            
-            Image image = SwingFXUtils.toFXImage(bufferedImage, null);
-            imgImagen.setImage(image);
+        		BufferedImage bufferedImage = ImageIO.read(file);
+        		bufferedImageToExchage = bufferedImage;
+        		Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+        		//image2 = image;
+        		imgImagen.setImage(image);
         } catch (IOException ex) {
             System.err.println("Error al cargar imagen");
             ex.printStackTrace();
@@ -183,15 +199,69 @@ public class ControllerImagen{
 		}
 	}
 	
+	//FIXME : Aqui se hace negra la imagen al convertir a ByteArray
 	private byte[] convertirImagenEnImageViewAByteArray() throws IOException
 	{
-		BufferedImage bufferedImage = SwingFXUtils.fromFXImage(imgImagen.getImage(), null);
+		BufferedImage bufferedImage = SwingFXUtils.fromFXImage(image2, null);
+		bufferedImage = bufferedImageToExchage;
+		//bufferedImageToExchage = bufferedImage;
+		//bufferedImage  = fixBadJPEG(bufferedImage);
 		ByteArrayOutputStream s = new ByteArrayOutputStream();
-		ImageIO.write(bufferedImage, "jpg", s);
+		if(!ImageIO.write(bufferedImage, "jpg", s)) {
+			System.err.println("Error al escribir imagen al byte Array Output Stream");
+		}
+
 		byte[] res = s.toByteArray();
+		s.flush();
+		s.close();
+		convertirByteArrayEnImagenArchivo(res);
 		return res;
 	}
-	
+
+	public void convertirByteArrayEnImagenArchivo(byte[] image)
+	{
+		try {
+			//BufferedImage img = ImageIO.read(new ByteArrayInputStream(image));
+			BufferedImage img = bufferedImageToExchage;
+			String nombreArchivo = LocalDate.now().toString() + "imagen.jpg";
+			File archivo = new File("/Users/ivansanchez/eclipse-workspace/GuiaMovilDataManager/test-image/" + nombreArchivo);
+			ImageIO.write(img, "jpg", archivo);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	private static BufferedImage fixBadJPEG(BufferedImage img)
+	{
+		int[] ary = new int[img.getWidth() * img.getHeight()];
+		img.getRGB(0, 0, img.getWidth(), img.getHeight(), ary, 0, img.getWidth());
+		for (int i = ary.length - 1; i >= 0; i--)
+		{
+			int y = ary[i] >> 16 & 0xFF; // Y
+			int b = (ary[i] >> 8 & 0xFF) - 128; // Pb
+			int r = (ary[i] & 0xFF) - 128; // Pr
+
+			int g = (y << 8) + -88 * b + -183 * r >> 8; //
+			b = (y << 8) + 454 * b >> 8;
+			r = (y << 8) + 359 * r >> 8;
+
+			if (r > 255)
+				r = 255;
+			else if (r < 0) r = 0;
+			if (g > 255)
+				g = 255;
+			else if (g < 0) g = 0;
+			if (b > 255)
+				b = 255;
+			else if (b < 0) b = 0;
+
+			ary[i] = 0xFF000000 | (r << 8 | g) << 8 | b;
+		}
+		img.setRGB(0, 0, img.getWidth(), img.getHeight(), ary, 0, img.getWidth());
+		return img;
+	}
+
 	public void almacenarNube(byte[] imagen)
 	{
 		if(pojo.getId()!=null && !pojo.getId().trim().isEmpty())
@@ -226,9 +296,8 @@ public class ControllerImagen{
 		System.out.println("******DATOS LIMPIOS*****");
 	}
 	
-	public void salir(){
+	public void salir(){		
 		System.exit(0);
 	}
 }
-
 
