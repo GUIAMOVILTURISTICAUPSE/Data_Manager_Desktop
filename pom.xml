@@ -79,7 +79,6 @@
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
-            <version>4.5.3</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -103,7 +102,12 @@
 	    <dependency>
 	        <groupId>com.twelvemonkeys.imageio</groupId>
 	        <artifactId>imageio-tiff</artifactId>
-	        <version>3.3.2</version> <!-- Alternatively, build your own version -->
+	        <version>3.3.2</version> 
 	    </dependency>
+	    <!-- Para procesar LocalDate de Java8. https://stackoverflow.com/questions/27952472/serialize-deserialize-java-8-java-time-with-jackson-json-mapper -->
+	    <dependency>
+        		<groupId>com.fasterxml.jackson.datatype</groupId>
+        		<artifactId>jackson-datatype-jsr310</artifactId>
+    		</dependency>
   </dependencies>
 </project>
