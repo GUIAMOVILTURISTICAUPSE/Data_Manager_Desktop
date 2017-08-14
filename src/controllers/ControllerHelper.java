@@ -129,7 +129,7 @@ public class ControllerHelper<R> {
 			x1 = controller.getPojo();
 			System.out.println(x1);
 		} catch(Exception e) {
-			e.printStackTrace();
+			e.printStackTrace(); //Retorna Connection reset cuando demora mucho
 		}
 		return x1;
 	}

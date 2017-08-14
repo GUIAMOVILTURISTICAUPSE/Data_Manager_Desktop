@@ -2,6 +2,7 @@ package controllers;
 
 //Librerias para procesamiento de imagen
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
@@ -9,8 +10,7 @@ import javafx.embed.swing.SwingFXUtils;
 
 import java.io.File;
 import java.io.IOException;
-
-
+import java.net.UnknownHostException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -41,6 +41,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 
 public class ControllerImagen implements ControllerModalBase<Imagen>{
 		
@@ -175,7 +176,20 @@ public class ControllerImagen implements ControllerModalBase<Imagen>{
 		descripcion1.setText(i.getDescripcion());
 		fecha1.setValue(i.getFecha());
 		titulo1.setText(i.getTitulo());
-		url1.setText(i.getUrl());
+		
+		if(i.getUrl()!=null && !i.getUrl().equals(""))
+		{
+			url1.setText(i.getUrl());
+			//dibujarImagenDesdeGoogleCloudId(i.getId());
+			
+		}
+		
+		if(i.getId()!=null && !i.getId().equals(""))
+		{
+			dibujarImagenDesdeGoogleCloudId(i.getId());
+			
+		}
+		
 		autor1.setText(i.getAutor());
 		Reportado.setSelected(i.isReportado());
 		etiqueta1.setValue(i.getEtiquetas().toString());
@@ -224,6 +238,17 @@ public class ControllerImagen implements ControllerModalBase<Imagen>{
 		}
 	}
 	
+	private void cargarImagenEnImageView(String url)
+	{
+		try {
+			imgImagen = new ImageView(url);
+		}catch(IllegalArgumentException iae)
+		{
+			ControllerHelper.mostrarAlertaError("Error, url de Imagen invalida.");
+		}
+	}
+	
+	//TODO Refactorizar este metodo, res no hace nada, de hecho no necesito retornar byte[]. Necesito mas yerba para resolver esto.
 	private byte[] convertirImagenEnImageViewAByteArray() throws IOException
 	{
 		BufferedImage bufferedImage = bufferedImageToExchage;
@@ -235,11 +260,22 @@ public class ControllerImagen implements ControllerModalBase<Imagen>{
 		byte[] res = s.toByteArray();
 		s.flush();
 		s.close();
-		convertirByteArrayEnImagenArchivo(res);
+		convertirByteArrayEnImagenArchivo();
 		return res;
 	}
+	
+	private void dibujarImagenDesdeGoogleCloudId(String id)
+	{
+		Image image = GoogleCloudStorageWorker.getImage(id);
+		if(image!=null)
+			imgImagen.setImage(image);
+		
+	}
+	
 
-	public void convertirByteArrayEnImagenArchivo(byte[] image)
+
+
+	public void convertirByteArrayEnImagenArchivo()
 	{
 		try {
 			//BufferedImage img = ImageIO.read(new ByteArrayInputStream(image));
@@ -258,9 +294,17 @@ public class ControllerImagen implements ControllerModalBase<Imagen>{
 	{
 		if(pojo.getId()!=null && !pojo.getId().trim().isEmpty())
 		{
-			String url = googleStorageWorker.saveImage(pojo.getId(), imagen);
-			url1.setText(url);
-			url1.setDisable(true);
+			String nombreImagen = pojo.getId() + ".jpg";
+			String url;
+			try {
+				url = googleStorageWorker.saveImage(nombreImagen, imagen);
+				url1.setText(url);
+				url1.setDisable(true);
+			}catch(Exception e){
+				e.printStackTrace();
+				ControllerHelper.mostrarAlertaError("Error de comunicacion. Host (Google Cloud) no se puede resolver."); 
+			}
+			
 		}else{
 			String mensajeErrorID = "No hay ide de imagen valido";
 			System.err.println(mensajeErrorID);	

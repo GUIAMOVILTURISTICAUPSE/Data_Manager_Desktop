@@ -412,7 +412,11 @@ public class ControllerRecurso {
 	{
 		Imagen pojoCargado = ControllerHelper.abrirVistaModal("/ViewImagen.fxml", "Imagen", pojoImagen);
 		if(pojoCargado!=null)
+		{
 			pojoImagen = pojoCargado;
+		}else {
+			ControllerHelper.mostrarAlertaError("No se cargo el pojo de Imagen.");
+		}
 	}
 	
 	public void CargarDatos(Recurso pojo){
