@@ -299,14 +299,7 @@ public class Recurso {
 		this.galeria = galeria;
 	}
 
-	public Imagen getImagenPrinc() {
-		return imagenPrincipal;
-	}
-
-	public void setImagenPrinc(Imagen imagenPrinc) {
-		this.imagenPrincipal = imagenPrinc;
-	}
-
+	
 	public String getPosicion() {
 		return posicion;
 	}

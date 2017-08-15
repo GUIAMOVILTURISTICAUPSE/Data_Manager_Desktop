@@ -3,11 +3,16 @@ package pojos;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class Imagen {
 	private String id;
     private String descripcion;
     private String titulo;
+    
+    //@JsonFormat(pattern = "dd::MM::yyyy")
     private LocalDate fecha;
+    
     private String coordenadas;
     private int votosFavor;
     private int votosContra;

@@ -9,6 +9,7 @@ public class TestGeneratorRecursoMultipleSenderos {
 
 	}
 
+	/*
 	public static void main(String[] args) {
 		// TODO crear recurso con multiples senderos
 		// crear recurso 
@@ -24,5 +25,6 @@ public class TestGeneratorRecursoMultipleSenderos {
 		
 		
 	}
+	*/
 
 }
