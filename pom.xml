@@ -104,11 +104,6 @@
 	        <artifactId>imageio-tiff</artifactId>
 	        <version>3.3.2</version> 
 	    </dependency>
-		<dependency>
-			<groupId>com.google.appengine</groupId>
-			<artifactId>appengine-api-1.0-sdk</artifactId>
-			<version>1.9.54</version>
-		</dependency>
 	    <!-- Para procesar LocalDate de Java8. https://stackoverflow.com/questions/27952472/serialize-deserialize-java-8-java-time-with-jackson-json-mapper -->
 	    <dependency>
         		<groupId>com.fasterxml.jackson.datatype</groupId>

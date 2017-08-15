@@ -5,15 +5,9 @@ import java.io.ByteArrayInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.lang.reflect.Array;
 
 import javax.imageio.ImageIO;
 
-import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
-import com.google.appengine.api.blobstore.BlobKey;
-import com.google.appengine.api.blobstore.BlobstoreService;
-import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
-import com.google.appengine.api.images.ImagesServiceFactory;
 import com.google.auth.Credentials;
 import com.google.cloud.ReadChannel;
 import com.google.cloud.storage.Blob;
@@ -30,7 +24,7 @@ import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageException;
 import com.google.cloud.storage.StorageOptions;
 
-import com.google.appengine.api.images.Image;
+
 
 import com.google.auth.oauth2.*;
 
@@ -114,15 +108,6 @@ public class GoogleCloudStorageWorker {
 		Blob blob = storage.get(bucketName, blobId);
 		return blob.getSelfLink().equalsIgnoreCase(url);
 	}
-
-	/*
-	public static javafx.scene.image.Image getImage(String imageId)
-	{
-		BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
-	    BlobKey blobKey = blobstoreService.createGsBlobKey("/gs/" + bucketName + "/image.jpeg");
-	    Image blobImage = ImagesServiceFactory.makeImageFromBlob(blobKey);
-	    return convertToJavaFXImage(blobImage.getImageData(), blobImage.getWidth(), blobImage.getHeight());
-	}*/
 
 	public static javafx.scene.image.Image getImage(String imageId)
 	{
