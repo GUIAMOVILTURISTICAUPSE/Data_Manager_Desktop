@@ -272,9 +272,6 @@ public class ControllerImagen implements ControllerModalBase<Imagen>{
 		
 	}
 	
-
-
-
 	public void convertirByteArrayEnImagenArchivo()
 	{
 		try {
@@ -294,7 +291,7 @@ public class ControllerImagen implements ControllerModalBase<Imagen>{
 	{
 		if(pojo.getId()!=null && !pojo.getId().trim().isEmpty())
 		{
-			String nombreImagen = pojo.getId() + ".jpg";
+			String nombreImagen = pojo.getId();
 			String url;
 			try {
 				url = googleStorageWorker.saveImage(nombreImagen, imagen);
