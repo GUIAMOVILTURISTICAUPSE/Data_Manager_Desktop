@@ -291,8 +291,14 @@ public class ControllerSenderos implements ControllerModalBase<Sendero>{
 	public void abrirPantallaModalNuevoTransporteSendero()
 	{
 		pojoTransporte = ControllerHelper.abrirVistaModal("/ViewTransporteSendero.fxml", "Transporte", null);
-		listTransporteSendero.getItems().add(pojoTransporte);
-		pojo.getTransporte().add(pojoTransporte);
+		if(pojoTransporte!=null)
+			listTransporteSendero.getItems().add(pojoTransporte);
+		
+		if(pojoTransporte!=null){
+			pojo.getTransporte().add(pojoTransporte);
+		}else{
+			ControllerHelper.mostrarAlertaError("Cerro sin llenar el formulario.");
+		}
 	}
 	
 	public void abrirPantallaModalCargarTransporteSendero()

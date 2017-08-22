@@ -274,7 +274,12 @@ public class ControllerTransporteSendero implements ControllerModalBase<Transpor
 		if(x!=null)
 			cargarDatos(x);
 	}
-	
-	
-	
+
+	//TODO Refactorizar esto en un metodo general en clase abstracta de nivel superior
+	//Todos los metodos cancelar son iguales.
+	@Override
+	public void cancelar() {
+		pojo = null;
+		stage.close();
+	}	
 }
