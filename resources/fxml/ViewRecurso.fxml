@@ -140,9 +140,10 @@
       </AnchorPane>
       <Pane fx:id="gcinco" layoutX="676.0" layoutY="24.0" prefHeight="170.0" prefWidth="324.0">
          <children>
-            <ListView fx:id="listViewImagenes" layoutX="5.0" layoutY="29.0" prefHeight="146.0" prefWidth="316.0" />
-            <Label layoutX="5.0" layoutY="4.0" text="Imagenes del Recurso" />
-            <Button fx:id="btnIrImagen" layoutX="220.0" layoutY="1.0" mnemonicParsing="false" onAction="#irImagen" prefHeight="25.0" prefWidth="101.0" text="Ir a Imagen" />
+            <ListView fx:id="listViewImagenes" layoutX="5.0" layoutY="50.0" prefHeight="130.0" prefWidth="316.0" />
+            <Label layoutX="5.0" layoutY="0.0" text="Imagenes del Recurso" />
+            <Button fx:id="btnCrearImagen" layoutX="210.0" layoutY="20.0" mnemonicParsing="false" onAction="#abrirPantallaModalNuevaImagen" prefHeight="25.0" prefWidth="110.0" text="Nueva Imagen" />
+            <Button fx:id="btnCargarImagen" layoutX="110.0" layoutY="20.0" mnemonicParsing="false" onAction="#abrirPantallaModalCargarImagen" prefHeight="25.0" prefWidth="110.0" text="Cargar Imagen" />
          </children>
       </Pane>
       <Pane fx:id="gtres" layoutX="680.0" layoutY="194.0" prefHeight="98.0" prefWidth="275.0">

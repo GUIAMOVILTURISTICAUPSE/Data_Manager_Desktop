@@ -95,5 +95,6 @@
       <Button layoutX="98.0" layoutY="510.0" mnemonicParsing="false" onAction="#limpiarPantalla" styleClass="botones" text="LIMPIAR" />
       <Button layoutX="178.0" layoutY="510.0" mnemonicParsing="false" onAction="#cargar" styleClass="botones" text="CARGAR" />
       <Button layoutX="253.0" layoutY="510.0" mnemonicParsing="false" onAction="#salir" styleClass="botones" text="SALIR" />
+      <Button layoutX="309.0" layoutY="510.0" mnemonicParsing="false" onAction="#cancelar" styleClass="botones" text="ATRAS" />
    </children>
 </AnchorPane>

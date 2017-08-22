@@ -2,7 +2,6 @@ package webservices;
 
 import java.lang.reflect.Array;
 import java.net.URI;
-import java.net.URLEncoder;
 import java.util.Arrays;
 import java.util.List;
 
@@ -13,11 +12,13 @@ import org.springframework.http.MediaType;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
-import com.couchbase.client.java.document.json.JsonObject;
-import com.couchbase.client.java.transcoder.JacksonTransformers;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 public class GenericWebServiceConsumer<X> implements ConsumableWebService<X>{
 
+	public static final ObjectMapper mapper = createMapper();
 	private final Class<X> valueTypeParameterClass;
 	//private final Class<X[]> valueTypeParameterClassArray;
 	
@@ -27,6 +28,13 @@ public class GenericWebServiceConsumer<X> implements ConsumableWebService<X>{
 	 //   	this.valueTypeParameterClassArray
 	 }
 	
+	private static ObjectMapper createMapper() {
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+		mapper.registerModule(new JavaTimeModule());
+		return mapper;
+	}
+
 	@Override
 	public X consumeGet(String url, String... params) {
 		 RestTemplate restTemplate = new RestTemplate();
@@ -66,7 +74,8 @@ public class GenericWebServiceConsumer<X> implements ConsumableWebService<X>{
 			HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.APPLICATION_JSON);
 			
-			String xAsJson = JacksonTransformers.MAPPER.writeValueAsString(x);
+			
+			String xAsJson = mapper.writeValueAsString(x);
 			System.out.println("Objeto a imprimir como JSON: " + xAsJson);
 			HttpEntity<String> entity = new HttpEntity<String>(xAsJson,headers);
 			respuesta = restTemplate.postForObject(urlCompleto, entity, String.class);

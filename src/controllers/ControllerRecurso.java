@@ -104,13 +104,19 @@ public class ControllerRecurso {
 	ArrayList<PreguntasFrecuentes> listpreguntas = new ArrayList<>();
 	ObservableList<TipoAccesibilidad> selectItemsTipoAccesibilidad;
 
+	//Pojos para rellenar en otras pantallas y paso de objetos entre controladores
 	private Sendero pojoSendero;
+	private Imagen pojoImagen;
 	
 	public String id_sendero_cap;
 	
 	public ControllerRecurso()
 	{	
 	}
+	
+	Context context = Context.getInstance();
+	Recurso pojo = new Recurso();
+	
 	
 	public void initialize(){
 		setPromptText();
@@ -120,6 +126,7 @@ public class ControllerRecurso {
 		cargarTipoAtractivo();
 		cargarTiposDeParqueo();
 		cargarListasConString();
+
 	}
 	
 	private void setPromptText() {
@@ -146,8 +153,7 @@ public class ControllerRecurso {
 		textTwitter.setPromptText("Twitter");
 	}
 	
-	Recurso pojo = new Recurso();
-	
+
 	public Recurso Guardar(){
 
 		Recurso pojoTemp = new Recurso();		
@@ -198,9 +204,12 @@ public class ControllerRecurso {
 		}
 		
 		pojoTemp.getCostoRecursos().add(comboCosto.getValue());
-		float ranking = Float.parseFloat(textRanking.getText());
-		pojoTemp.setRanking(ranking);
-		
+		if(!textRanking.getText().isEmpty())
+		{
+			float ranking = Float.parseFloat(textRanking.getText());
+			pojoTemp.setRanking(ranking);
+		}
+
 		if (checkActivo.isSelected()== true){
 			pojoTemp.setEstado(Estado.ACTIVO);
 			
@@ -378,13 +387,36 @@ public class ControllerRecurso {
 	public void abrirPantallaModalNuevoSendero()
 	{
 		pojoSendero = ControllerHelper.abrirVistaModal("/ViewSenderos.fxml", "Sendero", null);
-		listViewSenderos.getItems().add(pojoSendero);
+		if(pojoSendero!=null)
+			listViewSenderos.getItems().add(pojoSendero);
 		pojo.getSendero().add(pojoSendero);
 	}
 	
 	public void abrirPantallaModalCargarSendero()
 	{
-		pojoSendero = ControllerHelper.abrirVistaModal("/ViewSenderos.fxml", "Sendero", pojoSendero);
+		Sendero pojoCargado = ControllerHelper.abrirVistaModal("/ViewSenderos.fxml", "Sendero", pojoSendero);
+		if(pojoCargado!=null) 
+			pojoSendero = pojoCargado; 
+	}
+	
+	public void abrirPantallaModalNuevaImagen()
+	{
+		pojo = Guardar();
+		pojoImagen = ControllerHelper.abrirVistaModal("/ViewImagen.fxml", "Imagen", null);
+		if(pojoImagen!=null)
+			listViewImagenes.getItems().add(pojoImagen);
+		pojo.getGaleria().add(pojoImagen);
+	}
+	
+	public void abrirPantallaModalCargarImagen()
+	{
+		Imagen pojoCargado = ControllerHelper.abrirVistaModal("/ViewImagen.fxml", "Imagen", pojoImagen);
+		if(pojoCargado!=null)
+		{
+			pojoImagen = pojoCargado;
+		}else {
+			ControllerHelper.mostrarAlertaError("No se cargo el pojo de Imagen.");
+		}
 	}
 	
 	public void CargarDatos(Recurso pojo){
@@ -461,6 +493,7 @@ public class ControllerRecurso {
 		
 		ObservableList<Imagen> imagenesSeleccionado = FXCollections.observableArrayList(pojo.getGaleria());
 		listViewImagenes.setItems(imagenesSeleccionado);
+		listViewImagenes.setOnMouseClicked(e -> pojoImagen = listViewImagenes.getSelectionModel().getSelectedItem());
 		
 	}
 	
@@ -510,28 +543,7 @@ public class ControllerRecurso {
 	
 	
 
-	public void irImagen()
-	{
-		try {
-			Parent parent = FXMLLoader.load(getClass().getResource("/ViewImagen.fxml"));
-			Stage stage = new Stage();
-			Scene scene = new Scene(parent,460,549);
-			stage.setScene(scene);
-			stage.setTitle(" VISTA DE IMAGEN ");
-			stage.show();
-			/*
-			Parent parent = FXMLLoader.load(getClass().getResource("/ViewSenderos.fxml"));
-			Stage stage = new Stage();
-			Scene scene = new Scene(parent,1025,650);
-			stage.setScene(scene);
-			stage.setTitle(" SENDEROS ");
-			stage.show();
-			*/
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+
 
 	public void cargarTipoAccesibilidad()
 	{

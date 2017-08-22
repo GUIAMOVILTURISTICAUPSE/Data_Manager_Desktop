@@ -304,6 +304,13 @@ public class ControllerSenderos implements ControllerModalBase<Sendero>{
 		System.out.println("************** EXIT *********\n");
 		stage.close();
 	}
+	
+	@Override
+	public void cancelar()
+	{
+		pojo = null;
+		stage.close();
+	}
 
 	@Override
 	public Sendero getPojo() {

@@ -1,9 +1,11 @@
 package controllers;
 
+import java.io.IOException;
 import java.util.List;
 
 import configuration.PropertyManager;
 import javafx.fxml.FXMLLoader;
+
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -12,6 +14,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import main.java.Main;
 import pojos.Recurso;
+
 import webservices.GenericWebServiceConsumer;
 
 public class ControllerHelper<R> {
@@ -126,7 +129,7 @@ public class ControllerHelper<R> {
 			x1 = controller.getPojo();
 			System.out.println(x1);
 		} catch(Exception e) {
-			e.printStackTrace();
+			e.printStackTrace(); //Retorna Connection reset cuando demora mucho
 		}
 		return x1;
 	}

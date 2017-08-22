@@ -1,24 +1,38 @@
 package controllers;
 
+//Librerias para procesamiento de imagen
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import javax.imageio.ImageIO;
+import javax.imageio.ImageReader;
+import javafx.embed.swing.SwingFXUtils;
+
 import java.io.File;
 import java.io.IOException;
-//Librerias
+import java.net.UnknownHostException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+
+import java.util.Iterator;
+
 import javafx.util.converter.LocalDateStringConverter;
 import pojos.Imagen;
-
-import javax.imageio.ImageIO;
+import pojos.Recurso;
+import pojos.Sendero;
+import pojos.Imagen;
 
 import cloud.GoogleCloudStorageWorker;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.embed.swing.SwingFXUtils;
+
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -27,8 +41,9 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 
-public class ControllerImagen{
+public class ControllerImagen implements ControllerModalBase<Imagen>{
 		
 	@FXML private TextField ID1;
 	@FXML private TextArea descripcion1;
@@ -52,9 +67,25 @@ public class ControllerImagen{
 	
 	GoogleCloudStorageWorker googleStorageWorker = new GoogleCloudStorageWorker();
 	Imagen pojo = new Imagen();
+	//Recurso recurso;
+	private Stage stage;
+
+	//BufferedImage para tener la imagen en memoria y poder procesarla correctamente. No borrar HP!
+	BufferedImage bufferedImageToExchage;
+	
+	Context context = Context.getInstance();
+	ControllerHelper<Imagen> controllerHelper = new ControllerHelper<Imagen>();
 	
 	public ControllerImagen() {
-		
+		twelveMonkeyLibraryTestForImage();
+	}
+
+	private void twelveMonkeyLibraryTestForImage() {
+		ImageIO.scanForPlugins();
+		Iterator<ImageReader> readers = ImageIO.getImageReadersByFormatName("JPEG");
+		while (readers.hasNext()) {
+		    System.out.println("reader: " + readers.next());
+		}
 	}
 	
 	public void initialize(){
@@ -66,22 +97,27 @@ public class ControllerImagen{
 	/**
 	 * Metodo valido, creado por Ivan en Junio 2017
 	 */
-	public void guardar(){
-		pojo.setId(ID1.getText());
-		pojo.setDescripcion(descripcion1.getText());
-		pojo.setFecha(fecha1.getValue());
-		pojo.setTitulo(titulo1.getText());
+	public Imagen guardar(){
+		Imagen pojoTemp = new Imagen();
+		if(pojo!=null)
+		{
+			pojoTemp = pojo;
+		}
+		pojoTemp.setId(ID1.getText());
+		pojoTemp.setDescripcion(descripcion1.getText());
+		pojoTemp.setFecha(fecha1.getValue());
+		pojoTemp.setTitulo(titulo1.getText());
 		
 		if(!url1.getText().trim().equals(""))
 		{
 			if(googleStorageWorker.checkIfImageExists(ID1.getText(), url1.getText().trim()))
 			{
-				pojo.setUrl(url1.getText());
+				pojoTemp.setUrl(url1.getText());
 			}else{
 				String mensajeError = "No se puede guardar porque el url no es valido.";
 				System.err.println(mensajeError);
 				ControllerHelper.mostrarAlertaError(mensajeError);
-				return;
+				return null;
 			}
 			
 		}else{
@@ -89,31 +125,33 @@ public class ControllerImagen{
 			if(imgImagen.getImage()!=null)
 			{
 				try {
+					//Solucion temporal para que el id no vaya vacio, llenar el pojo con pojoTemp en este punto
+					pojo = pojoTemp;
 					almacenarNube(convertirImagenEnImageViewAByteArray());
 				} catch (IOException e) {
 					String mensajeErrorTransformarImagen =  "Error en al almacenar la imagen en la nube. " + e;
 					ControllerHelper.mostrarAlertaError(mensajeErrorTransformarImagen);
 					System.err.println(mensajeErrorTransformarImagen);
 					e.printStackTrace();
-					return;
+					return null;
 				}
 			}else{
 				String mensajeError = "No se puede guardar porque no hay cargada una imagen en el imageView.";
 				System.err.println(mensajeError);
 				ControllerHelper.mostrarAlertaError(mensajeError);
-				return;
+				return null;
 			}			
 		}
 		
 		
-		pojo.setUrl(url1.getText());
-		pojo.setAutor(autor1.getText());
-		pojo.setCoordenadas(latitud1.getText()+","+longitud1.getText());
+		pojoTemp.setUrl(url1.getText());
+		pojoTemp.setAutor(autor1.getText());
+		pojoTemp.setCoordenadas(latitud1.getText()+","+longitud1.getText());
 		//TODO Soportar agregar a un usuario como autor de la imagen (a futuro).
 		//pojo.setAutorUsuario(); 
-		pojo.setReportado(Reportado.isSelected());
-		pojo.setVotosFavor(spinner.getValue());
-		pojo.setVotosContra(spinner1.getValue());
+		pojoTemp.setReportado(Reportado.isSelected());
+		pojoTemp.setVotosFavor(spinner.getValue());
+		pojoTemp.setVotosContra(spinner1.getValue());
 		//TODO Permitir agregar y editar etiquetas con un generador de Strings a traves de GUI
 		//pojo.setEtiquetas(etiqueta1.getValue().toString());  ***************************************** ETIQUETAS ????? LATITUD Y LONGITUD ?????
 		//falta etiquetas array list combobox
@@ -121,6 +159,10 @@ public class ControllerImagen{
 		//falta votos favor y contra del spinner :C segundo parcial segun indicaciones
 		System.out.println("******DATOS GUARDADOS*****");
 		System.out.println(pojo.toStringComplete());
+		
+		stage.close();
+		pojo = pojoTemp;
+		return pojoTemp;
 	}
 	
 	public void cargar(){
@@ -134,11 +176,24 @@ public class ControllerImagen{
 		descripcion1.setText(i.getDescripcion());
 		fecha1.setValue(i.getFecha());
 		titulo1.setText(i.getTitulo());
-		url1.setText(i.getUrl());
+		
+		if(i.getUrl()!=null && !i.getUrl().equals(""))
+		{
+			url1.setText(i.getUrl());
+			//dibujarImagenDesdeGoogleCloudId(i.getId());
+			
+		}
+		
+		if(i.getId()!=null && !i.getId().equals(""))
+		{
+			dibujarImagenDesdeGoogleCloudId(i.getId());
+			
+		}
+		
 		autor1.setText(i.getAutor());
 		Reportado.setSelected(i.isReportado());
 		etiqueta1.setValue(i.getEtiquetas().toString());
-		if(i.getCoordenadas().contains(","))
+		if(i.getCoordenadas()!=null && i.getCoordenadas().contains(","))
 		{
 			latitud1.setText(i.getCoordenadas().split(",")[0]);
 			longitud1.setText(i.getCoordenadas().split(",")[1]);
@@ -169,11 +224,11 @@ public class ControllerImagen{
 	private void cargarImagenEnImageView(File file)
 	{
         try {
-        	
-            BufferedImage bufferedImage = ImageIO.read(file);
-            
-            Image image = SwingFXUtils.toFXImage(bufferedImage, null);
-            imgImagen.setImage(image);
+        		BufferedImage bufferedImage = ImageIO.read(file);
+        		bufferedImageToExchage = bufferedImage;
+        		Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+        		//image2 = image;
+        		imgImagen.setImage(image);
         } catch (IOException ex) {
             System.err.println("Error al cargar imagen");
             ex.printStackTrace();
@@ -183,22 +238,70 @@ public class ControllerImagen{
 		}
 	}
 	
+	private void cargarImagenEnImageView(String url)
+	{
+		try {
+			imgImagen = new ImageView(url);
+		}catch(IllegalArgumentException iae)
+		{
+			ControllerHelper.mostrarAlertaError("Error, url de Imagen invalida.");
+		}
+	}
+	
+	//TODO Refactorizar este metodo, res no hace nada, de hecho no necesito retornar byte[]. Necesito mas yerba para resolver esto.
 	private byte[] convertirImagenEnImageViewAByteArray() throws IOException
 	{
-		BufferedImage bufferedImage = SwingFXUtils.fromFXImage(imgImagen.getImage(), null);
+		BufferedImage bufferedImage = bufferedImageToExchage;
 		ByteArrayOutputStream s = new ByteArrayOutputStream();
-		ImageIO.write(bufferedImage, "jpg", s);
+		if(!ImageIO.write(bufferedImage, "jpg", s)) {
+			System.err.println("Error al escribir imagen al byte Array Output Stream");
+		}
+
 		byte[] res = s.toByteArray();
+		s.flush();
+		s.close();
+		convertirByteArrayEnImagenArchivo();
 		return res;
 	}
+	
+	private void dibujarImagenDesdeGoogleCloudId(String id)
+	{
+		Image image = GoogleCloudStorageWorker.getImage(id);
+		if(image!=null)
+			imgImagen.setImage(image);
+		
+	}
+	
+	public void convertirByteArrayEnImagenArchivo()
+	{
+		try {
+			//BufferedImage img = ImageIO.read(new ByteArrayInputStream(image));
+			BufferedImage img = bufferedImageToExchage;
+			String nombreArchivo = LocalDate.now().toString() + "imagen.jpg";
+			File archivo = new File("/Users/ivansanchez/eclipse-workspace/GuiaMovilDataManager/test-image/" + nombreArchivo);
+			ImageIO.write(img, "jpg", archivo);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 	
 	public void almacenarNube(byte[] imagen)
 	{
 		if(pojo.getId()!=null && !pojo.getId().trim().isEmpty())
 		{
-			String url = googleStorageWorker.saveImage(pojo.getId(), imagen);
-			url1.setText(url);
-			url1.setDisable(true);
+			String nombreImagen = pojo.getId();
+			String url;
+			try {
+				url = googleStorageWorker.saveImage(nombreImagen, imagen);
+				url1.setText(url);
+				url1.setDisable(true);
+			}catch(Exception e){
+				e.printStackTrace();
+				ControllerHelper.mostrarAlertaError("Error de comunicacion. Host (Google Cloud) no se puede resolver."); 
+			}
+			
 		}else{
 			String mensajeErrorID = "No hay ide de imagen valido";
 			System.err.println(mensajeErrorID);	
@@ -226,9 +329,32 @@ public class ControllerImagen{
 		System.out.println("******DATOS LIMPIOS*****");
 	}
 	
-	public void salir(){
-		System.exit(0);
+	public void salir(){		
+		System.out.println("************** EXIT *********\n");
+		stage.close();
+	}
+
+	@Override
+	public Imagen getPojo() {
+		return pojo;
+	}
+
+	@Override
+	public void setDialogStage(Stage stage) {
+		this.stage = stage;
+	}
+
+	@Override
+	public void setPojo(Imagen x) {
+		pojo = x;
+		if(x!=null)
+			cargar();
+	}
+
+	@Override
+	public void cancelar() {
+		pojo = null;
+		stage.close();
 	}
 }
-
 
