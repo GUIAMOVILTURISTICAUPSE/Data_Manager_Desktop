@@ -389,7 +389,11 @@ public class ControllerRecurso {
 		pojoSendero = ControllerHelper.abrirVistaModal("/ViewSenderos.fxml", "Sendero", null);
 		if(pojoSendero!=null)
 			listViewSenderos.getItems().add(pojoSendero);
-		pojo.getSendero().add(pojoSendero);
+		if(pojoSendero!=null){
+			pojo.getSendero().add(pojoSendero);
+		}else{
+			ControllerHelper.mostrarAlertaError("Cerro sin llenar el formulario.");
+		}
 	}
 	
 	public void abrirPantallaModalCargarSendero()
