@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+   <content>
+      <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="575.0" prefWidth="628.0">
+         <children>
+            <HBox alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="19.0" prefWidth="593.0">
+               <children>
+                  <Label text="TRANSPORTE SENDEROS" />
+               </children>
+            </HBox>
+            <HBox prefHeight="44.0" prefWidth="600.0">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="245.0" text="ID_SENDERO" />
+                  <TextField fx:id="txtIdTSendero" alignment="CENTER" prefHeight="25.0" prefWidth="315.0" />
+               </children>
+            </HBox>
+            <HBox prefHeight="44.0" prefWidth="600.0">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="245.0" text="TIPO DE TRANSPORTE " />
+                  <ComboBox fx:id="combotipoTransporte" prefHeight="25.0" prefWidth="315.0" />
+               </children>
+            </HBox>
+            <HBox prefHeight="44.0" prefWidth="600.0">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="245.0" text="OBLIGATORIO" />
+                  <CheckBox fx:id="checkObligatorio" mnemonicParsing="false" prefHeight="17.0" prefWidth="315.0" />
+               </children>
+            </HBox>
+            <HBox prefHeight="45.0" prefWidth="600.0">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="245.0" text="COSTO " />
+                  <ComboBox fx:id="comboCosto" prefHeight="25.0" prefWidth="315.0" />
+               </children>
+            </HBox>
+            <HBox prefHeight="44.0" prefWidth="600.0">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="245.0" text="DURACION" />
+                  <TextField fx:id="textDuracion" prefHeight="25.0" prefWidth="315.0" />
+               </children>
+            </HBox>
+            <HBox prefHeight="44.0" prefWidth="600.0">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="245.0" text="DISTANCIA" />
+                  <TextField fx:id="textDistancia" prefHeight="25.0" prefWidth="315.0" />
+               </children>
+            </HBox>
+            <HBox prefHeight="109.0" prefWidth="599.0">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="245.0" text="DESCRIPCION" />
+                  <TextArea fx:id="textAreaDescripcion" prefHeight="100.0" prefWidth="315.0" />
+               </children>
+            </HBox>
+            <HBox prefHeight="44.0" prefWidth="599.0">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="245.0" text="ESTADO" />
+                  <CheckBox fx:id="checkActivo" mnemonicParsing="false" text="ACTIVO" />
+               </children>
+            </HBox>
+            <HBox prefHeight="91.0" prefWidth="628.0">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="245.0" text="IMAGEN" />
+                  <ListView fx:id="listViewImagen" prefHeight="91.0" prefWidth="313.0" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="38.0" prefWidth="562.0">
+               <children>
+                  <Button mnemonicParsing="false" text="GUARDAR" />
+                  <Button mnemonicParsing="false" text="LIMPIAR" />
+                  <Button mnemonicParsing="false" text="CARGAR" />
+                  <Button mnemonicParsing="false" text="CANCELAR" />
+                  <Button mnemonicParsing="false" text="SALIR" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </content>
+</ScrollPane>

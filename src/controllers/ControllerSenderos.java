@@ -52,7 +52,7 @@ public class ControllerSenderos implements ControllerModalBase<Sendero>{
 	@FXML private ListView<Atractivo> listatractivos; 
 
 	Sendero pojo = new Sendero();
-
+	private Transporte pojoTransporte ;
 	public ControllerSenderos() {
 
 	}
@@ -68,131 +68,9 @@ public class ControllerSenderos implements ControllerModalBase<Sendero>{
 	public void initialize(){
 
 		setPromptText(); 
-		/**********comentario*********/
-		Comentario comenta = new Comentario();
-		comenta.set_id("001");
-		comenta.setDescipcion("Amen :v");
-		Comentario comenta1 = new Comentario();
-		comenta1.set_id("002");
-		comenta1.setDescipcion("Amen x2 :v");
-		ArrayList<Comentario> ArrayComentario = new ArrayList<Comentario>();
-		ArrayComentario.add(comenta);
-		ArrayComentario.add(comenta1);
-		ObservableList<Comentario> testescomentarios = FXCollections.observableArrayList(ArrayComentario);
-		comboComentario.setItems(testescomentarios);
-		/**********Atractivo************/
-		Atractivo atractivos = new Atractivo();
-		atractivos.setNombre("qwerty");
-		atractivos.setDescripcion("qwerty12345 ");
-		Atractivo atractivos1 = new Atractivo();
-		atractivos1.setNombre("asdfgh");
-		atractivos1.setDescripcion("asdfgh12345 ");
-		ArrayList<Atractivo> ArrayAtractivo = new ArrayList<Atractivo>();
-		ArrayAtractivo.add(atractivos);
-		ArrayAtractivo.add(atractivos1);
-		ObservableList<Atractivo> listaAtractivos = FXCollections.observableArrayList(ArrayAtractivo);
-		listatractivos.setItems(listaAtractivos);	
-		listatractivos.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-		listatractivos.setOnMouseClicked(new EventHandler<Event>() {
-
-			@Override
-			public void handle(Event event) {
-				// TODO Auto-generated method stub
-				tipoAtractivo = listatractivos.getSelectionModel().getSelectedItems();
-			}
-		});
-		/**********LocacionAtractivo*********/
-		LocacionAtractivo LocacionA = new  LocacionAtractivo();
-		LocacionA.setCoordenadasGPS("123456 ");
-		LocacionA.setEstado(Estado.ACTIVO);
-		LocacionAtractivo LocacionA2 = new  LocacionAtractivo();
-		LocacionA2.setCoordenadasGPS("123456 -41454545");
-		LocacionA2.setEstado(Estado.ACTIVO);
-		ArrayList<LocacionAtractivo> arraylocacionA = new ArrayList<LocacionAtractivo>();
-		arraylocacionA.add(LocacionA);
-		arraylocacionA.add(LocacionA2);
-		ObservableList<LocacionAtractivo> listlocacionAtractivo = FXCollections.observableArrayList(arraylocacionA);
-		listLAtractivos.setItems(listlocacionAtractivo);
-		listLAtractivos.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-		listLAtractivos.setOnMouseClicked(new EventHandler<Event>() {
-			@Override
-			public void handle(Event event) {
-				//
-				TipoLocacionAtractivo = listLAtractivos.getSelectionModel().getSelectedItems();
-			}
-		});
-		/**********Imagen*********/
-		Imagen imagen1 = new Imagen();
-		imagen1.setTitulo("1234 ");
-		imagen1.setUrl("dfghjtrewasrhj");
-		Imagen imagen2 = new Imagen();
-		imagen2.setTitulo("1478 ");
-		imagen2.setUrl("asdfdgerdffgbth");
-		ArrayList<Imagen> arrayImagenes = new ArrayList<Imagen>();
-		arrayImagenes.add(imagen1);
-		arrayImagenes.add(imagen2);
-		ObservableList<Imagen> listaImagen = FXCollections.observableArrayList(arrayImagenes);
-		listImagenes.setItems(listaImagen);
-		listImagenes.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-		listImagenes.setOnMouseClicked(new EventHandler<Event>() {
-
-			@Override
-			public void handle(Event event) {
-				// TODO Auto-generated method stub
-				selectedItemsImagen = listImagenes.getSelectionModel().getSelectedItems();
-			}
-
-		});
-
-
-		ObservableList<DificultadRecorrido> listaDificultad = FXCollections.observableArrayList(DificultadRecorrido.values());
-		listDificultadRecorrido.setItems(listaDificultad);
-		listDificultadRecorrido.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-		listDificultadRecorrido.setOnMouseClicked(new EventHandler<Event>() {
-
-			@Override
-			public void handle(Event event) {
-				// TODO Auto-generated method stub
-				LTipoDificultad = listDificultadRecorrido.getSelectionModel().getSelectedItems();
-			}
-		});
-
-		ObservableList<DisponibilidadCelular> listaDispoCelular = FXCollections.observableArrayList(DisponibilidadCelular.values());
-		listDisponibilidadCelular.setItems(listaDispoCelular);
-		listDisponibilidadCelular.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-		listDisponibilidadCelular.setOnMouseClicked(new EventHandler<Event>() {
-
-			@Override
-			public void handle(Event event) {
-				// TODO Auto-generated method stub
-				TipoDisponibilidadCelular=listDisponibilidadCelular.getSelectionModel().getSelectedItems();
-			}
-		});
-
-		//TODO Corregir esta lista transporte, traer llena si amerita (desde base de Datos).
-		ObservableList<Transporte> listaTransporte = FXCollections.observableArrayList();
-		listTransporteSendero.setItems(listaTransporte);
-		listTransporteSendero.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-		listTransporteSendero.setOnMouseClicked(new EventHandler<Event>() {
-
-			@Override
-			public void handle(Event event) {
-				// TODO Auto-generated method stub
-				TransporteOpciones=listTransporteSendero.getSelectionModel().getSelectedItems();
-			}
-		});
-
-		ObservableList<String> ListaEquipamiento= FXCollections.observableArrayList ("Equipa 1", "Equipa 2");
-		listEquipamiento.setItems(ListaEquipamiento);
-		listEquipamiento.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-		listEquipamiento.setOnMouseClicked(new EventHandler<Event>() {
-			@Override
-			public void handle(Event event) {
-				// TODO Auto-generated method stub
-				TipoEquipamento=listEquipamiento.getSelectionModel().getSelectedItems();
-			}			
-		});
-
+		dificultadRecorrido();
+		disponibilidadCelular();
+		 ListaLlenasString();
 	}
 
 	private void setPromptText() {
@@ -306,6 +184,7 @@ public class ControllerSenderos implements ControllerModalBase<Sendero>{
 		listDificultadRecorrido.setItems(LdificultadRecorrido);
 		ObservableList<Atractivo> lAtractivo = FXCollections.observableArrayList(pojos.getAtractivos());
 		listatractivos.setItems(lAtractivo);
+		
 		if (pojos.getComentarios()!=null && pojos.getComentarios().size()>0) {
 			comboComentario.setValue(pojos.getComentarios().get(0));
 		}
@@ -409,6 +288,17 @@ public class ControllerSenderos implements ControllerModalBase<Sendero>{
 			}
 		}
 	}
+	public void abrirPantallaModalNuevoTransporteSendero()
+	{
+		pojoTransporte = ControllerHelper.abrirVistaModal("/ViewTransporteSendero.fxml", "Transporte", null);
+		listTransporteSendero.getItems().add(pojoTransporte);
+		pojo.getTransporte().add(pojoTransporte);
+	}
+	
+	public void abrirPantallaModalCargarTransporteSendero()
+	{
+		pojoTransporte = ControllerHelper.abrirVistaModal("/ViewTransporteSendero.fxml", "Transporte", pojoTransporte);
+	}
 	
 	public void salir(){
 		System.out.println("************** EXIT *********\n");
@@ -431,6 +321,143 @@ public class ControllerSenderos implements ControllerModalBase<Sendero>{
 	public void setDialogStage(Stage stage) {
 		this.stage = stage;
 	}
+	
+	public void dificultadRecorrido()
+	{
+		ObservableList<DificultadRecorrido> listaDificultad = FXCollections.observableArrayList(DificultadRecorrido.values());
+		listDificultadRecorrido.setItems(listaDificultad);
+		listDificultadRecorrido.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+		listDificultadRecorrido.setOnMouseClicked(new EventHandler<Event>() {
+
+			@Override
+			public void handle(Event event) {
+				// TODO Auto-generated method stub
+				LTipoDificultad = listDificultadRecorrido.getSelectionModel().getSelectedItems();
+			}
+		});
+	}
+	
+	public void disponibilidadCelular()
+	{
+		ObservableList<DisponibilidadCelular> listaDispoCelular = FXCollections.observableArrayList(DisponibilidadCelular.values());
+		listDisponibilidadCelular.setItems(listaDispoCelular);
+		listDisponibilidadCelular.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+		listDisponibilidadCelular.setOnMouseClicked(new EventHandler<Event>() {
+
+			@Override
+			public void handle(Event event) {
+				// TODO Auto-generated method stub
+				TipoDisponibilidadCelular=listDisponibilidadCelular.getSelectionModel().getSelectedItems();
+			}
+		});
+	}
+	
+	public void ListaLlenasString()
+	{
+		Comentario comenta = new Comentario();
+		comenta.set_id("001");
+		comenta.setDescipcion("Amen :v");
+		Comentario comenta1 = new Comentario();
+		comenta1.set_id("002");
+		comenta1.setDescipcion("Amen x2 :v");
+		ArrayList<Comentario> ArrayComentario = new ArrayList<Comentario>();
+		ArrayComentario.add(comenta);
+		ArrayComentario.add(comenta1);
+		ObservableList<Comentario> testescomentarios = FXCollections.observableArrayList(ArrayComentario);
+		comboComentario.setItems(testescomentarios);
+		
+		/**********Atractivo************/
+		Atractivo atractivos = new Atractivo();
+		atractivos.setNombre("qwerty");
+		atractivos.setDescripcion("qwerty12345 ");
+		Atractivo atractivos1 = new Atractivo();
+		atractivos1.setNombre("asdfgh");
+		atractivos1.setDescripcion("asdfgh12345 ");
+		ArrayList<Atractivo> ArrayAtractivo = new ArrayList<Atractivo>();
+		ArrayAtractivo.add(atractivos);
+		ArrayAtractivo.add(atractivos1);
+		ObservableList<Atractivo> listaAtractivos = FXCollections.observableArrayList(ArrayAtractivo);
+		listatractivos.setItems(listaAtractivos);	
+		listatractivos.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		listatractivos.setOnMouseClicked(new EventHandler<Event>() {
+
+			@Override
+			public void handle(Event event) {
+				// TODO Auto-generated method stub
+				tipoAtractivo = listatractivos.getSelectionModel().getSelectedItems();
+			}
+		});
+		/**********LocacionAtractivo*********/
+		LocacionAtractivo LocacionA = new  LocacionAtractivo();
+		LocacionA.setCoordenadasGPS("123456 ");
+		LocacionA.setEstado(Estado.ACTIVO);
+		LocacionAtractivo LocacionA2 = new  LocacionAtractivo();
+		LocacionA2.setCoordenadasGPS("123456 -41454545");
+		LocacionA2.setEstado(Estado.ACTIVO);
+		ArrayList<LocacionAtractivo> arraylocacionA = new ArrayList<LocacionAtractivo>();
+		arraylocacionA.add(LocacionA);
+		arraylocacionA.add(LocacionA2);
+		ObservableList<LocacionAtractivo> listlocacionAtractivo = FXCollections.observableArrayList(arraylocacionA);
+		listLAtractivos.setItems(listlocacionAtractivo);
+		listLAtractivos.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+		listLAtractivos.setOnMouseClicked(new EventHandler<Event>() {
+			@Override
+			public void handle(Event event) {
+				//
+				TipoLocacionAtractivo = listLAtractivos.getSelectionModel().getSelectedItems();
+			}
+		});
+		/**********Imagen*********/
+		Imagen imagen1 = new Imagen();
+		imagen1.setTitulo("1234 ");
+		imagen1.setUrl("dfghjtrewasrhj");
+		Imagen imagen2 = new Imagen();
+		imagen2.setTitulo("1478 ");
+		imagen2.setUrl("asdfdgerdffgbth");
+		ArrayList<Imagen> arrayImagenes = new ArrayList<Imagen>();
+		arrayImagenes.add(imagen1);
+		arrayImagenes.add(imagen2);
+		ObservableList<Imagen> listaImagen = FXCollections.observableArrayList(arrayImagenes);
+		listImagenes.setItems(listaImagen);
+		listImagenes.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		listImagenes.setOnMouseClicked(new EventHandler<Event>() {
+
+			@Override
+			public void handle(Event event) {
+				// TODO Auto-generated method stub
+				selectedItemsImagen = listImagenes.getSelectionModel().getSelectedItems();
+			}
+
+		});
+		/**************LISTA DE EQUIPAMIENTO *****************/
+		ObservableList<String> ListaEquipamiento= FXCollections.observableArrayList ("Equipa 1", "Equipa 2");
+		listEquipamiento.setItems(ListaEquipamiento);
+		listEquipamiento.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		listEquipamiento.setOnMouseClicked(new EventHandler<Event>() {
+			@Override
+			public void handle(Event event) {
+				// TODO Auto-generated method stub
+				TipoEquipamento=listEquipamiento.getSelectionModel().getSelectedItems();
+			}			
+		});
+	}
+	
+	public void listaTransportes()
+	{
+		//TODO Corregir esta lista transporte, traer llena si amerita (desde base de Datos).
+				ObservableList<Transporte> listaTransporte = FXCollections.observableArrayList();
+				listTransporteSendero.setItems(listaTransporte);
+				listTransporteSendero.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+				listTransporteSendero.setOnMouseClicked(new EventHandler<Event>() {
+
+					@Override
+					public void handle(Event event) {
+						// TODO Auto-generated method stub
+						TransporteOpciones=listTransporteSendero.getSelectionModel().getSelectedItems();
+					}
+				});
+	}
+	
 }
 
 

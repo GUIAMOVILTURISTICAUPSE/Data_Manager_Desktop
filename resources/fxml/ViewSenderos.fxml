@@ -28,7 +28,7 @@
       <Button layoutX="115.0" layoutY="538.0" mnemonicParsing="false" onAction="#guardar" styleClass="botones" text="Guardar" />
       <Button layoutX="299.0" layoutY="538.0" mnemonicParsing="false" onAction="#limpiar" styleClass="botones" text="Limpiar" />
       <Button layoutX="366.0" layoutY="539.0" mnemonicParsing="false" onAction="#salir" styleClass="botones" text="Salir" />
-      <Button layoutX="241.0" layoutY="538.0" mnemonicParsing="false" styleClass="botones" onAction="#borrarDatosWebService" text="Borrar" />
+      <Button layoutX="241.0" layoutY="538.0" mnemonicParsing="false" onAction="#borrarDatosWebService" styleClass="botones" text="Borrar" />
       <Button layoutX="61.0" layoutY="539.0" mnemonicParsing="false" styleClass="botones" text="Atras" />
       <Label layoutX="40.0" layoutY="115.0" prefHeight="17.0" prefWidth="101.0" styleClass="submenu" text="NOMBRE" />
       <TextField fx:id="txtnombre" layoutX="110.0" layoutY="111.0" prefHeight="25.0" prefWidth="174.0" />
@@ -69,6 +69,8 @@
                     <AnchorPane maxHeight="150.0" minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="200.0">
                            <children>
                               <ListView fx:id="listTransporteSendero" prefHeight="150.0" prefWidth="291.0" />
+                              <Button layoutX="56.0" layoutY="98.0" mnemonicParsing="false" text="Crear Transporte" onAction="#abrirPantallaModalNuevoTransporteSendero" />
+                              <Button layoutX="171.0" layoutY="98.0" mnemonicParsing="false" text="Cargar Transporte" onAction="#abrirPantallaModalCargarTransporteSendero"/>
                            </children>
                         </AnchorPane>
                   </content>
