@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
@@ -16,250 +20,344 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="587.0" prefWidth="954.0" stylesheets="/Estilo.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ControllerRecurso">
-	<HBox prefHeight="525.0" prefWidth="957.0">
-				
-		<VBox prefHeight="525.0" prefWidth="372.0">
-			
-			<HBox>
-				<BorderPane prefHeight="9.0" prefWidth="16.0" />
-				<Label styleClass="label" prefHeight="17.0" prefWidth="89.0" text="Estado" />
-				<CheckBox styleClass="check" fx:id="checkActivo" mnemonicParsing="false" onAction="#checkActivo" text="ACTIVO" />
-				<CheckBox styleClass="check" fx:id="checkInactivo" mnemonicParsing="false" onAction="#checkInactivo" prefHeight="17.0" prefWidth="84.0" text="INACTIVO" />
-				<Button styleClass="boton" fx:id="btnBuscarID" mnemonicParsing="false" onAction="#abrirPantallaModalListaRecurso" text="CargarListaRrc" />
-			</HBox>
-			
-			<HBox>
-				<BorderPane prefHeight="9.0" prefWidth="16.0" />
-				<Label prefHeight="17.0" prefWidth="90.0" text="NOMBRE" styleClass="label"/>
-				<TextField fx:id="textNombre" prefHeight="25.0" prefWidth="138.0" styleClass="textField"/>
-				<Button styleClass="boton" fx:id="btnCargarWS" mnemonicParsing="false" onAction="#cargarDatosWebService" prefHeight="25.0" prefWidth="101.0" text="Cargar/Nombre" />
-			</HBox>
-			
-			<HBox>
-				<BorderPane prefHeight="9.0" prefWidth="16.0" />
-				<Label prefHeight="58.0" prefWidth="90.0" text="DESCRIPCION" styleClass="label"/>
-				<TextArea styleClass="textArea" fx:id="textDescripcion" maxHeight="1.7976931348623157E308" minHeight="-Infinity" prefHeight="60.0" prefWidth="239.0" wrapText="true" />   
-			</HBox>
-			
-			<HBox>
-				<BorderPane prefHeight="9.0" prefWidth="16.0" />
-				<Label prefHeight="59.0" prefWidth="90.0" text="INF. GENERAL" styleClass="label"/>
-				<TextArea styleClass="textArea" fx:id="textInfGeneral" maxHeight="1.7976931348623157E308" minHeight="-Infinity" prefHeight="60.0" prefWidth="239.0" wrapText="true" />
-			</HBox>
-			
-			<HBox>
-				<BorderPane prefHeight="9.0" prefWidth="16.0" />
-				<Label prefHeight="17.0" prefWidth="90.0" text="CATEGORIA" styleClass="label"/>
-				<TextField fx:id="textCategoria" prefHeight="25.0" prefWidth="239.0" styleClass="textField"/>    
-			</HBox>
-			
-			<HBox>
-				<BorderPane prefHeight="9.0" prefWidth="16.0" />
-				<Label prefHeight="17.0" prefWidth="90.0" text="DIRECCION" styleClass="label"/>
-				<TextArea styleClass="textArea" fx:id="textDireccion" maxHeight="1.7976931348623157E308" minHeight="-Infinity" prefHeight="38.0" prefWidth="239.0" wrapText="true" />
-			</HBox>
-			
-			<HBox>
-				<BorderPane prefHeight="9.0" prefWidth="16.0" />
-				<Label alignment="CENTER" prefHeight="17.0" prefWidth="155.0" text="PROVINCIA" styleClass="label"/>
-				<Label alignment="CENTER" prefHeight="17.0" prefWidth="158.0" text="CANTON" styleClass="label"/>    
-			</HBox>
-			
-			<HBox>
-				<BorderPane prefHeight="9.0" prefWidth="16.0" />
-				<TextField fx:id="textProvincia" prefHeight="25.0" prefWidth="157.0" styleClass="textField"/>
-				<TextField fx:id="textCanton" prefHeight="25.0" prefWidth="172.0" styleClass="textField"/>
-			</HBox>
-			
-			<Label alignment="CENTER" prefHeight="17.0" prefWidth="327.0" text="PARROQUIA" textAlignment="CENTER" styleClass="label"/>
-			
-			<HBox>
-				<BorderPane prefHeight="9.0" prefWidth="16.0" />
-				<TextField fx:id="textParroquia" prefHeight="25.0" prefWidth="329.0" styleClass="textField"/>
-			</HBox>	            
-			
-			<HBox>
-				<BorderPane prefHeight="9.0" prefWidth="16.0" />
-				<Label prefHeight="17.0" prefWidth="88.0" text="POSICION" styleClass="label"/>
-				<TextField fx:id="textPosicion" prefHeight="25.0" prefWidth="241.0" styleClass="textField"/>	        	            
-			</HBox>
-			
-			<HBox>
-				<BorderPane prefHeight="9.0" prefWidth="16.0" />
-				<Label prefHeight="17.0" prefWidth="89.0" text="RANKING" styleClass="label"/>
-				<TextField fx:id="textRanking" prefHeight="25.0" prefWidth="239.0" styleClass="textField"/>
-			</HBox>
-			
-			<HBox>
-				<BorderPane prefHeight="9.0" prefWidth="16.0" />
-				<Label prefHeight="17.0" prefWidth="158.0" text="PROPIETARIO" styleClass="label"/>
-				<Label text="PERSONA ENCARGADA" />
-			</HBox>
-			
-			
-			<HBox>
-				<BorderPane prefHeight="9.0" prefWidth="16.0" />
-				<TextField fx:id="textPropietario" prefHeight="25.0" prefWidth="157.0" styleClass="textField"/>
-				<TextField fx:id="textPersonaEncargada" prefHeight="25.0" prefWidth="169.0" styleClass="textField"/>
-			</HBox>
-			
-			<HBox>
-				<BorderPane prefHeight="9.0" prefWidth="16.0" />
-				<Label prefHeight="17.0" prefWidth="88.0" text="Horario" styleClass="label"/>
-				<TextField fx:id="textSeguridad" prefHeight="25.0" prefWidth="239.0" styleClass="textField"/>
-			</HBox>
-			
-			<HBox>
-				<BorderPane prefHeight="9.0" prefWidth="16.0" />
-				<Label prefHeight="17.0" prefWidth="88.0" text="Seguridad" styleClass="label"/>
-				<TextField fx:id="textHorario" prefHeight="25.0" prefWidth="239.0" styleClass="textField"/>
-			</HBox>
-			  
-		</VBox>
-			
-		<VBox prefHeight="525.0" prefWidth="573.0">
-		
-			<HBox prefHeight="317.0" prefWidth="580.0">
-			
-				<HBox>
-				
-					<Accordion fx:id="gdos" prefHeight="317.0" prefWidth="266.0">
-						<panes>
-							<TitledPane animated="false" text="Accesibilidad">
-								<content>
-									<ListView fx:id="listTipoAccesibilidad" prefHeight="79.0" prefWidth="264.0" styleClass="lstView"/>
-								</content>
-							</TitledPane>
-							<TitledPane animated="false" text="Idiomas">
-								<content>
-									<ListView fx:id="listViewIdiomas" prefHeight="77.0" prefWidth="256.0" styleClass="lstView"/>
-								</content>
-							</TitledPane>
-							<TitledPane prefHeight="200.0" prefWidth="200.0" text="Facilidades">
-								<content>
-									<ComboBox fx:id="comboFacilidad" prefWidth="150.0" styleClass="comboBox"/>
-								</content>
-							</TitledPane>
-							<TitledPane animated="false" text="Tipos/Parqueo">
-								<content>
-									<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-										<children>
-											<ListView fx:id="listTiposParqueo" prefHeight="123.0" prefWidth="258.0" styleClass="lstView"/>
-										</children>
-									</AnchorPane>
-								</content>
-							</TitledPane>
-							<TitledPane animated="false" prefHeight="163.0" prefWidth="292.0" text="TiposAtractivos">
-								<content>
-									<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="98.0" prefWidth="259.0">
-										<children>
-											<ListView fx:id="listTiposAtractivos" prefHeight="125.0" prefWidth="257.0" styleClass="lstView"/>
-										</children>
-									</AnchorPane>
-								</content>
-							</TitledPane>
-							<TitledPane animated="false" prefHeight="218.0" prefWidth="266.0" text="Contactos">
-								<content>
-									<AnchorPane>
-										<children>
-											<TextField fx:id="textTelefono" styleClass="textField"/>
-											<TextField fx:id="textFacebook" styleClass="textField"/>
-											<TextField fx:id="textTwitter" styleClass="textField"/>
-											<TextField fx:id="textInstagram" styleClass="textField"/>
-											<Label text="Telefono:" styleClass="label"/>
-											<Label text="Facebook:" styleClass="label"/>
-											<Label text="Twitter:" styleClass="label"/>
-											<Label text="Instagram:" styleClass="label"/>
-											<Label text="Email:" styleClass="label"/>
-											<TextField fx:id="textEmail" styleClass="textField"/>
-										</children>
-									</AnchorPane>
-								</content>
-							</TitledPane>
-							<TitledPane animated="false" text="Senderos">
-								<content>
-									<VBox minHeight="0.0" minWidth="0.0" prefHeight="152.0" prefWidth="264.0">
-										<children>
-											<ListView fx:id="listViewSenderos" prefHeight="123.0" prefWidth="259.0" styleClass="lstView"/>
-											<HBox>
-												<Button styleClass="boton" fx:id="btnCrearSenderos" mnemonicParsing="false" onAction="#abrirPantallaModalNuevoSendero" text="Crear Sendero" />
-												<Button styleClass="boton" fx:id="btnCargarSendero" layoutX="153.0" mnemonicParsing="false" onAction="#abrirPantallaModalCargarSendero" text="Cargar Senderos" />
-											</HBox>
-										</children>
-									</VBox>
-								</content>
-							</TitledPane>
-						</panes>
-					</Accordion>
-				
-				</HBox>
-				
-				<HBox>
-				
-					<BorderPane prefHeight="317.0" prefWidth="33.0" />
-					<VBox prefHeight="317.0" prefWidth="284.0">
-					
-						<HBox>
-							<Label prefHeight="17.0" prefWidth="219.0" text="Imagenes del Recurso" styleClass="label"/>
-							<Button fx:id="btnCrearImagen" layoutX="210.0" layoutY="20.0" mnemonicParsing="false" onAction="#abrirPantallaModalNuevaImagen" prefHeight="25.0" prefWidth="110.0" text="Nueva Imagen" />
-            				<Button fx:id="btnCargarImagen" layoutX="110.0" layoutY="20.0" mnemonicParsing="false" onAction="#abrirPantallaModalCargarImagen" prefHeight="25.0" prefWidth="110.0" text="Cargar Imagen" />
-            			</HBox>
-						<ListView fx:id="listViewImagenes" prefHeight="146.0" prefWidth="338.0" styleClass="lstView"/>
-						
-						<HBox>
-							<Button mnemonicParsing="false" text="Recomendacion" styleClass="boton"/>
-							<ComboBox fx:id="comboRecomendacion" prefWidth="150.0" styleClass="comboBox"/>
-						</HBox>
-						
-						<HBox>
-							<Button mnemonicParsing="false" text="Contactos" styleClass="boton"/>
-							<BorderPane prefHeight="25.0" prefWidth="32.0" />
-							<ComboBox fx:id="comboContactos" prefWidth="150.0" styleClass="comboBox"/>							    
-						</HBox>
-						
-						<HBox>
-							<Button mnemonicParsing="false" text="Costos" styleClass="boton"/>
-							<BorderPane prefHeight="25.0" prefWidth="51.0" />
-							<ComboBox fx:id="comboCosto" prefHeight="25.0" prefWidth="150.0" styleClass="comboBox"/>
-						</HBox>
-						
-					</VBox>
-				
-				</HBox>
-			
-			</HBox>
-			
-			<HBox>
-				<Label text="PREGUNTAS:" styleClass="label"/>
-				<TextArea styleClass="textArea" fx:id="textpreguntasf" maxHeight="1.7976931348623157E308" prefHeight="38.0" prefWidth="444.0" wrapText="true" />
-				<Button mnemonicParsing="false" onAction="#guardarPreguntas" text="AÑADIR" styleClass="boton"/>
-			</HBox>
-			
-			<HBox prefHeight="38.0" prefWidth="584.0">
-				<Label text="RESPUESTAS:" styleClass="label"/>
-				<TextArea styleClass="textArea" fx:id="textRespuestas" maxHeight="1.7976931348623157E308" prefHeight="38.0" prefWidth="443.0" wrapText="true" />	            
-			</HBox>
-			
-			<TableView fx:id="tablePreRes" prefHeight="132.0" prefWidth="543.0">
-				<columns>
-					<TableColumn styleClass="tablas" fx:id="columPregunta" prefWidth="315.0" text="Preguntas" />
-					<TableColumn styleClass="tablas" fx:id="columRespuestas" prefWidth="310.0" text="Respuesta" />
-				</columns>
-			</TableView>
-			
-		</VBox>
-		
-	</HBox>
-	
-	<HBox alignment="CENTER">
-	
-		<Button mnemonicParsing="false" prefHeight="38.0" prefWidth="59.0" text="ATRAS" styleClass="boton"/>
-		<Button mnemonicParsing="false" onAction="#borrarDatosWebService" text="BORRAR" styleClass="boton"/>
-		<Button mnemonicParsing="false" onAction="#guardarDatosWebService" text="GUARDAR" styleClass="boton"/>
-		<Button mnemonicParsing="false" onAction="#limpiarPantalla" text="LIMPIAR" styleClass="boton"/>
-		<Button mnemonicParsing="false" onAction="#Salir" prefHeight="34.0" prefWidth="56.0" text="SALIR" styleClass="botonSalir"/>
-	
-	</HBox>
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="587.0" prefWidth="954.0" stylesheets="/Estilo.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ControllerRecurso">
+   <children>
+   	<HBox prefHeight="525.0" prefWidth="957.0">
+      <children>
+      				
+      		<VBox prefHeight="525.0" prefWidth="372.0">
+         <children>
+         			
+         			<HBox>
+            <children>
+            				<BorderPane prefHeight="9.0" prefWidth="16.0" />
+            				<Label prefHeight="17.0" prefWidth="89.0" styleClass="label" text="Estado" />
+            				<CheckBox fx:id="checkActivo" mnemonicParsing="false" onAction="#checkActivo" styleClass="check" text="ACTIVO" />
+            				<CheckBox fx:id="checkInactivo" mnemonicParsing="false" onAction="#checkInactivo" prefHeight="17.0" prefWidth="84.0" styleClass="check" text="INACTIVO" />
+            				<Button fx:id="btnBuscarID" mnemonicParsing="false" onAction="#abrirPantallaModalListaRecurso" styleClass="boton" text="CargarListaRrc" />
+            </children>
+         			</HBox>
+         			
+         			<HBox>
+            <children>
+            				<BorderPane prefHeight="9.0" prefWidth="16.0" />
+            				<Label prefHeight="17.0" prefWidth="90.0" styleClass="label" text="NOMBRE" />
+            				<TextField fx:id="textNombre" prefHeight="25.0" prefWidth="138.0" styleClass="textField" />
+            				<Button fx:id="btnCargarWS" mnemonicParsing="false" onAction="#cargarDatosWebService" prefHeight="25.0" prefWidth="101.0" styleClass="boton" text="Cargar/Nombre" />
+            </children>
+         			</HBox>
+         			
+         			<HBox>
+            <children>
+            				<BorderPane prefHeight="9.0" prefWidth="16.0" />
+            				<Label prefHeight="58.0" prefWidth="90.0" styleClass="label" text="DESCRIPCION" />
+            				<TextArea fx:id="textDescripcion" maxHeight="1.7976931348623157E308" minHeight="-Infinity" prefHeight="60.0" prefWidth="239.0" styleClass="textArea" wrapText="true" />
+            </children>   
+         			</HBox>
+         			
+         			<HBox>
+            <children>
+            				<BorderPane prefHeight="9.0" prefWidth="16.0" />
+            				<Label prefHeight="59.0" prefWidth="90.0" styleClass="label" text="INF. GENERAL" />
+            				<TextArea fx:id="textInfGeneral" maxHeight="1.7976931348623157E308" minHeight="-Infinity" prefHeight="60.0" prefWidth="239.0" styleClass="textArea" wrapText="true" />
+            </children>
+         			</HBox>
+         			
+         			<HBox>
+            <children>
+            				<BorderPane prefHeight="9.0" prefWidth="16.0" />
+            				<Label prefHeight="17.0" prefWidth="90.0" styleClass="label" text="CATEGORIA" />
+            				<TextField fx:id="textCategoria" prefHeight="25.0" prefWidth="239.0" styleClass="textField" />
+            </children>    
+         			</HBox>
+         			
+         			<HBox>
+            <children>
+            				<BorderPane prefHeight="9.0" prefWidth="16.0" />
+            				<Label prefHeight="17.0" prefWidth="90.0" styleClass="label" text="DIRECCION" />
+            				<TextArea fx:id="textDireccion" maxHeight="1.7976931348623157E308" minHeight="-Infinity" prefHeight="38.0" prefWidth="239.0" styleClass="textArea" wrapText="true" />
+            </children>
+         			</HBox>
+         			
+         			<HBox>
+            <children>
+            				<BorderPane prefHeight="9.0" prefWidth="16.0" />
+            				<Label alignment="CENTER" prefHeight="17.0" prefWidth="155.0" styleClass="label" text="PROVINCIA" />
+            				<Label alignment="CENTER" prefHeight="17.0" prefWidth="158.0" styleClass="label" text="CANTON" />
+            </children>    
+         			</HBox>
+         			
+         			<HBox>
+            <children>
+            				<BorderPane prefHeight="9.0" prefWidth="16.0" />
+            				<TextField fx:id="textProvincia" prefHeight="25.0" prefWidth="157.0" styleClass="textField" />
+            				<TextField fx:id="textCanton" prefHeight="25.0" prefWidth="172.0" styleClass="textField" />
+            </children>
+         			</HBox>
+         			
+         			<Label alignment="CENTER" prefHeight="17.0" prefWidth="327.0" styleClass="label" text="PARROQUIA" textAlignment="CENTER" />
+         			
+         			<HBox>
+            <children>
+            				<BorderPane prefHeight="9.0" prefWidth="16.0" />
+            				<TextField fx:id="textParroquia" prefHeight="25.0" prefWidth="329.0" styleClass="textField" />
+            </children>
+         			</HBox>	            
+         			
+         			<HBox>
+            <children>
+            				<BorderPane prefHeight="9.0" prefWidth="16.0" />
+            				<Label prefHeight="17.0" prefWidth="88.0" styleClass="label" text="POSICION" />
+            				<TextField fx:id="textPosicion" prefHeight="25.0" prefWidth="241.0" styleClass="textField" />
+            </children>	        	            
+         			</HBox>
+         			
+         			<HBox>
+            <children>
+            				<BorderPane prefHeight="9.0" prefWidth="16.0" />
+            				<Label prefHeight="17.0" prefWidth="89.0" styleClass="label" text="RANKING" />
+            				<TextField fx:id="textRanking" prefHeight="25.0" prefWidth="239.0" styleClass="textField" />
+            </children>
+         			</HBox>
+         			
+         			<HBox>
+            <children>
+            				<BorderPane prefHeight="9.0" prefWidth="16.0" />
+            				<Label prefHeight="17.0" prefWidth="158.0" styleClass="label" text="PROPIETARIO" />
+            				<Label text="PERSONA ENCARGADA" />
+            </children>
+         			</HBox>
+         			
+         			
+         			<HBox>
+            <children>
+            				<BorderPane prefHeight="9.0" prefWidth="16.0" />
+            				<TextField fx:id="textPropietario" prefHeight="25.0" prefWidth="157.0" styleClass="textField" />
+            				<TextField fx:id="textPersonaEncargada" prefHeight="25.0" prefWidth="169.0" styleClass="textField" />
+            </children>
+         			</HBox>
+         			
+         			<HBox>
+            <children>
+            				<BorderPane prefHeight="9.0" prefWidth="16.0" />
+            				<Label prefHeight="17.0" prefWidth="88.0" styleClass="label" text="Horario" />
+            				<TextField fx:id="textSeguridad" prefHeight="25.0" prefWidth="239.0" styleClass="textField" />
+            </children>
+         			</HBox>
+         			
+         			<HBox>
+            <children>
+            				<BorderPane prefHeight="9.0" prefWidth="16.0" />
+            				<Label prefHeight="17.0" prefWidth="88.0" styleClass="label" text="Seguridad" />
+            				<TextField fx:id="textHorario" prefHeight="25.0" prefWidth="239.0" styleClass="textField" />
+            </children>
+         			</HBox>
+         </children>
+      			  
+      		</VBox>
+      			
+      		<VBox prefHeight="525.0" prefWidth="573.0">
+         <children>
+         		
+         			<HBox prefHeight="317.0" prefWidth="580.0">
+            <children>
+            			
+            				<HBox>
+               <children>
+               				
+               					<Accordion fx:id="gdos" prefHeight="317.0" prefWidth="266.0">
+               						<panes>
+               							<TitledPane animated="false" text="Accesibilidad">
+               								<content>
+               									<ListView fx:id="listTipoAccesibilidad" prefHeight="79.0" prefWidth="264.0" styleClass="lstView" />
+               								</content>
+               							</TitledPane>
+               							<TitledPane animated="false" text="Idiomas">
+               								<content>
+               									<ListView fx:id="listViewIdiomas" prefHeight="77.0" prefWidth="256.0" styleClass="lstView" />
+               								</content>
+               							</TitledPane>
+               							<TitledPane prefHeight="200.0" prefWidth="200.0" text="Facilidades">
+               								<content>
+               									<ComboBox fx:id="comboFacilidad" prefWidth="150.0" styleClass="comboBox" />
+               								</content>
+               							</TitledPane>
+               							<TitledPane animated="false" text="Tipos/Parqueo">
+               								<content>
+               									<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               										<children>
+               											<ListView fx:id="listTiposParqueo" prefHeight="123.0" prefWidth="258.0" styleClass="lstView" />
+               										</children>
+               									</AnchorPane>
+               								</content>
+               							</TitledPane>
+               							<TitledPane animated="false" prefHeight="163.0" prefWidth="292.0" text="TiposAtractivos">
+               								<content>
+               									<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="98.0" prefWidth="259.0">
+               										<children>
+               											<ListView fx:id="listTiposAtractivos" prefHeight="125.0" prefWidth="257.0" styleClass="lstView" />
+               										</children>
+               									</AnchorPane>
+               								</content>
+               							</TitledPane>
+               							<TitledPane animated="false" prefHeight="218.0" prefWidth="266.0" text="Contactos">
+               								<content>
+               									<AnchorPane prefHeight="63.0" prefWidth="264.0">
+               										<children>
+                                                <HBox>
+                                                   <children>
+                                                      <VBox>
+                                                         <children>
+                           											<Label styleClass="label" text="Telefono:">
+                                                               <VBox.margin>
+                                                                  <Insets bottom="10.0" />
+                                                               </VBox.margin>
+                                                            </Label>
+                           											<Label styleClass="label" text="Email:">
+                                                               <VBox.margin>
+                                                                  <Insets bottom="10.0" />
+                                                               </VBox.margin>
+                                                            </Label>
+                           											<Label styleClass="label" text="Facebook:">
+                                                               <VBox.margin>
+                                                                  <Insets bottom="10.0" />
+                                                               </VBox.margin>
+                                                            </Label>
+                           											<Label styleClass="label" text="Twitter:">
+                                                               <VBox.margin>
+                                                                  <Insets bottom="8.0" />
+                                                               </VBox.margin>
+                                                            </Label>
+                           											<Label styleClass="label" text="Instagram:">
+                                                               <VBox.margin>
+                                                                  <Insets />
+                                                               </VBox.margin>
+                                                            </Label>
+                                                         </children>
+                                                      </VBox>
+                                                      <VBox>
+                                                         <children>
+                           											<TextField fx:id="textTelefono" styleClass="textField" />
+                           											<TextField fx:id="textEmail" styleClass="textField" />
+                           											<TextField fx:id="textFacebook" styleClass="textField" />
+                           											<TextField fx:id="textTwitter" styleClass="textField" />
+                           											<TextField fx:id="textInstagram" styleClass="textField" />
+                                                         </children>
+                                                      </VBox>
+                                                   </children>
+                                                </HBox>
+               										</children>
+               									</AnchorPane>
+               								</content>
+               							</TitledPane>
+               							<TitledPane animated="false" text="Senderos">
+               								<content>
+               									<VBox minHeight="0.0" minWidth="0.0" prefHeight="152.0" prefWidth="264.0">
+               										<children>
+               											<ListView fx:id="listViewSenderos" prefHeight="123.0" prefWidth="259.0" styleClass="lstView" />
+               											<HBox>
+                  <children>
+                  												<Button fx:id="btnCrearSenderos" mnemonicParsing="false" onAction="#abrirPantallaModalNuevoSendero" styleClass="boton" text="Crear Sendero" />
+                  												<Button fx:id="btnCargarSendero" layoutX="153.0" mnemonicParsing="false" onAction="#abrirPantallaModalCargarSendero" styleClass="boton" text="Cargar Senderos" />
+                  </children>
+               											</HBox>
+               										</children>
+               									</VBox>
+               								</content>
+               							</TitledPane>
+               						</panes>
+               					</Accordion>
+               </children>
+            				
+            				</HBox>
+            				
+            				<HBox>
+               <children>
+               				
+               					<BorderPane prefHeight="317.0" prefWidth="33.0" />
+               					<VBox prefHeight="317.0" prefWidth="284.0">
+                  <children>
+                  					
+                  						<HBox>
+                     <children>
+                     							<Label prefHeight="17.0" prefWidth="219.0" styleClass="label" text="Imagenes del Recurso" />
+                     							<Button fx:id="btnCrearImagen" layoutX="210.0" layoutY="20.0" mnemonicParsing="false" onAction="#abrirPantallaModalNuevaImagen" prefHeight="25.0" prefWidth="110.0" text="Nueva Imagen" />
+                                 				<Button fx:id="btnCargarImagen" layoutX="110.0" layoutY="20.0" mnemonicParsing="false" onAction="#abrirPantallaModalCargarImagen" prefHeight="25.0" prefWidth="110.0" text="Cargar Imagen" />
+                     </children>
+                              			</HBox>
+                  						<ListView fx:id="listViewImagenes" prefHeight="146.0" prefWidth="338.0" styleClass="lstView" />
+                  						
+                  						<HBox>
+                     <children>
+                     							<Button mnemonicParsing="false" styleClass="boton" text="Recomendacion" />
+                     							<ComboBox fx:id="comboRecomendacion" prefWidth="150.0" styleClass="comboBox" />
+                     </children>
+                  						</HBox>
+                  						
+                  						<HBox>
+                     <children>
+                     							<Button mnemonicParsing="false" styleClass="boton" text="Contactos" />
+                     							<BorderPane prefHeight="25.0" prefWidth="32.0" />
+                     							<ComboBox fx:id="comboContactos" prefWidth="150.0" styleClass="comboBox" />
+                     </children>							    
+                  						</HBox>
+                  						
+                  						<HBox>
+                     <children>
+                     							<Button mnemonicParsing="false" styleClass="boton" text="Costos" />
+                     							<BorderPane prefHeight="25.0" prefWidth="51.0" />
+                     							<ComboBox fx:id="comboCosto" prefHeight="25.0" prefWidth="150.0" styleClass="comboBox" />
+                     </children>
+                  						</HBox>
+                  </children>
+               						
+               					</VBox>
+               </children>
+            				
+            				</HBox>
+            </children>
+         			
+         			</HBox>
+         			
+         			<HBox>
+            <children>
+            				<Label styleClass="label" text="PREGUNTAS:" />
+            				<TextArea fx:id="textpreguntasf" maxHeight="1.7976931348623157E308" prefHeight="38.0" prefWidth="444.0" styleClass="textArea" wrapText="true" />
+            				<Button mnemonicParsing="false" onAction="#guardarPreguntas" styleClass="boton" text="AÑADIR" />
+            </children>
+         			</HBox>
+         			
+         			<HBox prefHeight="38.0" prefWidth="584.0">
+            <children>
+            				<Label styleClass="label" text="RESPUESTAS:" />
+            				<TextArea fx:id="textRespuestas" maxHeight="1.7976931348623157E308" prefHeight="38.0" prefWidth="443.0" styleClass="textArea" wrapText="true" />
+            </children>	            
+         			</HBox>
+         			
+         			<TableView fx:id="tablePreRes" prefHeight="132.0" prefWidth="543.0">
+         				<columns>
+         					<TableColumn fx:id="columPregunta" prefWidth="315.0" styleClass="tablas" text="Preguntas" />
+         					<TableColumn fx:id="columRespuestas" prefWidth="310.0" styleClass="tablas" text="Respuesta" />
+         				</columns>
+         			</TableView>
+         </children>
+      			
+      		</VBox>
+      </children>
+   		
+   	</HBox>
+   	
+   	<HBox alignment="CENTER">
+      <children>
+      	
+      		<Button mnemonicParsing="false" prefHeight="38.0" prefWidth="59.0" styleClass="boton" text="ATRAS" />
+      		<Button mnemonicParsing="false" onAction="#borrarDatosWebService" styleClass="boton" text="BORRAR" />
+      		<Button mnemonicParsing="false" onAction="#guardarDatosWebService" styleClass="boton" text="GUARDAR" />
+      		<Button mnemonicParsing="false" onAction="#limpiarPantalla" styleClass="boton" text="LIMPIAR" />
+      		<Button mnemonicParsing="false" onAction="#Salir" prefHeight="34.0" prefWidth="56.0" styleClass="botonSalir" text="SALIR" />
+      </children>
+   	
+   	</HBox>
+   </children>
 	
 </VBox>
