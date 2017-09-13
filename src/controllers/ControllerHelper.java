@@ -5,7 +5,7 @@ import java.util.List;
 
 import configuration.PropertyManager;
 import javafx.fxml.FXMLLoader;
-
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -115,7 +115,7 @@ public class ControllerHelper<R> {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(Main.class.getResource(uriVista));
-			AnchorPane page = (AnchorPane) loader.load();
+			Parent page = (Parent) loader.load();
 			Stage stage = new Stage();
 			stage.setTitle(titulo);
 			stage.initModality(Modality.WINDOW_MODAL);

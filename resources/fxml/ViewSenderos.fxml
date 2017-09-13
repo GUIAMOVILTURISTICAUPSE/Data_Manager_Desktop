@@ -10,47 +10,70 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="602.0" prefWidth="844.0" stylesheets="/Estilo.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ControllerSenderos">
-   <children>
-      <Label layoutX="40.0" layoutY="77.0" prefHeight="17.0" prefWidth="101.0" styleClass="submenu" text="ID" />
-      <TextField fx:id="txtid" layoutX="110.0" layoutY="73.0" prefHeight="25.0" prefWidth="174.0" />
-      <Label layoutX="40.0" layoutY="191.0" styleClass="submenu" text="DURACION" />
-      <Label layoutX="40.0" layoutY="153.0" styleClass="submenu" text="DISTANCIA" />
-      <Label layoutX="40.0" layoutY="46.0" styleClass="submenu" text="Estado: " />
-      <Label layoutX="40.0" layoutY="305.0" styleClass="submenu" text="Instrucciones" />
-      <Label layoutX="40.0" layoutY="229.0" styleClass="submenu" text="Descripción" />
-      <Label layoutX="40.0" layoutY="369.0" styleClass="submenu" text="Comentarios" />
-      <TextField fx:id="txtduracion" layoutX="110.0" layoutY="187.0" prefHeight="25.0" prefWidth="174.0" />
-      <TextField fx:id="txtdistancia" layoutX="110.0" layoutY="149.0" prefHeight="25.0" prefWidth="174.0" />
-      <Button layoutX="181.0" layoutY="538.0" mnemonicParsing="false" onAction="#cargarDatosWebService" styleClass="botones" text="Cargar" />
-      <Button layoutX="115.0" layoutY="538.0" mnemonicParsing="false" onAction="#guardar" styleClass="botones" text="Guardar" />
-      <Button layoutX="299.0" layoutY="538.0" mnemonicParsing="false" onAction="#limpiar" styleClass="botones" text="Limpiar" />
-      <Button layoutX="366.0" layoutY="539.0" mnemonicParsing="false" onAction="#salir" styleClass="botones" text="Salir" />
-      <Button layoutX="241.0" layoutY="538.0" mnemonicParsing="false" styleClass="botones" onAction="#borrarDatosWebService" text="Borrar" />
-      <Button layoutX="61.0" layoutY="539.0" mnemonicParsing="false" onAction="#cancelar"  styleClass="botones" text="Atras" />
-      <Label layoutX="40.0" layoutY="115.0" prefHeight="17.0" prefWidth="101.0" styleClass="submenu" text="NOMBRE" />
-      <TextField fx:id="txtnombre" layoutX="110.0" layoutY="111.0" prefHeight="25.0" prefWidth="174.0" />
-      <TextArea fx:id="txtdescripcion" layoutX="110.0" layoutY="223.0" prefHeight="64.0" prefWidth="291.0" />
-      <TextArea fx:id="txtinstrucciones" layoutX="110.0" layoutY="299.0" prefHeight="64.0" prefWidth="291.0" />
-      <ComboBox fx:id="comboComentario" layoutX="110.0" layoutY="369.0" prefHeight="25.0" prefWidth="291.0" />
-      <CheckBox fx:id="checkActivo" layoutX="85.0" layoutY="46.0" mnemonicParsing="false" text="Activo" />
-      <CheckBox fx:id="checkInactivo" layoutX="142.0" layoutY="46.0" mnemonicParsing="false" text="Inactivo" />
-      <AnchorPane layoutX="503.0" layoutY="29.0" prefHeight="200.0" prefWidth="303.0">
+<VBox prefHeight="533.0" prefWidth="862.0" stylesheets="/Estilo.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ControllerSenderos">
+   <BorderPane prefHeight="33.0" prefWidth="844.0" />
+   <HBox prefHeight="424.0" prefWidth="862.0">
+   
+   		<VBox prefHeight="350.0" prefWidth="328.0">
+   			<HBox prefHeight="25.0" prefWidth="361.0">
+            <BorderPane prefHeight="17.0" prefWidth="38.0" />
+   				<Label styleClass="label" text="Estado: " />
+   				<CheckBox fx:id="checkActivo" mnemonicParsing="false" text="Activo" styleClass="check"/>
+      			<CheckBox fx:id="checkInactivo" mnemonicParsing="false" text="Inactivo" styleClass="check"/>
+   			</HBox>
+   			<HBox prefHeight="34.0" prefWidth="361.0">
+            <BorderPane prefHeight="17.0" prefWidth="38.0" />
+   				<Label prefHeight="17.0" prefWidth="101.0" styleClass="label" text="ID" />
+      			<TextField fx:id="txtid" prefHeight="25.0" prefWidth="174.0" styleClass="textField"/>
+   			</HBox>
+   			<HBox prefHeight="31.0" prefWidth="361.0">
+            <BorderPane prefHeight="17.0" prefWidth="38.0" />
+   				<Label prefHeight="17.0" prefWidth="101.0" styleClass="label" text="NOMBRE" />
+      			<TextField fx:id="txtnombre" prefHeight="22.0" prefWidth="174.0" styleClass="textField"/>
+   			</HBox>
+   			<HBox prefHeight="33.0" prefWidth="361.0">
+   				<Label alignment="CENTER" prefHeight="17.0" prefWidth="140.0" styleClass="label" text="DISTANCIA" />
+   				<TextField fx:id="txtdistancia" prefHeight="25.0" prefWidth="174.0" styleClass="textField"/>
+   			</HBox>
+   			<HBox prefHeight="33.0" prefWidth="361.0">
+   				<Label alignment="CENTER" prefHeight="17.0" prefWidth="140.0" styleClass="label" text="DURACION" />
+   				<TextField fx:id="txtduracion" prefHeight="25.0" prefWidth="174.0" styleClass="textField"/>
+   			</HBox>
+   			<HBox prefHeight="97.0" prefWidth="328.0">
+   				<Label alignment="CENTER" prefHeight="64.0" prefWidth="139.0" styleClass="label" text="DESCRIPCION" />
+   				<TextArea fx:id="txtdescripcion" prefHeight="62.0" prefWidth="174.0" styleClass="textArea"/>
+   			</HBox>
+         <BorderPane prefHeight="17.0" prefWidth="328.0" />
+   			<HBox prefHeight="88.0" prefWidth="328.0">
+   				<Label alignment="CENTER" prefHeight="53.0" prefWidth="139.0" styleClass="label" text="INSTRUCCIONES" />
+   				<TextArea fx:id="txtinstrucciones" prefHeight="80.0" prefWidth="175.0" styleClass="textArea"/>
+   			</HBox>
+         <BorderPane prefHeight="17.0" prefWidth="328.0" />
+   			<HBox prefHeight="36.0" prefWidth="361.0">
+   				<Label alignment="CENTER" prefHeight="17.0" prefWidth="138.0" styleClass="label" text="COMENTARIOS" />
+   				<ComboBox fx:id="comboComentario" prefHeight="25.0" prefWidth="177.0" styleClass="comboBox"/>
+   			</HBox>
+      
+   		</VBox>
+   		
+   		<AnchorPane prefHeight="200.0" prefWidth="303.0">
          <children>
             <Accordion>
               <panes>
                   <TitledPane id="listAtractivo" maxHeight="150.0" prefHeight="150.0" prefWidth="291.0" text="ATRACTIVO">
                      <content>
-                        <ListView fx:id="listatractivos" maxHeight="150.0" prefHeight="150.0" prefWidth="291.0" />
+                        <ListView fx:id="listatractivos" maxHeight="150.0" prefHeight="150.0" prefWidth="291.0" styleClass="lstView"/>
                      </content>
                   </TitledPane>
                 <TitledPane animated="false" maxHeight="150.0" prefHeight="150.0" prefWidth="291.0" text="DISPONIBILIDAD CELULAR">
                   <content>
                     <AnchorPane maxHeight="150.0" minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="200.0">
                            <children>
-                              <ListView fx:id="listDisponibilidadCelular" prefHeight="150.0" prefWidth="291.0" />
+                              <ListView fx:id="listDisponibilidadCelular" prefHeight="150.0" prefWidth="291.0" styleClass="lstView"/>
                            </children>
                         </AnchorPane>
                   </content>
@@ -59,7 +82,7 @@
                   <content>
                     <AnchorPane maxHeight="150.0" minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="289.0">
                            <children>
-                              <ListView fx:id="listEquipamiento" prefHeight="150.0" prefWidth="291.0" />
+                              <ListView fx:id="listEquipamiento" prefHeight="150.0" prefWidth="291.0" styleClass="lstView"/>
                            </children>
                         </AnchorPane>
                   </content>
@@ -68,7 +91,7 @@
                   <content>
                     <AnchorPane maxHeight="150.0" minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="200.0">
                            <children>
-                              <ListView fx:id="listTransporteSendero" prefHeight="150.0" prefWidth="291.0" />
+                              <ListView fx:id="listTransporteSendero" prefHeight="150.0" prefWidth="291.0" styleClass="lstView"/>
                            </children>
                         </AnchorPane>
                   </content>
@@ -77,7 +100,7 @@
                     <content>
                       <AnchorPane maxHeight="150.0" minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="200.0">
                            <children>
-                              <ListView fx:id="listLAtractivos" layoutX="-4.0" prefHeight="130.0" prefWidth="291.0" />
+                              <ListView fx:id="listLAtractivos" prefHeight="130.0" prefWidth="291.0" styleClass="lstView"/>
                            </children>
                         </AnchorPane>
                     </content>
@@ -86,7 +109,7 @@
                     <content>
                       <AnchorPane maxHeight="150.0" minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="200.0">
                            <children>
-                              <ListView fx:id="listDificultadRecorrido" layoutX="-2.0" prefHeight="130.0" prefWidth="291.0" />
+                              <ListView fx:id="listDificultadRecorrido" prefHeight="130.0" prefWidth="291.0" styleClass="lstView"/>
                            </children>
                         </AnchorPane>
                     </content>
@@ -95,9 +118,28 @@
             </Accordion>
          </children>
       </AnchorPane>
-      <ListView fx:id="listImagenes" layoutX="476.0" layoutY="412.0" prefHeight="152.0" prefWidth="291.0" />
-      <Label layoutX="476.0" layoutY="385.0" text="LISTA DE IMAGENES" />
-      <Pane focusTraversable="true" layoutX="310.0" layoutY="19.0" prefHeight="158.0" prefWidth="174.0" />
+      <VBox prefHeight="350.0" prefWidth="212.0">
+         <children>
+            <Label prefHeight="31.0" prefWidth="128.0" text="LISTA DE IMAGENES" />
+            <ListView fx:id="listImagenes" prefHeight="370.0" prefWidth="212.0" styleClass="lstView"/>
+         </children>
+      </VBox>
+   		
+   </HBox>
       
-   </children>
-</AnchorPane>
+   
+   
+   <HBox alignment="CENTER" prefHeight="65.0" prefWidth="862.0">
+   		
+   		<Button mnemonicParsing="false" styleClass="boton" text="Cargar" />
+      	<Button mnemonicParsing="false" styleClass="boton" text="Guardar" />
+      	<Button mnemonicParsing="false" styleClass="boton" text="Limpiar" />
+      	<Button mnemonicParsing="false" styleClass="botonSalir" text="Salir" />
+      	<Button mnemonicParsing="false" styleClass="boton" text="Borrar" />
+      	<Button mnemonicParsing="false" styleClass="boton" text="Atras" />
+      
+   </HBox>
+   
+</VBox>
+
+
