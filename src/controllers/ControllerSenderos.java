@@ -18,6 +18,7 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import pojos.Atractivo;
 import pojos.Comentario;
@@ -50,7 +51,13 @@ public class ControllerSenderos implements ControllerModalBase<Sendero>{
 	@FXML private ListView<Imagen> listImagenes;
 	@FXML private ComboBox<Comentario> comboComentario;
 	@FXML private ListView<Atractivo> listatractivos; 
-
+	@FXML private ListView<String> list_Recorrido; 
+	@FXML private TextField txt_punto;
+	@FXML private Button btn_agregar;
+	@FXML private Button btn_modificar;
+	@FXML private Button btn_eliminar;
+	
+	
 	Sendero pojo = new Sendero();
 
 	public ControllerSenderos() {
@@ -63,6 +70,7 @@ public class ControllerSenderos implements ControllerModalBase<Sendero>{
 	ObservableList<LocacionAtractivo> TipoLocacionAtractivo;
 	ObservableList<String> TipoEquipamento;
 	ObservableList<Atractivo> tipoAtractivo;
+	ObservableList<String> punto;
 	private Stage stage;
 
 	public void initialize(){
@@ -192,6 +200,18 @@ public class ControllerSenderos implements ControllerModalBase<Sendero>{
 				TipoEquipamento=listEquipamiento.getSelectionModel().getSelectedItems();
 			}			
 		});
+		
+		list_Recorrido.setOnMouseClicked(new EventHandler<Event>() {
+			@Override
+			public void handle(Event event) {
+				punto = list_Recorrido.getSelectionModel().getSelectedItems();
+				if(!list_Recorrido.getItems().isEmpty()){
+					for(String puntito : punto){
+						txt_punto.setText(puntito);	
+					}			
+				}
+			}
+		});
 
 	}
 
@@ -202,7 +222,8 @@ public class ControllerSenderos implements ControllerModalBase<Sendero>{
 		txtinstrucciones.setPromptText("Ingrese Instrucciones");
 		txtnombre.setPromptText("Ingrese Nombre");
 		txtdistancia.setPromptText("Ingrese distancia");
-		comboComentario.setPromptText("Seleccion Comentario");
+		comboComentario.setPromptText("Seleccion Comentario");		
+		txt_punto.setPromptText("Example: -2.323232 , -80.808080");
 
 	}
 	public void limpiar(){
@@ -220,26 +241,24 @@ public class ControllerSenderos implements ControllerModalBase<Sendero>{
 		listImagenes.setItems(null);
 		listTransporteSendero.setItems(null);
 		listatractivos.setItems(null);
+		list_Recorrido.setItems(null);
 	}
 
 	public Sendero guardar(){
-
-
 		Sendero pojotemp = new Sendero();
 		if (pojo!=null) {
 			pojotemp = pojo;
 		}
 		pojotemp.set_id(txtnombre.getText().trim());
 		pojotemp.setNombre(txtnombre.getText());
-		float distancia = Float.parseFloat(txtdistancia.getText());
+		float distancia = (!txtdistancia.getText().isEmpty())?Float.parseFloat(txtdistancia.getText()):0;   
 		pojotemp.setDistancia(distancia);
-		float duracion = Float.parseFloat(txtduracion.getText());
+		float duracion = (!txtduracion.getText().isEmpty())?Float.parseFloat(txtduracion.getText()):0;
 		pojotemp.setDuracion(duracion);
 		pojotemp.setDescripcion(txtdescripcion.getText());
 		pojotemp.setInstrucciones(txtinstrucciones.getText());
 		if (checkActivo.isSelected()== true){
 			pojotemp.setEstado(Estado.ACTIVO);
-
 		}
 		else{
 			pojotemp.setEstado(Estado.INACTIVO);
@@ -271,6 +290,9 @@ public class ControllerSenderos implements ControllerModalBase<Sendero>{
 		for (Imagen i: selectedItemsImagen) {
 			pojotemp.getGaleria().add(i);
 
+		}
+		for(String r : list_Recorrido.getItems()){
+			pojotemp.getRecorrido().add(r);
 		}
 		
 		stage.close();
@@ -309,6 +331,11 @@ public class ControllerSenderos implements ControllerModalBase<Sendero>{
 		if (pojos.getComentarios()!=null && pojos.getComentarios().size()>0) {
 			comboComentario.setValue(pojos.getComentarios().get(0));
 		}
+		
+		if(!pojos.getRecorrido().isEmpty()){
+			list_Recorrido.getItems().addAll(pojos.getRecorrido());
+		}
+		
 	}
 	public void checkActivo(){
 		if(checkActivo.isSelected()){
@@ -408,6 +435,23 @@ public class ControllerSenderos implements ControllerModalBase<Sendero>{
 				}
 			}
 		}
+	}
+	
+	public void addPunto(){
+		if(!txt_punto.getText().isEmpty())
+			list_Recorrido.getItems().add(txt_punto.getText());			
+		txt_punto.setText("");
+	}
+	
+	public void updatePunto(){
+		if(!list_Recorrido.getItems().isEmpty() && !txt_punto.getText().isEmpty())
+			list_Recorrido.getItems().set(list_Recorrido.getSelectionModel().getSelectedIndex(), txt_punto.getText());
+		txt_punto.setText("");
+	}
+	
+	public void deletePunto(){
+		if(!list_Recorrido.getItems().isEmpty() && !txt_punto.getText().isEmpty())
+			list_Recorrido.getItems().remove(list_Recorrido.getSelectionModel().getSelectedIndex());		
 	}
 	
 	public void salir(){

@@ -210,22 +210,22 @@
                                                          <children>
                            											<Label styleClass="label" text="Telefono:">
                                                                <VBox.margin>
-                                                                  <Insets bottom="10.0" />
+                                                                  <Insets />
                                                                </VBox.margin>
                                                             </Label>
                            											<Label styleClass="label" text="Email:">
                                                                <VBox.margin>
-                                                                  <Insets bottom="10.0" />
+                                                                  <Insets />
                                                                </VBox.margin>
                                                             </Label>
                            											<Label styleClass="label" text="Facebook:">
                                                                <VBox.margin>
-                                                                  <Insets bottom="10.0" />
+                                                                  <Insets />
                                                                </VBox.margin>
                                                             </Label>
                            											<Label styleClass="label" text="Twitter:">
                                                                <VBox.margin>
-                                                                  <Insets bottom="8.0" />
+                                                                  <Insets />
                                                                </VBox.margin>
                                                             </Label>
                            											<Label styleClass="label" text="Instagram:">
