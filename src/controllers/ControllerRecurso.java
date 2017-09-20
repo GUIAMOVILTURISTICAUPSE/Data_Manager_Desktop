@@ -68,7 +68,7 @@ public class ControllerRecurso {
 	@FXML private TableColumn<PreguntasFrecuentes, String> columPregunta;
 	@FXML private TableColumn<PreguntasFrecuentes, String> columRespuestas;
 	@FXML private TextArea textRespuestas;
-	
+
 	@FXML private TextField textNombre;
 	@FXML private TextArea textDescripcion;
 	@FXML private TextArea textInfGeneral;
@@ -109,17 +109,17 @@ public class ControllerRecurso {
 	//Pojos para rellenar en otras pantallas y paso de objetos entre controladores
 	private Sendero pojoSendero;
 	private Imagen pojoImagen;
-	
+
 	public String id_sendero_cap;
-	
+
 	public ControllerRecurso()
 	{	
 	}
-	
+
 	Context context = Context.getInstance();
 	Recurso pojo = new Recurso();
-	
-	
+
+
 	public void initialize(){
 		setPromptText();
 		//cargarListViewSendero();
@@ -130,7 +130,7 @@ public class ControllerRecurso {
 		cargarListasConString();
 
 	}
-	
+
 	private void setPromptText() {
 		textNombre.setPromptText("Nombre");
 		textDescripcion.setPromptText("Descripcion");
@@ -154,7 +154,7 @@ public class ControllerRecurso {
 		textTelefono.setPromptText("Telefono");
 		textTwitter.setPromptText("Twitter");
 	}
-	
+
 
 	public Recurso Guardar(){
 
@@ -167,10 +167,10 @@ public class ControllerRecurso {
 			pojoTemp = pojo;
 
 		}		
-		
 
-	//	pojo.setId(textId.getText().trim());
-		
+
+		//	pojo.setId(textId.getText().trim());
+
 		pojoTemp.setNombre(textNombre.getText());
 		pojoTemp.setDescripcion(textDescripcion.getText());
 		pojoTemp.setInformacionGeneral(textInfGeneral.getText());
@@ -184,27 +184,27 @@ public class ControllerRecurso {
 		pojoTemp.setCategoria(textCategoria.getText());
 		pojoTemp.setHorario(textHorario.getText());
 		pojoTemp.setSeguridad(textSeguridad.getText());
-		
-		
+
+
 		Contacto datoscontactos = new Contacto();
 		datoscontactos.setTelefono(textTelefono.getText());
 		datoscontactos.setTwitter(textTwitter.getText());
 		datoscontactos.setFacebook(textFacebook.getText());
 		datoscontactos.setEmail(textEmail.getText());
 		datoscontactos.setInstagram(textInstagram.getText());
-		
+
 		pojoTemp.setInfContacto(datoscontactos);
-		
-		
+
+
 		pojoTemp.setPreguntasF(listapreguntas);
 		if(selectedItems!=null && !selectedItems.isEmpty())
 		{
 			for(Idiomas s : selectedItems){
-				 pojoTemp.getIdiomasInformac().add(s);
-				 System.out.println("selected item " + s.toString());
-	        }
+				pojoTemp.getIdiomasInformac().add(s);
+				System.out.println("selected item " + s.toString());
+			}
 		}
-		
+
 		pojoTemp.getCostoRecursos().add(comboCosto.getValue());
 		if(!textRanking.getText().isEmpty())
 		{
@@ -214,35 +214,35 @@ public class ControllerRecurso {
 
 		if (checkActivo.isSelected()== true){
 			pojoTemp.setEstado(Estado.ACTIVO);
-			
+
 		}
 		else{
 			pojoTemp.setEstado(Estado.INACTIVO);
 		}
-		
+
 		if(selectItemsAtractivo  != null ){
 			for (TipoAtractivo a : selectItemsAtractivo ) {
 				pojoTemp.getTipoAtractivo().add(a);
 				System.out.println("seleccion  " + a.toString());
 			}
-	
+
 		}
-		
+
 		if (selectItemsTiposParqueo != null ){
 			for (String b :selectItemsTiposParqueo ) {
 				pojoTemp.getTiposParqueo().add(b);
 				System.out.println("seleccion  " + b.toString());
 			}
-	
+
 		}
-		
+
 		if (selectItemsSenderos != null){
 
 			for (Sendero c: selectItemsSenderos) {
 				pojoTemp.getSendero().add(c);
 				System.out.println("seleccion  " + c.toString());
 			}
-			
+
 		}
 		if (selectItemsTipoAccesibilidad != null){
 			for (TipoAccesibilidad d :selectItemsTipoAccesibilidad) {
@@ -253,7 +253,7 @@ public class ControllerRecurso {
 		pojoTemp.getFacilidadRecurso().add(comboFacilidad.getValue());
 		pojoTemp.getRecomendacion().add(comboRecomendacion.getValue());
 		//pojo.setInfContacto(comboContactos.getValue());
-		
+
 		pojoTemp.getGaleria().addAll(listViewImagenes.getItems());
 		/*
 		if (selectedItemsImagen != null){
@@ -262,7 +262,7 @@ public class ControllerRecurso {
 				 System.out.println("selected item " + i.toString());
 	       }	
 		}*/	
-		
+
 		return pojoTemp;
 	}
 
@@ -301,7 +301,7 @@ public class ControllerRecurso {
 		tablePreRes.setItems(null);
 		initialize();
 	}
-	
+
 	public void cargarDatosWebService()
 	{
 		String nombre = textNombre.getText();
@@ -320,7 +320,7 @@ public class ControllerRecurso {
 			alertError.setContentText(errorMessage);
 			alertError.show();
 		}
-		
+
 	}
 	public void guardarDatosWebService()
 	{
@@ -335,9 +335,9 @@ public class ControllerRecurso {
 			System.err.println("No se pudo guardar los datos a traves del web service.");
 			ControllerHelper.mostrarAlertaError("No se pudo guardar los datos a traves del web service.");
 		}
-		
+
 	}
-	
+
 	public void actualizarDatosWebService()
 	{
 		ControllerHelper<Recurso> controllerHelper= new ControllerHelper<Recurso>();
@@ -352,15 +352,15 @@ public class ControllerRecurso {
 			ControllerHelper.mostrarAlertaError("Error para actualizar recurso." + e.getMessage());
 		}
 	}
-	
+
 	public void borrarDatosWebService()
 	{
 		ControllerHelper<Recurso> controllerHelper= new ControllerHelper<Recurso>();
 		Recurso pojoTemp = Guardar();
 		System.out.println("El pojo a borrar en el WS es: " + pojoTemp);
-		
+
 		System.out.println("Sync para obtener el rev: " + pojoTemp.get_sync());
-		
+
 		if(pojoTemp!=null && pojoTemp.get_sync()!=null && pojoTemp.get_sync().getRev()!=null && pojoTemp.getId()!=null)
 		{
 			Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -371,7 +371,7 @@ public class ControllerRecurso {
 			alert.setContentText(s);
 			Optional<ButtonType> result = alert.showAndWait();
 			//Ejecutar borrado
-			
+
 			System.out.println("antes de borrar");
 			if ((result.isPresent()) && (result.get() == ButtonType.OK))
 			{
@@ -385,50 +385,61 @@ public class ControllerRecurso {
 					alertBorradoCorrecto.setContentText(message);
 					alertBorradoCorrecto.show();
 					limpiarPantalla();
-					
+
 				}catch(Exception e)
 				{
 					System.err.println("Excepcion:" + e);
 					e.printStackTrace();
 					System.err.println("Mensaje de la excepcion:" + e.getMessage());
-					
+
 					ControllerHelper.mostrarAlertaError("Error al borrar " + e.getMessage());
 				}
 			}
 		}
 	}
-	
-	
+
+
 	public void abrirPantallaModalListaRecurso(){
 		pojo = ControllerHelper.abrirVistaModal("/ViewTableRecurso.fxml", "Lista Recursos", null);
 		System.out.println(pojo);
 		CargarDatos(pojo);
 	}
-	
+
 	public void abrirPantallaModalNuevoSendero()
 	{
 		pojoSendero = ControllerHelper.abrirVistaModal("/ViewSenderos.fxml", "Sendero", null);
 		if(pojoSendero!=null)
 			listViewSenderos.getItems().add(pojoSendero);
-		pojo.getSendero().add(pojoSendero);
+		pojo.getSendero().add(pojoSendero);			
 	}
-	
+
 	public void abrirPantallaModalCargarSendero()
 	{
-		Sendero pojoCargado = ControllerHelper.abrirVistaModal("/ViewSenderos.fxml", "Sendero", pojoSendero);
-		if(pojoCargado!=null) 
-			pojoSendero = pojoCargado; 
+		if(!listViewSenderos.getItems().isEmpty()){
+			if(listViewSenderos.getSelectionModel().getSelectedItem() != null){
+				Sendero pojoCargado = ControllerHelper.abrirVistaModal("/ViewSenderos.fxml", "Sendero", pojoSendero);
+				if(pojoCargado!=null) 
+					pojoSendero = pojoCargado;
+			}else{
+				ControllerHelper.mostrarAlertaError("Seleccione algun sendero... por favor");
+			}
+		}else{
+			ControllerHelper.mostrarAlertaError("El recurso no cuenta con ningun sendero... Debe crear un sendero y seleccionarla");
+		}
 	}
-	
+
 	public void abrirPantallaModalNuevaImagen()
 	{
 		pojo = Guardar();
 		pojoImagen = ControllerHelper.abrirVistaModal("/ViewImagen.fxml", "Imagen", null);
-		if(pojoImagen!=null)
-			listViewImagenes.getItems().add(pojoImagen);
-		pojo.getGaleria().add(pojoImagen);
+		if(pojoImagen!=null){
+			if(!pojoImagen.getUrl().isEmpty()){
+				listViewImagenes.getItems().add(pojoImagen);				
+				pojo.getGaleria().add(pojoImagen);
+			}
+		}
 	}
-	
+
 	public void abrirPantallaModalCargarImagen()
 	{
 		if(!listViewImagenes.getItems().isEmpty()){
@@ -446,7 +457,7 @@ public class ControllerRecurso {
 			ControllerHelper.mostrarAlertaError("El recurso no cuenta con ninguna imagen... Debe crear alguna imagen y seleccionarla");
 		}
 	}
-	
+
 	public void CargarDatos(Recurso pojo){
 		textNombre.setText(pojo.getId());
 		textDescripcion.setText(pojo.getDescripcion());
@@ -459,14 +470,14 @@ public class ControllerRecurso {
 		textParroquia.setText(pojo.getParroquia());
 		textPropietario.setText(pojo.getPropietario());
 
-		
-		
+
+
 		textPersonaEncargada.setText(pojo.getPersonaEncargada()!=null?pojo.getPersonaEncargada():"");
-		
+
 		textCategoria.setText(pojo.getCategoria());
 		textSeguridad.setText(pojo.getSeguridad());
 		textHorario.setText(pojo.getHorario());
-		
+
 		if(pojo.getInfContacto()!=null)
 
 		{
@@ -497,19 +508,19 @@ public class ControllerRecurso {
 		});
 		ObservableList<TipoAccesibilidad> TaccesibilidadSelecionados = FXCollections.observableArrayList(pojo.getOpcionesTipoAccesibilidad());
 		listTipoAccesibilidad.setItems(TaccesibilidadSelecionados);
-		
+
 		if(pojo.getCostoRecursos()!=null && pojo.getCostoRecursos().size()>0)
 		{
 			comboCosto.setValue(pojo.getCostoRecursos().get(0));
 		}
-		
+
 		listpreguntas = pojo.getPreguntasF();
 		System.out.println("estas son las preguntas "+listpreguntas);
 		ObservableList<PreguntasFrecuentes> data = FXCollections.observableArrayList(listpreguntas);
 		columPregunta.setCellValueFactory(new PropertyValueFactory<>("Preguntas"));
 		columRespuestas.setCellValueFactory(new PropertyValueFactory<>("respPreguntas"));
 		tablePreRes.setItems(data);
-		
+
 		if(pojo.getFacilidadRecurso()!=null && pojo.getFacilidadRecurso().size()>0)
 		{
 			comboFacilidad.setValue(pojo.getFacilidadRecurso().get(0));
@@ -518,31 +529,31 @@ public class ControllerRecurso {
 		{
 			comboRecomendacion.setValue(pojo.getRecomendacion().get(0));
 		}
-		
+
 		ObservableList<Imagen> imagenesSeleccionado = FXCollections.observableArrayList(pojo.getGaleria());
 		listViewImagenes.setItems(imagenesSeleccionado);
 		listViewImagenes.setOnMouseClicked(e -> pojoImagen = listViewImagenes.getSelectionModel().getSelectedItem());
-		
+
 	}
-	
+
 	public void Salir(){
 		System.exit(0);
 	}
-	
+
 	public void checkActivo(){
 		if(checkActivo.isSelected()){
 			checkActivo.setSelected(true);
 			checkInactivo.setSelected(false);			
 		}
 	}
-		
+
 	public void checkInactivo(){
-			if(checkInactivo.isSelected()){
-				checkActivo.setSelected(false);
-				checkInactivo.setSelected(true);
-			}				
+		if(checkInactivo.isSelected()){
+			checkActivo.setSelected(false);
+			checkInactivo.setSelected(true);
+		}				
 	}
-	
+
 	public void guardarPreguntas(){
 		PreguntasFrecuentes preguntas1 = new PreguntasFrecuentes();
 		preguntas1.setPreguntas(textpreguntasf.getText());
@@ -553,7 +564,7 @@ public class ControllerRecurso {
 		textpreguntasf.setText("");
 		textRespuestas.setText("");
 	}
-	
+
 
 	public void cargarDatosTablaPreguntas(){
 		if(tablePreRes.getItems().size()>0)
@@ -563,13 +574,13 @@ public class ControllerRecurso {
 		}
 		preguntastable = FXCollections.observableArrayList(listapreguntas);
 		tablePreRes.setEditable(true);
-	
+
 		columPregunta.setCellValueFactory(new PropertyValueFactory<>("Preguntas"));
 		columRespuestas.setCellValueFactory(new PropertyValueFactory<>("respPreguntas"));
 		tablePreRes.setItems(preguntastable);
 	}
-	
-	
+
+
 
 
 
@@ -583,7 +594,7 @@ public class ControllerRecurso {
 			@Override
 			public void handle(Event event) {
 				selectItemsTipoAccesibilidad = listTipoAccesibilidad.getSelectionModel().getSelectedItems();
-				
+
 			}
 		});
 	}
@@ -593,18 +604,18 @@ public class ControllerRecurso {
 		listViewIdiomas.setItems(testes);
 		listViewIdiomas.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		listViewIdiomas.setOnMouseClicked(new EventHandler<Event>() {
-            @Override
-            public void handle(Event event) {
-                selectedItems =  listViewIdiomas.getSelectionModel().getSelectedItems();
-            }
+			@Override
+			public void handle(Event event) {
+				selectedItems =  listViewIdiomas.getSelectionModel().getSelectedItems();
+			}
 
-        });
-		
+		});
+
 	}
 	public void cargarTipoAtractivo()
 	{
-		
-		 //*********TIPO ATRACTIVO	
+
+		//*********TIPO ATRACTIVO	
 		ObservableList<TipoAtractivo> tipoAtractivos = FXCollections.observableArrayList(TipoAtractivo.values());
 		listTiposAtractivos.setItems(tipoAtractivos);
 		listTiposAtractivos.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -612,11 +623,11 @@ public class ControllerRecurso {
 			@Override
 			public void handle(Event event) {
 				selectItemsAtractivo = listTiposAtractivos.getSelectionModel().getSelectedItems();
-				
+
 			}
 		});
 	}
-	
+
 	public void cargarTiposDeParqueo()
 	{
 		//******* TIPOS DE PARQUEOS
@@ -630,17 +641,17 @@ public class ControllerRecurso {
 			}
 		});
 	}
-	
+
 	public void cargarListasConString()
 	{
 		listViewImagenes.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 		listViewImagenes.setOnMouseClicked(new EventHandler<Event>() {
-            @Override
-            public void handle(Event event) {
-            	selectedItemsImagen =  listViewImagenes.getSelectionModel().getSelectedItem();
-            }
-        });
-		
+			@Override
+			public void handle(Event event) {
+				selectedItemsImagen =  listViewImagenes.getSelectionModel().getSelectedItem();
+			}
+		});
+
 		Costo pojoC1 = new Costo();
 		pojoC1.setDescripcion("Comida");
 		pojoC1.setCosto(14);
@@ -656,7 +667,7 @@ public class ControllerRecurso {
 		costoslista.add(pojoC3);
 		ObservableList<Costo> costos = FXCollections.observableArrayList(costoslista);
 		comboCosto.setItems(costos);
-		
+
 		Facilidad pojoA1 = new Facilidad();
 		pojoA1.setTitulo("Facilidad1");
 		pojoA1.setDescripcion("La facilidad1 es muy chevere");
@@ -672,7 +683,7 @@ public class ControllerRecurso {
 		facilidadlista.add(pojoA3);
 		ObservableList<Facilidad> facilidades = FXCollections.observableArrayList(facilidadlista);
 		comboFacilidad.setItems(facilidades);
-		
+
 		Recomendacion pojoR1 = new Recomendacion();
 		pojoR1.setTitulo("Recomendacion1");
 		pojoR1.setDescripcion("La Recomendacion1 es muy chevere");
@@ -684,14 +695,14 @@ public class ControllerRecurso {
 		recomendacionlista.add(pojoR2);
 		ObservableList<Recomendacion> recomendaciones = FXCollections.observableArrayList(recomendacionlista);
 		comboRecomendacion.setItems(recomendaciones);
-		
+
 		textRanking.textProperty().addListener(new ChangeListener<String>() {
-	        @Override
-	        public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-	        	if (!textRanking.getText().matches("^[0-9]*\\.?[0-9]*$")) {
-	        		textRanking.setText("");
-                }
-	        }
-	    });
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if (!textRanking.getText().matches("^[0-9]*\\.?[0-9]*$")) {
+					textRanking.setText("");
+				}
+			}
+		});
 	}
 }
