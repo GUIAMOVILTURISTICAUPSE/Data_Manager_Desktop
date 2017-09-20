@@ -13,6 +13,10 @@ local.properties
 .loadpath
 .recommenders
 
+#Para eliminar archivos propietarios mac
+.DS_Store
+*.DS_Store
+
 # Eclipse Core
 #.project
 
