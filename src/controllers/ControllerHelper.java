@@ -66,6 +66,15 @@ public class ControllerHelper<R> {
 		}	
 	}
 	
+	public void actualizarDatosWebService(R r, Class<R> clase)
+	{
+		String urlBase = PropertyManager.getURLBase();
+		
+		String urlRelativo = propertyManager.getUrlRelativoDesdeClase(clase.getName());
+		GenericWebServiceConsumer<R> webService = new GenericWebServiceConsumer<R>(clase);
+		webService.consumePut(r, urlBase, urlRelativo);
+	}
+	
 	public void borrarDatosWebService(String id, String rev, Class<R> clase)
 	{
 		String urlBase = PropertyManager.getURLBase();
@@ -106,6 +115,14 @@ public class ControllerHelper<R> {
 	{
 		Alert alertError = new Alert(AlertType.ERROR);
 		alertError.setTitle("Error");
+		alertError.setContentText(mensaje);
+		alertError.show();
+	}
+	
+	public static void mostrarAlertaInformacion(String mensaje)
+	{
+		Alert alertError = new Alert(AlertType.INFORMATION);
+		alertError.setTitle("Informacion");
 		alertError.setContentText(mensaje);
 		alertError.show();
 	}

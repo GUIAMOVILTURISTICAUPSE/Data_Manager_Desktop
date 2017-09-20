@@ -100,6 +100,40 @@ public class GenericWebServiceConsumer<X> implements ConsumableWebService<X>{
 	}
 	
 	@Override
+	public void consumePut(X x, String url, String... params) {
+		RestTemplate restTemplate = new RestTemplate();
+		String urlCompleto = url;
+		for(String s: params)
+		{
+			 urlCompleto = urlCompleto + "/" + s;
+		}
+		
+		urlCompleto = urlCompleto.replaceAll(" ","%20");
+		
+		try{
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.APPLICATION_JSON);
+			
+			
+			String xAsJson = mapper.writeValueAsString(x);
+			System.out.println("Objeto a imprimir como JSON: " + xAsJson);
+			HttpEntity<String> entity = new HttpEntity<String>(xAsJson,headers);
+			restTemplate.put(urlCompleto, entity);
+
+		}catch (RestClientException e) {
+			System.err.println("Error en el webservice");
+			System.err.println("Causa:" + e.getCause());
+			System.err.println("Mensaje: " + e.getMostSpecificCause());
+			e.printStackTrace();
+		}catch (Exception e) {
+			System.err.println("Error en el webservice");
+			System.err.println("Causa:" + e.getCause());
+			System.err.println("Mensaje: " + e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	@Override
 	public void consumeDelete(String url, String id, String rev) {
 		RestTemplate restTemplate = new RestTemplate();
 		
