@@ -200,56 +200,71 @@
                									</AnchorPane>
                								</content>
                							</TitledPane>
-               							<TitledPane animated="false" prefHeight="218.0" prefWidth="266.0" text="Contactos">
-               								<content>
-               									<AnchorPane prefHeight="63.0" prefWidth="264.0">
-               										<children>
-                                                <HBox>
+                                    <TitledPane animated="false" text="Contactos">
+                                      <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <VBox prefHeight="122.0" prefWidth="268.0">
                                                    <children>
-                                                      <VBox>
+                                                      <HBox>
                                                          <children>
-                           											<Label styleClass="label" text="Telefono:">
-                                                               <VBox.margin>
+                           											<Label styleClass="label" text="Telefono:     ">
+                                                               <opaqueInsets>
                                                                   <Insets />
-                                                               </VBox.margin>
-                                                            </Label>
-                           											<Label styleClass="label" text="Email:">
-                                                               <VBox.margin>
+                                                               </opaqueInsets>
+                                                               <HBox.margin>
                                                                   <Insets />
-                                                               </VBox.margin>
+                                                               </HBox.margin>
                                                             </Label>
-                           											<Label styleClass="label" text="Facebook:">
-                                                               <VBox.margin>
-                                                                  <Insets />
-                                                               </VBox.margin>
-                                                            </Label>
-                           											<Label styleClass="label" text="Twitter:">
-                                                               <VBox.margin>
-                                                                  <Insets />
-                                                               </VBox.margin>
-                                                            </Label>
-                           											<Label styleClass="label" text="Instagram:">
-                                                               <VBox.margin>
-                                                                  <Insets />
-                                                               </VBox.margin>
-                                                            </Label>
-                                                         </children>
-                                                      </VBox>
-                                                      <VBox>
-                                                         <children>
                            											<TextField fx:id="textTelefono" styleClass="textField" />
+                                                         </children>
+                                                      </HBox>
+                                                      <HBox prefHeight="100.0" prefWidth="200.0">
+                                                         <children>
+                           											<Label styleClass="label" text="Email:          ">
+                                                               <HBox.margin>
+                                                                  <Insets />
+                                                               </HBox.margin>
+                                                            </Label>
                            											<TextField fx:id="textEmail" styleClass="textField" />
+                                                         </children>
+                                                      </HBox>
+                                                      <HBox prefHeight="100.0" prefWidth="200.0">
+                                                         <children>
+                           											<Label styleClass="label" text="Facebook:   ">
+                                                               <HBox.margin>
+                                                                  <Insets />
+                                                               </HBox.margin>
+                                                            </Label>
                            											<TextField fx:id="textFacebook" styleClass="textField" />
+                                                         </children>
+                                                      </HBox>
+                                                      <HBox prefHeight="100.0" prefWidth="200.0">
+                                                         <children>
+                           											<Label styleClass="label" text="Twitter:        ">
+                                                               <HBox.margin>
+                                                                  <Insets />
+                                                               </HBox.margin>
+                                                            </Label>
                            											<TextField fx:id="textTwitter" styleClass="textField" />
+                                                         </children>
+                                                      </HBox>
+                                                      <HBox prefHeight="100.0" prefWidth="200.0">
+                                                         <children>
+                           											<Label styleClass="label" text="Instagram:   ">
+                                                               <HBox.margin>
+                                                                  <Insets />
+                                                               </HBox.margin>
+                                                            </Label>
                            											<TextField fx:id="textInstagram" styleClass="textField" />
                                                          </children>
-                                                      </VBox>
+                                                      </HBox>
                                                    </children>
-                                                </HBox>
-               										</children>
-               									</AnchorPane>
-               								</content>
-               							</TitledPane>
+                                                </VBox>
+                                             </children>
+                                          </AnchorPane>
+                                      </content>
+                                    </TitledPane>
                							<TitledPane animated="false" text="Senderos">
                								<content>
                									<VBox minHeight="0.0" minWidth="0.0" prefHeight="152.0" prefWidth="264.0">
