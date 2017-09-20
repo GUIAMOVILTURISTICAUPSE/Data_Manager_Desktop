@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.google.api.ControlOrBuilder;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -95,7 +97,7 @@ public class ControllerRecurso {
 	@FXML private ListView<TipoAccesibilidad> listTipoAccesibilidad;
 	@FXML private Button btnCargarWS;
 	ObservableList<Idiomas> selectedItems;
-	ObservableList<Imagen> selectedItemsImagen;
+	Imagen selectedItemsImagen;
 	ObservableList<Sendero> selectItemsSenderos;
 	ObservableList<TipoAtractivo> selectItemsAtractivo;
 	ObservableList<String> selectItemsTiposParqueo;
@@ -252,12 +254,14 @@ public class ControllerRecurso {
 		pojoTemp.getRecomendacion().add(comboRecomendacion.getValue());
 		//pojo.setInfContacto(comboContactos.getValue());
 		
+		pojoTemp.getGaleria().addAll(listViewImagenes.getItems());
+		/*
 		if (selectedItemsImagen != null){
 			for(Imagen i : selectedItemsImagen){
 				 pojoTemp.getGaleria().add(i);
 				 System.out.println("selected item " + i.toString());
 	       }	
-		}	
+		}*/	
 		
 		return pojoTemp;
 	}
@@ -410,12 +414,19 @@ public class ControllerRecurso {
 	
 	public void abrirPantallaModalCargarImagen()
 	{
-		Imagen pojoCargado = ControllerHelper.abrirVistaModal("/ViewImagen.fxml", "Imagen", pojoImagen);
-		if(pojoCargado!=null)
-		{
-			pojoImagen = pojoCargado;
-		}else {
-			ControllerHelper.mostrarAlertaError("No se cargo el pojo de Imagen.");
+		if(!listViewImagenes.getItems().isEmpty()){
+			if(listViewImagenes.getSelectionModel().getSelectedItem() != null){
+				Imagen pojoCargado = ControllerHelper.abrirVistaModal("/ViewImagen.fxml", "Imagen", pojoImagen);
+				if(pojoCargado!=null){
+					pojoImagen = pojoCargado;
+				}else {
+					ControllerHelper.mostrarAlertaError("No se cargo el pojo de Imagen.");
+				}
+			}else{
+				ControllerHelper.mostrarAlertaError("Seleccione alguna imagen");
+			}
+		}else{
+			ControllerHelper.mostrarAlertaError("El recurso no cuenta con ninguna imagen... Debe crear alguna imagen y seleccionarla");
 		}
 	}
 	
@@ -605,33 +616,14 @@ public class ControllerRecurso {
 	
 	public void cargarListasConString()
 	{
-		
-		Imagen pojoI1 = new Imagen();
-		pojoI1.setTitulo("Foto1");
-		pojoI1.setUrl("imagenes/foto1.jpg");
-		Imagen pojoI2 = new Imagen();
-		pojoI2.setTitulo("Foto2");
-		pojoI2.setUrl("imagenes/foto2.jpg");
-		Imagen pojoI3 = new Imagen();
-		pojoI3.setTitulo("Foto3");
-		pojoI3.setUrl("imagenes/foto3.jpg");
-		Imagen pojoI4 = new Imagen();
-		pojoI4.setTitulo("Foto4");
-		pojoI4.setUrl("imagenes/foto4.jpg");
-		ArrayList<Imagen> imagenlista = new ArrayList<Imagen>();
-		imagenlista.add(pojoI1);
-		imagenlista.add(pojoI2);
-		imagenlista.add(pojoI3);
-		imagenlista.add(pojoI4);
-		ObservableList<Imagen> testesImagen = FXCollections.observableArrayList(imagenlista);
-		listViewImagenes.setItems(testesImagen);
-		listViewImagenes.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		listViewImagenes.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 		listViewImagenes.setOnMouseClicked(new EventHandler<Event>() {
             @Override
             public void handle(Event event) {
-            	selectedItemsImagen =  listViewImagenes.getSelectionModel().getSelectedItems();
+            	selectedItemsImagen =  listViewImagenes.getSelectionModel().getSelectedItem();
             }
         });
+		
 		Costo pojoC1 = new Costo();
 		pojoC1.setDescripcion("Comida");
 		pojoC1.setCosto(14);

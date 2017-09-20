@@ -36,7 +36,7 @@ public class Recurso {
     private ArrayList<Imagen> galeria = new ArrayList<Imagen>();
     private Imagen imagenPrincipal;
     private ArrayList<Sendero> sendero = new ArrayList<Sendero>();
-    private String posicion;
+    private String posicion; 
     private Estado estado;
     private ArrayList<Idiomas> idiomasInformac = new ArrayList<Idiomas>();
     private ArrayList<Comentario> comentarios = new ArrayList<Comentario>();
