@@ -349,11 +349,10 @@
    	
    	<HBox alignment="CENTER">
       <children>
-      	
-      		<Button mnemonicParsing="false" prefHeight="38.0" prefWidth="59.0" styleClass="boton" text="ATRAS" />
-      		<Button mnemonicParsing="false" onAction="#borrarDatosWebService" styleClass="boton" text="BORRAR" />
-      		<Button mnemonicParsing="false" onAction="#guardarDatosWebService" styleClass="boton" text="GUARDAR" />
+      		<Button mnemonicParsing="false" onAction="#guardarDatosWebService" styleClass="boton" text="GUARDAR NUEVO" />
+      		<Button mnemonicParsing="false" onAction="#actualizarDatosWebService" styleClass="boton" text="ACTUALIZAR" />
       		<Button mnemonicParsing="false" onAction="#limpiarPantalla" styleClass="boton" text="LIMPIAR" />
+      		<Button mnemonicParsing="false" onAction="#borrarDatosWebService" styleClass="boton" text="BORRAR" />
       		<Button mnemonicParsing="false" onAction="#Salir" prefHeight="34.0" prefWidth="56.0" styleClass="botonSalir" text="SALIR" />
       </children>
    	

@@ -7,4 +7,5 @@ public interface ConsumableWebService<X> {
 	public String consumePost(X x, String url, String... params);
 	public List<X> consumeGetAll(String url);
 	public void consumeDelete(String url, String id, String rev);
+	public void consumePut(X x, String url, String[] params);
 }

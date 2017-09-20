@@ -326,10 +326,27 @@ public class ControllerRecurso {
 		if(controllerHelper.guardarNuevosDatosWebService(pojo, Recurso.class))
 		{
 			System.out.println("Datos guardados con exito");
+			ControllerHelper.mostrarAlertaInformacion("Recurso creado con Exito.");
 		}else{
 			System.err.println("No se pudo guardar los datos a traves del web service.");
+			ControllerHelper.mostrarAlertaError("No se pudo guardar los datos a traves del web service.");
 		}
 		
+	}
+	
+	public void actualizarDatosWebService()
+	{
+		ControllerHelper<Recurso> controllerHelper= new ControllerHelper<Recurso>();
+		Recurso pojo = Guardar();
+		System.out.println("El pojo a guardar en el WS es: " + pojo);
+		try {
+			controllerHelper.actualizarDatosWebService(pojo, Recurso.class);
+			ControllerHelper.mostrarAlertaInformacion("Recurso actualizado con Exito.");
+		}catch (Exception e) {
+			e.printStackTrace();
+			System.err.println("Error para actualizar recurso.");
+			ControllerHelper.mostrarAlertaError("Error para actualizar recurso." + e.getMessage());
+		}
 	}
 	
 	public void borrarDatosWebService()
