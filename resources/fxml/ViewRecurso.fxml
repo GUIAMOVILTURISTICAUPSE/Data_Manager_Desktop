@@ -309,13 +309,13 @@
                      </children>
                   						</HBox>
                   						
-                  						<HBox>
+                  						<!-- <HBox>
                      <children>
                      							<Button mnemonicParsing="false" styleClass="boton" text="Contactos" />
                      							<BorderPane prefHeight="25.0" prefWidth="32.0" />
                      							<ComboBox fx:id="comboContactos" prefWidth="150.0" styleClass="comboBox" />
                      </children>							    
-                  						</HBox>
+                  						</HBox> -->
                   						
                   						<HBox>
                      <children>
