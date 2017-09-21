@@ -46,6 +46,7 @@ public class ControllerRecurso {
 	@FXML private Button btnCargarSendero;
 	@FXML private Button btnCrearSenderos;
 	@FXML private Button btnIrImagen;
+	@FXML ComboBox<Imagen> cmbImagenPrincipal;
 	@FXML private TextField textId;
 	@FXML private Pane guno;
 	@FXML private Accordion gdos;
@@ -54,6 +55,9 @@ public class ControllerRecurso {
 	@FXML private Pane gcinco;
 	@FXML private Pane gseis;
 
+	
+	
+	
 
 	@FXML private TextField textTelefono;
 	@FXML private TextField textFacebook;
@@ -126,7 +130,7 @@ public class ControllerRecurso {
 		cargarTipoAtractivo();
 		cargarTiposDeParqueo();
 		cargarListasConString();
-
+		
 	}
 	
 	private void setPromptText() {
@@ -182,8 +186,10 @@ public class ControllerRecurso {
 		pojoTemp.setCategoria(textCategoria.getText());
 		pojoTemp.setHorario(textHorario.getText());
 		pojoTemp.setSeguridad(textSeguridad.getText());
+		pojoTemp.setimagenPrincipal(cmbImagenPrincipal.getValue());
 		
-		
+	    //pojoTemp.setimagenPrincipal(pojoImagen);
+
 		Contacto datoscontactos = new Contacto();
 		datoscontactos.setTelefono(textTelefono.getText());
 		datoscontactos.setTwitter(textTwitter.getText());
@@ -419,6 +425,9 @@ public class ControllerRecurso {
 		}
 	}
 	
+	
+
+	
 	public void CargarDatos(Recurso pojo){
 		textNombre.setText(pojo.getId());
 		textDescripcion.setText(pojo.getDescripcion());
@@ -438,6 +447,8 @@ public class ControllerRecurso {
 		textCategoria.setText(pojo.getCategoria());
 		textSeguridad.setText(pojo.getSeguridad());
 		textHorario.setText(pojo.getHorario());
+		
+		
 		
 		if(pojo.getInfContacto()!=null)
 
@@ -618,6 +629,8 @@ public class ControllerRecurso {
 		Imagen pojoI4 = new Imagen();
 		pojoI4.setTitulo("Foto4");
 		pojoI4.setUrl("imagenes/foto4.jpg");
+		
+		
 		ArrayList<Imagen> imagenlista = new ArrayList<Imagen>();
 		imagenlista.add(pojoI1);
 		imagenlista.add(pojoI2);
@@ -625,6 +638,7 @@ public class ControllerRecurso {
 		imagenlista.add(pojoI4);
 		ObservableList<Imagen> testesImagen = FXCollections.observableArrayList(imagenlista);
 		listViewImagenes.setItems(testesImagen);
+		cmbImagenPrincipal.setItems(testesImagen);
 		listViewImagenes.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		listViewImagenes.setOnMouseClicked(new EventHandler<Event>() {
             @Override
@@ -671,11 +685,12 @@ public class ControllerRecurso {
 		pojoR2.setTitulo("Recomendacion2");
 		pojoR2.setDescripcion("La recomendacion nos vamos en las dos");
 		ArrayList<Recomendacion> recomendacionlista = new ArrayList<Recomendacion>();
+	
 		recomendacionlista.add(pojoR1);
 		recomendacionlista.add(pojoR2);
 		ObservableList<Recomendacion> recomendaciones = FXCollections.observableArrayList(recomendacionlista);
 		comboRecomendacion.setItems(recomendaciones);
-		
+		comboRecomendacion.setItems(recomendaciones);
 		textRanking.textProperty().addListener(new ChangeListener<String>() {
 	        @Override
 	        public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -685,4 +700,11 @@ public class ControllerRecurso {
 	        }
 	    });
 	}
+
+	
+	
 }
+
+
+
+
