@@ -55,10 +55,13 @@ public class ControllerRecurso {
 	@FXML private Pane gcinco;
 	@FXML private Pane gseis;
 
+<<<<<<< HEAD
 	
 	
 	
 
+=======
+>>>>>>> 2a99b809831da9d02c5f38d2e7bb8caa0b05c553
 	@FXML private TextField textTelefono;
 	@FXML private TextField textFacebook;
 	@FXML private TextField textTwitter;
