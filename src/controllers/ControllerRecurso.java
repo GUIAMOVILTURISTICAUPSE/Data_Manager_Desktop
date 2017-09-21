@@ -254,7 +254,16 @@ public class ControllerRecurso {
 		pojoTemp.getRecomendacion().add(comboRecomendacion.getValue());
 		//pojo.setInfContacto(comboContactos.getValue());
 
-		pojoTemp.getGaleria().addAll(listViewImagenes.getItems());
+		//pojoTemp.getGaleria().addAll(listViewImagenes.getItems());
+		pojoTemp.getGaleria().clear();
+		if(listViewImagenes.getItems().size() != 0){
+			for(Imagen image : listViewImagenes.getItems()){
+				pojoTemp.getGaleria().add(image);
+			}	
+		}
+		
+		
+		
 		/*
 		if (selectedItemsImagen != null){
 			for(Imagen i : selectedItemsImagen){
@@ -286,7 +295,7 @@ public class ControllerRecurso {
 		checkInactivo.setSelected(false);
 		comboCosto.setValue(null);
 		textpreguntasf.setText("");
-		listViewIdiomas.setItems(null);	
+		//listViewIdiomas.setItems(null);	
 		listViewImagenes.setItems(null);
 		listViewSenderos.setItems(null);
 		comboFacilidad.setValue(null);
@@ -296,7 +305,7 @@ public class ControllerRecurso {
 		textPersonaEncargada.setText("");
 		textPropietario.setText("");
 		comboRecomendacion.setValue(null);
-		comboContactos.setValue(null);
+		//comboContactos.setValue(null);
 		textCategoria.setText("");
 		tablePreRes.setItems(null);
 		initialize();
@@ -341,7 +350,7 @@ public class ControllerRecurso {
 	public void actualizarDatosWebService()
 	{
 		ControllerHelper<Recurso> controllerHelper= new ControllerHelper<Recurso>();
-		Recurso pojo = Guardar();
+		//Recurso pojo = Guardar();
 		System.out.println("El pojo a guardar en el WS es: " + pojo);
 		try {
 			controllerHelper.actualizarDatosWebService(pojo, Recurso.class);
@@ -430,13 +439,19 @@ public class ControllerRecurso {
 
 	public void abrirPantallaModalNuevaImagen()
 	{
-		pojo = Guardar();
-		pojoImagen = ControllerHelper.abrirVistaModal("/ViewImagen.fxml", "Imagen", null);
-		if(pojoImagen!=null){
-			if(!pojoImagen.getUrl().isEmpty()){
-				listViewImagenes.getItems().add(pojoImagen);				
-				pojo.getGaleria().add(pojoImagen);
-			}
+		pojo = Guardar();	
+
+		System.out.println("Pojo de la Imagen: " + pojo);
+		if(!textNombre.getText().isEmpty()){
+			pojoImagen = ControllerHelper.abrirVistaModal("/ViewImagen.fxml", "Imagen", null);
+			if(pojoImagen!=null){
+				if(!pojoImagen.getUrl().isEmpty()){
+					listViewImagenes.getItems().add(pojoImagen);				
+					pojo.getGaleria().add(pojoImagen);
+				}
+			}		
+		}else{
+			ControllerHelper.mostrarAlertaInformacion("El recurso al que se asignara la imagen no tiene nombre... asignele un nombre al Recurso ");
 		}
 	}
 
@@ -448,13 +463,13 @@ public class ControllerRecurso {
 				if(pojoCargado!=null){
 					pojoImagen = pojoCargado;
 				}else {
-					ControllerHelper.mostrarAlertaError("No se cargo el pojo de Imagen.");
+					ControllerHelper.mostrarAlertaInformacion("No se cargo el pojo de Imagen.");
 				}
 			}else{
-				ControllerHelper.mostrarAlertaError("Seleccione alguna imagen");
+				ControllerHelper.mostrarAlertaInformacion("Seleccione alguna imagen");
 			}
 		}else{
-			ControllerHelper.mostrarAlertaError("El recurso no cuenta con ninguna imagen... Debe crear alguna imagen y seleccionarla");
+			ControllerHelper.mostrarAlertaInformacion("El recurso no cuenta con ninguna imagen... Debe crear alguna imagen y seleccionarla");
 		}
 	}
 
