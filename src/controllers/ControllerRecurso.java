@@ -256,7 +256,7 @@ public class ControllerRecurso {
 
 		//pojoTemp.getGaleria().addAll(listViewImagenes.getItems());
 		pojoTemp.getGaleria().clear();
-		if(listViewImagenes.getItems().size() != 0){
+		if((listViewImagenes.getItems().size() != 0)){
 			for(Imagen image : listViewImagenes.getItems()){
 				pojoTemp.getGaleria().add(image);
 			}	
@@ -296,7 +296,7 @@ public class ControllerRecurso {
 		comboCosto.setValue(null);
 		textpreguntasf.setText("");
 		//listViewIdiomas.setItems(null);	
-		listViewImagenes.setItems(null);
+		listViewImagenes.getItems().clear();
 		listViewSenderos.setItems(null);
 		comboFacilidad.setValue(null);
 		textCanton.setText("");
