@@ -19,6 +19,7 @@
 
 <VBox prefHeight="533.0" prefWidth="862.0" stylesheets="/Estilo.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ControllerSenderos">
    <children>
+<<<<<<< HEAD
       <BorderPane prefHeight="33.0" prefWidth="844.0" />
       <HBox prefHeight="424.0" prefWidth="862.0">
          <children>
@@ -158,6 +159,89 @@
                   </HBox>
                </children>
             </VBox>
+=======
+      <Label layoutX="40.0" layoutY="77.0" prefHeight="17.0" prefWidth="101.0" styleClass="submenu" text="ID" />
+      <TextField fx:id="txtid" layoutX="110.0" layoutY="73.0" prefHeight="25.0" prefWidth="174.0" />
+      <Label layoutX="40.0" layoutY="191.0" styleClass="submenu" text="DURACION" />
+      <Label layoutX="40.0" layoutY="153.0" styleClass="submenu" text="DISTANCIA" />
+      <Label layoutX="40.0" layoutY="46.0" styleClass="submenu" text="Estado: " />
+      <Label layoutX="40.0" layoutY="305.0" styleClass="submenu" text="Instrucciones" />
+      <Label layoutX="40.0" layoutY="229.0" styleClass="submenu" text="Descripción" />
+      <Label layoutX="40.0" layoutY="369.0" styleClass="submenu" text="Comentarios" />
+      <TextField fx:id="txtduracion" layoutX="110.0" layoutY="187.0" prefHeight="25.0" prefWidth="174.0" />
+      <TextField fx:id="txtdistancia" layoutX="110.0" layoutY="149.0" prefHeight="25.0" prefWidth="174.0" />
+      <Button layoutX="181.0" layoutY="538.0" mnemonicParsing="false" onAction="#cargarDatosWebService" styleClass="botones" text="Cargar" />
+      <Button layoutX="115.0" layoutY="538.0" mnemonicParsing="false" onAction="#guardar" styleClass="botones" text="Guardar" />
+      <Button layoutX="299.0" layoutY="538.0" mnemonicParsing="false" onAction="#limpiar" styleClass="botones" text="Limpiar" />
+      <Button layoutX="366.0" layoutY="539.0" mnemonicParsing="false" onAction="#salir" styleClass="botones" text="Salir" />
+      <Button layoutX="241.0" layoutY="538.0" mnemonicParsing="false" onAction="#borrarDatosWebService" styleClass="botones" text="Borrar" />
+      <Button layoutX="61.0" layoutY="539.0" mnemonicParsing="false" onAction="#cancelar" styleClass="botones" text="Atras" />
+      <Label layoutX="40.0" layoutY="115.0" prefHeight="17.0" prefWidth="101.0" styleClass="submenu" text="NOMBRE" />
+      <TextField fx:id="txtnombre" layoutX="110.0" layoutY="111.0" prefHeight="25.0" prefWidth="174.0" />
+      <TextArea fx:id="txtdescripcion" layoutX="110.0" layoutY="223.0" prefHeight="64.0" prefWidth="291.0" />
+      <TextArea fx:id="txtinstrucciones" layoutX="110.0" layoutY="299.0" prefHeight="64.0" prefWidth="291.0" />
+      <ComboBox fx:id="comboComentario" layoutX="110.0" layoutY="369.0" prefHeight="25.0" prefWidth="291.0" />
+      <CheckBox fx:id="checkActivo" layoutX="85.0" layoutY="46.0" mnemonicParsing="false" text="Activo" />
+      <CheckBox fx:id="checkInactivo" layoutX="142.0" layoutY="46.0" mnemonicParsing="false" text="Inactivo" />
+      <AnchorPane layoutX="503.0" layoutY="29.0" prefHeight="200.0" prefWidth="303.0">
+         <children>
+            <Accordion>
+              <panes>
+                  <TitledPane id="listAtractivo" maxHeight="150.0" prefHeight="150.0" prefWidth="291.0" text="ATRACTIVO">
+                     <content>
+                        <ListView fx:id="listatractivos" maxHeight="150.0" prefHeight="150.0" prefWidth="291.0" />
+                     </content>
+                  </TitledPane>
+                <TitledPane animated="false" maxHeight="150.0" prefHeight="150.0" prefWidth="291.0" text="DISPONIBILIDAD CELULAR">
+                  <content>
+                    <AnchorPane maxHeight="150.0" minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="200.0">
+                           <children>
+                              <ListView fx:id="listDisponibilidadCelular" prefHeight="150.0" prefWidth="291.0" />
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </TitledPane>
+                <TitledPane animated="false" maxHeight="150.0" prefHeight="150.0" prefWidth="291.0" text="EQUIPAMIENTO">
+                  <content>
+                    <AnchorPane maxHeight="150.0" minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="289.0">
+                           <children>
+                              <ListView fx:id="listEquipamiento" prefHeight="150.0" prefWidth="291.0" />
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </TitledPane>
+                <TitledPane animated="false" maxHeight="150.0" prefHeight="150.0" prefWidth="291.0" text="TRANSPORTE DE SENDERO">
+                  <content>
+                    <AnchorPane maxHeight="150.0" minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="200.0">
+                           <children>
+                              <ListView fx:id="listTransporteSendero" prefHeight="150.0" prefWidth="291.0" />
+                              <Button layoutX="56.0" layoutY="98.0" mnemonicParsing="false" text="Crear Transporte" onAction="#abrirPantallaModalNuevoTransporteSendero" />
+                              <Button layoutX="171.0" layoutY="98.0" mnemonicParsing="false" text="Cargar Transporte" onAction="#abrirPantallaModalCargarTransporteSendero"/>
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </TitledPane>
+                  <TitledPane animated="false" maxHeight="150.0" prefHeight="150.0" prefWidth="291.0" text="LOCACION ATRACTIVO">
+                    <content>
+                      <AnchorPane maxHeight="150.0" minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="200.0">
+                           <children>
+                              <ListView fx:id="listLAtractivos" layoutX="-4.0" prefHeight="130.0" prefWidth="291.0" />
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </TitledPane>
+                  <TitledPane animated="false" prefHeight="150.0" prefWidth="291.0" text="DIFICULTAD RECORRIDO">
+                    <content>
+                      <AnchorPane maxHeight="150.0" minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="200.0">
+                           <children>
+                              <ListView fx:id="listDificultadRecorrido" layoutX="-2.0" prefHeight="130.0" prefWidth="291.0" />
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </TitledPane>
+              </panes>
+            </Accordion>
+>>>>>>> 17309acd6dec5a6b74021cf53f4cff4ce6447bc5
          </children>
       		
       </HBox>

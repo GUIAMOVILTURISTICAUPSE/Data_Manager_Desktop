@@ -1,6 +1,8 @@
 package pojos;
 
 public class Costo {
+	
+	
     private String id;
     private Recurso recurso;
     private String descripcion;
@@ -55,8 +57,7 @@ public class Costo {
 	public String toString() {
 		return "Descripcion:" + descripcion + "- Costo:" + costo;
 	}
-    
-    
+
     
 }
 
