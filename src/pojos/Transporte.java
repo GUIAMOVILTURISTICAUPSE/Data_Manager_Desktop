@@ -105,4 +105,13 @@ public class Transporte {
 	public void set_sync(Sync _sync) {
 		this._sync = _sync;
 	}
+
+	@Override
+	public String toString() {
+		return "Transporte [id=" + _id + ", tipo=" + tipo + ", obligatorio="
+				+ obligatorio + ", costoRecurso=" + costoRecurso + ", duracion=" + duracion + ", distancia=" + distancia
+				+ ", descripcion=" + descripcion + ", estado=" + estado + ", imagen=" + imagen + "]";
+	}
+	
+	
 }
