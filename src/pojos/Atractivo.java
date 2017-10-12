@@ -2,6 +2,9 @@ package pojos;
 
 public class Atractivo {
 	
+	private String _id;
+	private Sync _sync;
+	private String rev;
 	public String nombre;
 	public String descripcion;
 	public TipoAtractivo tipo;
@@ -78,6 +81,30 @@ public class Atractivo {
 	public String toString() {
 		return "Atractivo [nombre=" + nombre + ", descripcion=" + descripcion + ", tipo=" + tipo + ", imagenPrincipal="
 				+ imagenPrincipal + ", estado=" + estado + "]";
+	}
+
+	public String get_id() {
+		return _id;
+	}
+
+	public void set_id(String _id) {
+		this._id = _id;
+	}
+
+	public Sync get_sync() {
+		return _sync;
+	}
+
+	public void set_sync(Sync _sync) {
+		this._sync = _sync;
+	}
+
+	public String getRev() {
+		return rev;
+	}
+
+	public void setRev(String rev) {
+		this.rev = rev;
 	}
 	
 }
