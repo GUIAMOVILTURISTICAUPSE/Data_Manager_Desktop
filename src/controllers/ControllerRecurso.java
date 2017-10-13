@@ -96,7 +96,7 @@ public class ControllerRecurso {
 	@FXML private ListView<TipoAtractivo> listTiposAtractivos;
 	@FXML private ListView<TipoAccesibilidad> listTipoAccesibilidad;
 	@FXML private Button btnCargarWS;
-	ObservableList<Idiomas> selectedItems;
+	ObservableList<Idiomas> selectedItemsIdiomas;
 	Imagen selectedItemsImagen;
 	ObservableList<Sendero> selectItemsSenderos;
 	ObservableList<TipoAtractivo> selectItemsAtractivo;
@@ -197,11 +197,14 @@ public class ControllerRecurso {
 
 
 		pojoTemp.setPreguntasF(listapreguntas);
-		if(selectedItems!=null && !selectedItems.isEmpty())
+		if(selectedItemsIdiomas!=null && !selectedItemsIdiomas.isEmpty())
 		{
-			for(Idiomas s : selectedItems){
-				pojoTemp.getIdiomasInformac().add(s);
-				System.out.println("selected item " + s.toString());
+			for(Idiomas s : selectedItemsIdiomas){
+				if(!pojoTemp.getIdiomasInformac().contains(s))
+				{
+					pojoTemp.getIdiomasInformac().add(s);
+					System.out.println("selected item " + s.toString());
+				}
 			}
 		}
 
@@ -222,16 +225,22 @@ public class ControllerRecurso {
 
 		if(selectItemsAtractivo  != null ){
 			for (TipoAtractivo a : selectItemsAtractivo ) {
-				pojoTemp.getTipoAtractivo().add(a);
-				System.out.println("seleccion  " + a.toString());
+				if(!pojoTemp.getTipoAtractivo().contains(a))
+				{
+					pojoTemp.getTipoAtractivo().add(a);
+					System.out.println("seleccion  " + a.toString());
+				}
 			}
 
 		}
 
 		if (selectItemsTiposParqueo != null ){
 			for (String b :selectItemsTiposParqueo ) {
-				pojoTemp.getTiposParqueo().add(b);
-				System.out.println("seleccion  " + b.toString());
+				if(!pojoTemp.getTiposParqueo().contains(b))
+				{
+					pojoTemp.getTiposParqueo().add(b);
+					System.out.println("seleccion  " + b.toString());
+				}
 			}
 
 		}
@@ -239,15 +248,21 @@ public class ControllerRecurso {
 		if (selectItemsSenderos != null){
 
 			for (Sendero c: selectItemsSenderos) {
-				pojoTemp.getSendero().add(c);
-				System.out.println("seleccion  " + c.toString());
+				if(pojo.getSendero().contains(c))
+				{
+					pojoTemp.getSendero().add(c);
+					System.out.println("seleccion  " + c.toString());
+				}
 			}
 
 		}
 		if (selectItemsTipoAccesibilidad != null){
 			for (TipoAccesibilidad d :selectItemsTipoAccesibilidad) {
-				pojoTemp.getOpcionesTipoAccesibilidad().add(d);
-				System.out.println("seleccion  " + d.toString());
+				if(!pojoTemp.getOpcionesTipoAccesibilidad().contains(d))
+				{
+					pojoTemp.getOpcionesTipoAccesibilidad().add(d);
+					System.out.println("seleccion  " + d.toString());
+				}
 			}	
 		}
 		pojoTemp.getFacilidadRecurso().add(comboFacilidad.getValue());
@@ -258,12 +273,15 @@ public class ControllerRecurso {
 		pojoTemp.getGaleria().clear();
 		if((listViewImagenes.getItems().size() != 0)){
 			for(Imagen image : listViewImagenes.getItems()){
-				pojoTemp.getGaleria().add(image);
+				if(!pojo.getGaleria().contains(image))
+				{
+					pojoTemp.getGaleria().add(image);
+				}
 			}	
 		}
-		
-		
-		
+
+
+
 		/*
 		if (selectedItemsImagen != null){
 			for(Imagen i : selectedItemsImagen){
@@ -284,7 +302,7 @@ public class ControllerRecurso {
 		textSeguridad.setText("");
 		textTelefono.setText("");
 		textTwitter.setText("");
-		tablePreRes.setItems(null);
+		//tablePreRes.setItems(null);
 		textNombre.setText("");
 		textDescripcion.setText("");
 		textInfGeneral.setText("");
@@ -297,7 +315,8 @@ public class ControllerRecurso {
 		textpreguntasf.setText("");
 		//listViewIdiomas.setItems(null);	
 		listViewImagenes.getItems().clear();
-		listViewSenderos.setItems(null);
+		listViewSenderos.getItems().clear();
+		//listViewSenderos.setItems(null);
 		comboFacilidad.setValue(null);
 		textCanton.setText("");
 		textProvincia.setText("");
@@ -307,7 +326,7 @@ public class ControllerRecurso {
 		comboRecomendacion.setValue(null);
 		//comboContactos.setValue(null);
 		textCategoria.setText("");
-		tablePreRes.setItems(null);
+		tablePreRes.getItems().clear();
 		initialize();
 	}
 
@@ -510,6 +529,7 @@ public class ControllerRecurso {
 		ObservableList<TipoAtractivo> TatractivoSeleccionado = FXCollections.observableArrayList(pojo.getTipoAtractivo());
 		listTiposAtractivos.setItems(TatractivoSeleccionado);
 		ObservableList<Sendero> senderoSeleccionado = FXCollections.observableArrayList(pojo.getSendero());
+		senderoSeleccionado = ControllerHelper.limpiarNullsObservableList(senderoSeleccionado);
 		listViewSenderos.setItems(senderoSeleccionado);
 		listViewSenderos.setOnMouseClicked(new EventHandler<Event>() {
 
@@ -582,6 +602,7 @@ public class ControllerRecurso {
 
 
 	public void cargarDatosTablaPreguntas(){
+
 		if(tablePreRes.getItems().size()>0)
 		{
 			preguntastable.removeAll(preguntastable);
@@ -621,7 +642,7 @@ public class ControllerRecurso {
 		listViewIdiomas.setOnMouseClicked(new EventHandler<Event>() {
 			@Override
 			public void handle(Event event) {
-				selectedItems =  listViewIdiomas.getSelectionModel().getSelectedItems();
+				selectedItemsIdiomas =  listViewIdiomas.getSelectionModel().getSelectedItems();
 			}
 
 		});

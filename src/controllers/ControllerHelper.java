@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.List;
 
 import configuration.PropertyManager;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -149,5 +151,22 @@ public class ControllerHelper<R> {
 			e.printStackTrace(); //Retorna Connection reset cuando demora mucho
 		}
 		return x1;
+	}
+	
+	public static <X> ObservableList<X> limpiarNullsObservableList(ObservableList<X> lista) {
+		if(lista==null)
+		{
+			return FXCollections.observableArrayList();
+		}
+		
+		ObservableList<X> listaLimpia = FXCollections.observableArrayList();
+		for(int i = 0; i < lista.size(); i++)
+		{
+			if(lista.get(i)!=null)
+			{
+				listaLimpia.add(lista.get(i));
+			}
+		}
+		return listaLimpia;
 	}
 }
