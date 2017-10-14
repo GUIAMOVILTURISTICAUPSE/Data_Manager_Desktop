@@ -1,24 +1,97 @@
- .root{
--fx-background-color: linear-gradient(from 0% 0% to 100% 200%, repeat, #22858C 0%, #564F5A 50%);
--fx-alignment: center;
-}
-
-.text-field{
--fx-font: 12px Calibri;
--fx-text-fill: black;
-}
-
-.button{
--fx-background-color: #5C6F70;
--fx-text-fill: white;
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+.root{
+	-fx-background-color:radial-gradient( focus-angle 0.0deg, focus-distance 0.0%, center 50.0% 50.0%, radius 100.0%, rgb(204,255,204) 0.0, rgb(102,128,230) 100.0 );
 }
 
 .label{
--fx-font: 12px Calibri;
--fx-text-fill: black;
+    -fx-font-size: 10pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: indigo;
+    -fx-opacity: 1.5;
 }
 
-#lblRecurso{
--fx-font: 37px Calibri;
--fx-text-fill: black;
+.botonSalir{
+	-fx-font-family: "Franklin Gothic Demi";
+	-fx-text-fill: red ;
+	-fx-background-color: aqua;
+	-fx-border-color: dodgerblue ;
+}
+
+.boton:hover{	
+	-fx-background-color: F6F6F6;
+}
+
+.botonSalir:hover{
+	-fx-background-color: F6F6F6;
+}
+
+.boton{
+	-fx-font-family: "Franklin Gothic Demi";
+	-fx-text-overrun: center-word-ellipsis; 
+	-fx-background-color: #A0A0A0;
+	-fx-border-color: dodgerblue ;
+}
+
+.comboBox{
+	-fx-font-family: "Eras Demi ITC";
+	-fx-text-overrun: center-word-ellipsis; 
+	-fx-background-color: linear-gradient( from 0.0% 0.0% to 100.0% 100.0%, rgb(242,242,242) 0.0, rgb(204,255,204) 100.0);
+	-fx-border-color: dodgerblue ;
+}
+
+.lstView{
+	-fx-font-family: "Eras Demi ITC";
+	-fx-text-fill: black;
+	-fx-background-color: linear-gradient( from 0.0% 0.0% to 100.0% 100.0%, rgb(153,179,255) 0.0, rgb(179,230,230) 100.0);
+	-fx-border-color: dodgerblue ;
+}
+
+.textField{
+	-fx-font-family: "Eras Demi ITC";
+	-fx-text-overrun: center-word-ellipsis; 
+	-fx-background-color: linear-gradient( from 0.0% 0.0% to 100.0% 100.0%, rgb(242,242,242) 0.0, rgb(204,255,204) 100.0);
+	-fx-border-color: dodgerblue ;
+}
+
+.textField:hover{
+	-fx-background-color: deepskyblue ;
+}
+
+.textArea:hover{
+	-fx-background-color: deepskyblue ;
+}
+
+.check{
+	 -fx-font-size: 9pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: indigo;
+    -fx-opacity: 1.5;
+}
+
+.tablas{
+	-fx-font-family: "Eras Demi ITC";
+	-fx-text-overrun: center-word-ellipsis; 
+	-fx-background-color: seashell ;
+}
+
+.textArea{
+	-fx-font-family: "Eras Demi ITC";
+	-fx-background-color: linear-gradient( from 0.0% 0.0% to 100.0% 100.0%, rgb(242,242,242) 0.0, rgb(204,255,204) 100.0);
+	-fx-border-color: dodgerblue;
+}
+
+.textArea .scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.textArea .scroll-pane .viewport{
+    -fx-background-color: transparent;
+}
+
+.textArea .scroll-pane .content{
+    -fx-background-color: transparent;
+}
+
+.acordion{
+	-fx-background-color: aquamarine ;
 }

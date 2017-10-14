@@ -18,6 +18,7 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import pojos.Atractivo;
 import pojos.Comentario;
@@ -50,7 +51,13 @@ public class ControllerSenderos implements ControllerModalBase<Sendero>{
 	@FXML private ListView<Imagen> listImagenes;
 	@FXML private ComboBox<Comentario> comboComentario;
 	@FXML private ListView<Atractivo> listatractivos; 
-
+	@FXML private ListView<String> list_Recorrido; 
+	@FXML private TextField txt_punto;
+	@FXML private Button btn_agregar;
+	@FXML private Button btn_modificar;
+	@FXML private Button btn_eliminar;
+	
+	
 	Sendero pojo = new Sendero();
 	private Transporte pojoTransporte ;
 	public ControllerSenderos() {
@@ -63,14 +70,148 @@ public class ControllerSenderos implements ControllerModalBase<Sendero>{
 	ObservableList<LocacionAtractivo> TipoLocacionAtractivo;
 	ObservableList<String> TipoEquipamento;
 	ObservableList<Atractivo> tipoAtractivo;
+	ObservableList<String> punto;
 	private Stage stage;
 
 	public void initialize(){
 
 		setPromptText(); 
-		dificultadRecorrido();
-		disponibilidadCelular();
-		 ListaLlenasString();
+		/**********comentario*********/
+		Comentario comenta = new Comentario();
+		comenta.set_id("001");
+		comenta.setDescipcion("Amen :v");
+		Comentario comenta1 = new Comentario();
+		comenta1.set_id("002");
+		comenta1.setDescipcion("Amen x2 :v");
+		ArrayList<Comentario> ArrayComentario = new ArrayList<Comentario>();
+		ArrayComentario.add(comenta);
+		ArrayComentario.add(comenta1);
+		ObservableList<Comentario> testescomentarios = FXCollections.observableArrayList(ArrayComentario);
+		comboComentario.setItems(testescomentarios);
+		/**********Atractivo************/
+		Atractivo atractivos = new Atractivo();
+		atractivos.setNombre("qwerty");
+		atractivos.setDescripcion("qwerty12345 ");
+		Atractivo atractivos1 = new Atractivo();
+		atractivos1.setNombre("asdfgh");
+		atractivos1.setDescripcion("asdfgh12345 ");
+		ArrayList<Atractivo> ArrayAtractivo = new ArrayList<Atractivo>();
+		ArrayAtractivo.add(atractivos);
+		ArrayAtractivo.add(atractivos1);
+		ObservableList<Atractivo> listaAtractivos = FXCollections.observableArrayList(ArrayAtractivo);
+		listatractivos.setItems(listaAtractivos);	
+		listatractivos.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		listatractivos.setOnMouseClicked(new EventHandler<Event>() {
+
+			@Override
+			public void handle(Event event) {
+				// TODO Auto-generated method stub
+				tipoAtractivo = listatractivos.getSelectionModel().getSelectedItems();
+			}
+		});
+		/**********LocacionAtractivo*********/
+		LocacionAtractivo LocacionA = new  LocacionAtractivo();
+		LocacionA.setCoordenadasGPS("123456 ");
+		LocacionA.setEstado(Estado.ACTIVO);
+		LocacionAtractivo LocacionA2 = new  LocacionAtractivo();
+		LocacionA2.setCoordenadasGPS("123456 -41454545");
+		LocacionA2.setEstado(Estado.ACTIVO);
+		ArrayList<LocacionAtractivo> arraylocacionA = new ArrayList<LocacionAtractivo>();
+		arraylocacionA.add(LocacionA);
+		arraylocacionA.add(LocacionA2);
+		ObservableList<LocacionAtractivo> listlocacionAtractivo = FXCollections.observableArrayList(arraylocacionA);
+		listLAtractivos.setItems(listlocacionAtractivo);
+		listLAtractivos.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+		listLAtractivos.setOnMouseClicked(new EventHandler<Event>() {
+			@Override
+			public void handle(Event event) {
+				//
+				TipoLocacionAtractivo = listLAtractivos.getSelectionModel().getSelectedItems();
+			}
+		});
+		/**********Imagen*********/
+		Imagen imagen1 = new Imagen();
+		imagen1.setTitulo("1234 ");
+		imagen1.setUrl("dfghjtrewasrhj");
+		Imagen imagen2 = new Imagen();
+		imagen2.setTitulo("1478 ");
+		imagen2.setUrl("asdfdgerdffgbth");
+		ArrayList<Imagen> arrayImagenes = new ArrayList<Imagen>();
+		arrayImagenes.add(imagen1);
+		arrayImagenes.add(imagen2);
+		ObservableList<Imagen> listaImagen = FXCollections.observableArrayList(arrayImagenes);
+		listImagenes.setItems(listaImagen);
+		listImagenes.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		listImagenes.setOnMouseClicked(new EventHandler<Event>() {
+
+			@Override
+			public void handle(Event event) {
+				// TODO Auto-generated method stub
+				selectedItemsImagen = listImagenes.getSelectionModel().getSelectedItems();
+			}
+
+		});
+
+
+		ObservableList<DificultadRecorrido> listaDificultad = FXCollections.observableArrayList(DificultadRecorrido.values());
+		listDificultadRecorrido.setItems(listaDificultad);
+		listDificultadRecorrido.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+		listDificultadRecorrido.setOnMouseClicked(new EventHandler<Event>() {
+
+			@Override
+			public void handle(Event event) {
+				// TODO Auto-generated method stub
+				LTipoDificultad = listDificultadRecorrido.getSelectionModel().getSelectedItems();
+			}
+		});
+
+		ObservableList<DisponibilidadCelular> listaDispoCelular = FXCollections.observableArrayList(DisponibilidadCelular.values());
+		listDisponibilidadCelular.setItems(listaDispoCelular);
+		listDisponibilidadCelular.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+		listDisponibilidadCelular.setOnMouseClicked(new EventHandler<Event>() {
+
+			@Override
+			public void handle(Event event) {
+				// TODO Auto-generated method stub
+				TipoDisponibilidadCelular=listDisponibilidadCelular.getSelectionModel().getSelectedItems();
+			}
+		});
+
+		//TODO Corregir esta lista transporte, traer llena si amerita (desde base de Datos).
+		ObservableList<Transporte> listaTransporte = FXCollections.observableArrayList();
+		listTransporteSendero.setItems(listaTransporte);
+		listTransporteSendero.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		listTransporteSendero.setOnMouseClicked(new EventHandler<Event>() {
+
+			@Override
+			public void handle(Event event) {
+				// TODO Auto-generated method stub
+				TransporteOpciones=listTransporteSendero.getSelectionModel().getSelectedItems();
+			}
+		});
+
+		ObservableList<String> ListaEquipamiento= FXCollections.observableArrayList ("Equipa 1", "Equipa 2");
+		listEquipamiento.setItems(ListaEquipamiento);
+		listEquipamiento.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		listEquipamiento.setOnMouseClicked(new EventHandler<Event>() {
+			@Override
+			public void handle(Event event) {
+				// TODO Auto-generated method stub
+				TipoEquipamento=listEquipamiento.getSelectionModel().getSelectedItems();
+			}			
+		});
+		
+		list_Recorrido.setOnMouseClicked(new EventHandler<Event>() {
+			@Override
+			public void handle(Event event) {
+				punto = list_Recorrido.getSelectionModel().getSelectedItems();
+				if(!list_Recorrido.getItems().isEmpty()){
+					for(String puntito : punto){
+						txt_punto.setText(puntito);	
+					}			
+				}
+			}
+		});
 	}
 
 	private void setPromptText() {
@@ -80,7 +221,8 @@ public class ControllerSenderos implements ControllerModalBase<Sendero>{
 		txtinstrucciones.setPromptText("Ingrese Instrucciones");
 		txtnombre.setPromptText("Ingrese Nombre");
 		txtdistancia.setPromptText("Ingrese distancia");
-		comboComentario.setPromptText("Seleccion Comentario");
+		comboComentario.setPromptText("Seleccion Comentario");		
+		txt_punto.setPromptText("Example: -2.323232 , -80.808080");
 
 	}
 	public void limpiar(){
@@ -98,26 +240,24 @@ public class ControllerSenderos implements ControllerModalBase<Sendero>{
 		listImagenes.setItems(null);
 		listTransporteSendero.setItems(null);
 		listatractivos.setItems(null);
+		list_Recorrido.setItems(null);
 	}
 
 	public Sendero guardar(){
-
-
 		Sendero pojotemp = new Sendero();
 		if (pojo!=null) {
 			pojotemp = pojo;
 		}
 		pojotemp.set_id(txtnombre.getText().trim());
 		pojotemp.setNombre(txtnombre.getText());
-		float distancia = Float.parseFloat(txtdistancia.getText());
+		float distancia = (!txtdistancia.getText().isEmpty())?Float.parseFloat(txtdistancia.getText()):0;   
 		pojotemp.setDistancia(distancia);
-		float duracion = Float.parseFloat(txtduracion.getText());
+		float duracion = (!txtduracion.getText().isEmpty())?Float.parseFloat(txtduracion.getText()):0;
 		pojotemp.setDuracion(duracion);
 		pojotemp.setDescripcion(txtdescripcion.getText());
 		pojotemp.setInstrucciones(txtinstrucciones.getText());
 		if (checkActivo.isSelected()== true){
 			pojotemp.setEstado(Estado.ACTIVO);
-
 		}
 		else{
 			pojotemp.setEstado(Estado.INACTIVO);
@@ -149,6 +289,9 @@ public class ControllerSenderos implements ControllerModalBase<Sendero>{
 		for (Imagen i: selectedItemsImagen) {
 			pojotemp.getGaleria().add(i);
 
+		}
+		for(String r : list_Recorrido.getItems()){
+			pojotemp.getRecorrido().add(r);
 		}
 		
 		stage.close();
@@ -188,6 +331,11 @@ public class ControllerSenderos implements ControllerModalBase<Sendero>{
 		if (pojos.getComentarios()!=null && pojos.getComentarios().size()>0) {
 			comboComentario.setValue(pojos.getComentarios().get(0));
 		}
+		
+		if(!pojos.getRecorrido().isEmpty()){
+			list_Recorrido.getItems().addAll(pojos.getRecorrido());
+		}
+		
 	}
 	public void checkActivo(){
 		if(checkActivo.isSelected()){
@@ -304,6 +452,23 @@ public class ControllerSenderos implements ControllerModalBase<Sendero>{
 	public void abrirPantallaModalCargarTransporteSendero()
 	{
 		pojoTransporte = ControllerHelper.abrirVistaModal("/ViewTransporteSendero.fxml", "Transporte", pojoTransporte);
+	}
+	
+	public void addPunto(){
+		if(!txt_punto.getText().isEmpty())
+			list_Recorrido.getItems().add(txt_punto.getText());			
+		txt_punto.setText("");
+	}
+	
+	public void updatePunto(){
+		if(!list_Recorrido.getItems().isEmpty() && !txt_punto.getText().isEmpty())
+			list_Recorrido.getItems().set(list_Recorrido.getSelectionModel().getSelectedIndex(), txt_punto.getText());
+		txt_punto.setText("");
+	}
+	
+	public void deletePunto(){
+		if(!list_Recorrido.getItems().isEmpty() && !txt_punto.getText().isEmpty())
+			list_Recorrido.getItems().remove(list_Recorrido.getSelectionModel().getSelectedIndex());		
 	}
 	
 	public void salir(){
