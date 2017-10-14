@@ -89,6 +89,8 @@ public class ControllerRecurso {
 	@FXML private ComboBox<Facilidad> comboFacilidad;
 	@FXML private ComboBox<Recomendacion> comboRecomendacion;
 	@FXML private ComboBox<Contacto> comboContactos;
+	@FXML private ComboBox<Imagen> cmb_Img_Principal;
+	
 	@FXML private ListView<Imagen> listViewImagenes;
 	@FXML private ListView<Sendero> listViewSenderos;
 	@FXML private ListView<String> listTiposParqueo;
@@ -279,7 +281,8 @@ public class ControllerRecurso {
 				}
 			}	
 		}
-
+		
+		pojoTemp.setimagenPrincipal(cmb_Img_Principal.getValue());
 
 
 		/*
@@ -327,6 +330,8 @@ public class ControllerRecurso {
 		//comboContactos.setValue(null);
 		textCategoria.setText("");
 		tablePreRes.getItems().clear();
+		cmb_Img_Principal.getItems().clear();
+		
 		initialize();
 	}
 
@@ -568,6 +573,9 @@ public class ControllerRecurso {
 		ObservableList<Imagen> imagenesSeleccionado = FXCollections.observableArrayList(pojo.getGaleria());
 		listViewImagenes.setItems(imagenesSeleccionado);
 		listViewImagenes.setOnMouseClicked(e -> pojoImagen = listViewImagenes.getSelectionModel().getSelectedItem());
+		
+		cmb_Img_Principal.setValue(pojo.getimagenPrincipal());
+		cmb_Img_Principal.setItems(listViewImagenes.getItems());
 
 	}
 
@@ -687,6 +695,7 @@ public class ControllerRecurso {
 				selectedItemsImagen =  listViewImagenes.getSelectionModel().getSelectedItem();
 			}
 		});
+		cmb_Img_Principal.setItems(listViewImagenes.getItems());
 
 		Costo pojoC1 = new Costo();
 		pojoC1.setDescripcion("Comida");
