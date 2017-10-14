@@ -1,5 +1,7 @@
 package pojos;
 
+import java.util.ArrayList;
+
 public class Atractivo {
 	
 	private String _id;
@@ -10,6 +12,7 @@ public class Atractivo {
 	public TipoAtractivo tipo;
 	public Imagen imagenPrincipal;
 	public Estado estado;
+	private ArrayList<Imagen> galeria = new ArrayList<Imagen>();
 	
 	public Atractivo()
 	{
@@ -75,14 +78,6 @@ public class Atractivo {
 	}
 	
 
-	
-	
-	@Override
-	public String toString() {
-		return "Atractivo [nombre=" + nombre + ", descripcion=" + descripcion + ", tipo=" + tipo + ", imagenPrincipal="
-				+ imagenPrincipal + ", estado=" + estado + "]";
-	}
-
 	public String get_id() {
 		return _id;
 	}
@@ -105,6 +100,19 @@ public class Atractivo {
 
 	public void setRev(String rev) {
 		this.rev = rev;
+	}
+
+	public ArrayList<Imagen> getGaleria() {
+		return galeria;
+	}
+
+	public void setGaleria(ArrayList<Imagen> galeria) {
+		this.galeria = galeria;
+	}
+
+	@Override
+	public String toString() {
+		return "nombre=" + nombre + ", tipo=" + tipo + "]";
 	}
 	
 }

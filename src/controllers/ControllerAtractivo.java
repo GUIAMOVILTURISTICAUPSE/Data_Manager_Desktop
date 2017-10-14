@@ -4,12 +4,15 @@ import java.util.Optional;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
@@ -24,8 +27,7 @@ public class ControllerAtractivo implements ControllerModalBase<Atractivo>{
 	@FXML private TextField txtFieldID;
 	@FXML private TextField txtFieldNombre;
 	@FXML private TextField txtFieldDescripcion;
-	@FXML private TextField txtFieldTitulo;
-	@FXML private TextField txtFieldURL;
+	@FXML private TextField txtFieldTituloImagen;
 	@FXML private ComboBox<Imagen> cboGaleria;
 	@FXML private ComboBox<Estado> cboEstado;
 	@FXML private ComboBox<TipoAtractivo> cboTipoAtractivo;
@@ -36,9 +38,11 @@ public class ControllerAtractivo implements ControllerModalBase<Atractivo>{
 	@FXML private Button btnAtras;
 	@FXML private Button btncargarD;
 	@FXML private ListView<Estado> listE;
-	
+	@FXML private ListView<Imagen> listViewImagenes;
+	Imagen selectedItemsImagen;
 	
 	Atractivo pojo = new Atractivo();
+	private Imagen pojoImagen;
 	private Stage stage;
 	public ControllerAtractivo() {
 	
@@ -46,6 +50,7 @@ public class ControllerAtractivo implements ControllerModalBase<Atractivo>{
 	public void initialize(){
 		setPromptText();
 		cargarTipoAtractivo();
+		cargarListasString();
 		cargarEstado()	;
 	}
 	
@@ -54,8 +59,7 @@ public class ControllerAtractivo implements ControllerModalBase<Atractivo>{
 		txtFieldID.setPromptText("Ingrese ID");
 		txtFieldNombre.setPromptText("Nombre");
 		txtFieldDescripcion.setPromptText("Descripcion");
-		txtFieldTitulo.setPromptText("Titulo ");
-		cboGaleria.setPromptText("Galeria");
+		txtFieldTituloImagen.setPromptText("Titulo ");
 		cboTipoAtractivo.setPromptText("Tipo Atractivo");
 		cboEstado.setPromptText("Estado");
 
@@ -65,11 +69,11 @@ public class ControllerAtractivo implements ControllerModalBase<Atractivo>{
 		txtFieldID.setText("");
 		txtFieldNombre.setText("");
 		txtFieldDescripcion.setText("");
-		txtFieldURL.setText("");
-		txtFieldTitulo.setText("");		
+		txtFieldTituloImagen.setText("");		
 		cboEstado.setValue(null);
 		cboTipoAtractivo.setValue(null);
 		cboGaleria.setValue(null);
+		listViewImagenes.getItems().clear();
 	}
 	
 	public Atractivo Guardar(){
@@ -84,6 +88,13 @@ public class ControllerAtractivo implements ControllerModalBase<Atractivo>{
 		pojoTemp.setDescripcion(txtFieldDescripcion.getText());
 		pojoTemp.setEstado(cboEstado.getValue());
 		pojoTemp.setTipo(cboTipoAtractivo.getValue());
+		pojoTemp.getGaleria().clear();
+		if((listViewImagenes.getItems().size() != 0)){
+			for(Imagen image : listViewImagenes.getItems()){
+				pojoTemp.getGaleria().add(image);
+			}	
+		}
+		pojoTemp.setImagenPrincipal(selectedItemsImagen);
 		stage.close();
 		pojo = pojoTemp;
 		return pojoTemp;
@@ -101,6 +112,11 @@ public class ControllerAtractivo implements ControllerModalBase<Atractivo>{
 		cboEstado.setItems(ListEstado);
 		ObservableList<TipoAtractivo> LTipoAtractivo = FXCollections.observableArrayList(pojos.getTipo());
 		cboTipoAtractivo.setItems(LTipoAtractivo);
+		
+		ObservableList<Imagen> imagenesSeleccionado = FXCollections.observableArrayList(pojos.getGaleria());
+		listViewImagenes.setItems(imagenesSeleccionado);
+		listViewImagenes.setOnMouseClicked(e -> pojoImagen = listViewImagenes.getSelectionModel().getSelectedItem());
+		txtFieldTituloImagen.setText(pojos.imagenPrincipal.toString());
 	}
 	
 	public void cargarDatosWebService()
@@ -187,6 +203,58 @@ public class ControllerAtractivo implements ControllerModalBase<Atractivo>{
 				}
 			}
 		}
+	}
+	
+	public void abrirPantallaModalNuevaImagen()
+	{
+
+		System.out.println("Pojo de la Imagen: " + pojo);
+		if(!txtFieldNombre.getText().isEmpty()){
+			pojoImagen = ControllerHelper.abrirVistaModal("/ViewImagen.fxml", "Imagen", null);
+			if(pojoImagen!=null){
+				if(!pojoImagen.getUrl().isEmpty()){
+					listViewImagenes.getItems().add(pojoImagen);				
+					pojo.getGaleria().add(pojoImagen);
+				}
+				/*if (pojoImagen.getUrl()==null){
+					pojoImagen.setUrl("www.google.com.ec");
+				}
+				listViewImagenes.getItems().add(pojoImagen);				
+				pojo.getGaleria().add(pojoImagen);*/
+			}		
+		}else{
+			ControllerHelper.mostrarAlertaInformacion("El recurso al que se asignara la imagen no tiene nombre... asignele un nombre al Recurso ");
+		}
+	}
+
+	public void abrirPantallaModalCargarImagen()
+	{
+		if(!listViewImagenes.getItems().isEmpty()){
+			if(listViewImagenes.getSelectionModel().getSelectedItem() != null){
+				Imagen pojoCargado = ControllerHelper.abrirVistaModal("/ViewImagen.fxml", "Imagen", pojoImagen);
+				if(pojoCargado!=null){
+					pojoImagen = pojoCargado;
+				}else {
+					ControllerHelper.mostrarAlertaInformacion("No se cargo el pojo de Imagen.");
+				}
+			}else{
+				ControllerHelper.mostrarAlertaInformacion("Seleccione alguna imagen");
+			}
+		}else{
+			ControllerHelper.mostrarAlertaInformacion("El recurso no cuenta con ninguna imagen... Debe crear alguna imagen y seleccionarla");
+		}
+	}
+	
+	public void cargarListasString()
+	{
+		listViewImagenes.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+		listViewImagenes.setOnMouseClicked(new EventHandler<Event>() {
+			@Override
+			public void handle(Event event) {
+				selectedItemsImagen =  listViewImagenes.getSelectionModel().getSelectedItem();
+				txtFieldTituloImagen.setText(selectedItemsImagen.toString());
+			}
+		});
 	}
 	public void cargarEstado()
 	{
