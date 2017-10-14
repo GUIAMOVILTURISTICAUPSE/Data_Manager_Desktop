@@ -137,8 +137,9 @@
                               <AnchorPane prefHeight="122.0" prefWidth="299.0">
                                  <children>
                                     <ListView fx:id="listatractivos" prefHeight="127.0" prefWidth="279.0" />
-                                    <Button fx:id="btnCrearAtractivo" layoutX="14.0" layoutY="115.0" mnemonicParsing="false" onAction="#abrirPantallaModalNuevoAtractivo" text="Crear Atractivo" />
-                                    <Button fx:id="btnCargarAtractivo" layoutX="150.0" layoutY="115.0" mnemonicParsing="false" onAction="#abrirPantallaModalCargarAtractivo" text="Cargar Atractivo" />
+                                    <Button fx:id="btnCrearAtractivo" layoutY="128.0" mnemonicParsing="false" onAction="#abrirPantallaModalNuevoAtractivo" text="Crear Atractivo" />
+                                    <Button fx:id="btnCargarAtractivo" layoutX="96.0" layoutY="128.0" mnemonicParsing="false" onAction="#abrirPantallaModalCargarAtractivo" prefHeight="25.0" prefWidth="107.0" text="Cargar Atractivo" />
+                                    <Button fx:id="btnBorrarAtractivo" layoutX="203.0" layoutY="128.0" mnemonicParsing="false" onAction="#handleDeleteButton" prefHeight="25.0" prefWidth="77.0" text="Borrar" />
                                  </children>
                               </AnchorPane>
                            </content>

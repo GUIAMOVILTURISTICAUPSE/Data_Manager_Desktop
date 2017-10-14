@@ -29,6 +29,7 @@ import pojos.Recurso;
 import pojos.Sendero;
 import pojos.TipoTransporte;
 import pojos.Transporte;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 
 public class ControllerSenderos implements ControllerModalBase<Sendero>{
@@ -54,6 +55,7 @@ public class ControllerSenderos implements ControllerModalBase<Sendero>{
 	@FXML private Button btn_agregar;
 	@FXML private Button btn_modificar;
 	@FXML private Button btn_eliminar;
+	@FXML private Button btnBorrarAtractivo;
 	
 	
 	Sendero pojo = new Sendero();
@@ -540,6 +542,30 @@ public class ControllerSenderos implements ControllerModalBase<Sendero>{
 		});
 	}
 	
+	public void handleDeleteButton() {
+		btnBorrarAtractivo.setOnAction(new EventHandler<ActionEvent>() {
+	        @Override
+	        public void handle(ActionEvent event) {
+	            final int selectedIdx = listatractivos.getSelectionModel().getSelectedIndex();
+	            if (selectedIdx != -1) {
+	                Atractivo itemToRemove = listatractivos.getSelectionModel().getSelectedItem();
+
+	                final int newSelectedIdx =
+	                        (selectedIdx == listatractivos.getItems().size() - 1)
+	                                ? selectedIdx - 1
+	                                : selectedIdx;
+
+	                listatractivos.getItems().remove(selectedIdx);
+	                listatractivos.getSelectionModel().select(newSelectedIdx);
+	               //removes the player for the array
+	                System.out.println("selectIdx: " + selectedIdx);
+	                System.out.println("item: " + itemToRemove);
+	                pojo.getAtractivos().remove(selectedIdx);
+
+	            }
+	        }
+	    });
+	}
 }
 
 
