@@ -350,7 +350,7 @@ public class ControllerRecurso {
 	public void actualizarDatosWebService()
 	{
 		ControllerHelper<Recurso> controllerHelper= new ControllerHelper<Recurso>();
-		//Recurso pojo = Guardar();
+		Recurso pojo = Guardar();
 		System.out.println("El pojo a guardar en el WS es: " + pojo);
 		try {
 			controllerHelper.actualizarDatosWebService(pojo, Recurso.class);
