@@ -105,7 +105,8 @@
             <children>
             				<BorderPane prefHeight="9.0" prefWidth="16.0" />
             				<Label prefHeight="17.0" prefWidth="88.0" styleClass="label" text="POSICION" />
-            				<TextField fx:id="textPosicion" prefHeight="25.0" prefWidth="241.0" styleClass="textField" />
+            				<TextField fx:id="textPosicion" prefHeight="25.0" prefWidth="218.0" styleClass="textField" />
+                        <Button fx:id="btnCargarCoordenada" mnemonicParsing="false" styleClass="boton" text="..." />
             </children>	        	            
          			</HBox>
          			

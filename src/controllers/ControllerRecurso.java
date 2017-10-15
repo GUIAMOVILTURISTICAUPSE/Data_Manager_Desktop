@@ -48,6 +48,8 @@ public class ControllerRecurso {
 	@FXML private Button btnCargarSendero;
 	@FXML private Button btnCrearSenderos;
 	@FXML private Button btnIrImagen;
+	@FXML private Button btnCargarCoordenada;
+	
 	@FXML private TextField textId;
 	@FXML private Pane guno;
 	@FXML private Accordion gdos;
@@ -113,16 +115,22 @@ public class ControllerRecurso {
 	private Imagen pojoImagen;
 
 	public String id_sendero_cap;
-
+	
 	public ControllerRecurso()
 	{	
 	}
 
 	Context context = Context.getInstance();
+	
 	Recurso pojo = new Recurso();
-
-
+	
+	
 	public void initialize(){
+		if(context.getRecurso()!=null)
+		{
+			CargarDatos(context.getRecurso());
+			context.setRecurso(null);
+		}
 		setPromptText();
 		//cargarListViewSendero();
 		cargarTipoAccesibilidad();
@@ -130,8 +138,27 @@ public class ControllerRecurso {
 		cargarTipoAtractivo();
 		cargarTiposDeParqueo();
 		cargarListasConString();
-
+		buscarCoordenada();
 	}
+	
+	private void buscarCoordenada()
+	{
+		btnCargarCoordenada.setOnAction(evento ->{
+			try {
+				Guardar();
+				Parent root = FXMLLoader.load(getClass().getResource("/ViewGoogleMap.fxml"));
+				Stage escenario = new Stage();
+				Scene escena = new Scene(root, 1100,500);
+				escenario.setScene(escena);
+				escenario.show();
+				Stage stageRecurso = (Stage) textDireccion.getScene().getWindow();
+				stageRecurso.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			});
+	}
+	
 
 	private void setPromptText() {
 		textNombre.setPromptText("Nombre");
@@ -292,7 +319,8 @@ public class ControllerRecurso {
 				 System.out.println("selected item " + i.toString());
 	       }	
 		}*/	
-
+		
+		context.setRecurso(pojoTemp);
 		return pojoTemp;
 	}
 
@@ -750,4 +778,6 @@ public class ControllerRecurso {
 			}
 		});
 	}
+
+	
 }
