@@ -58,9 +58,9 @@ public class ControllerGoogleMap{
 	
 	public void initialize()
 	{
+		txtLatitud.setText("-2.2262200");
+		txtLongitud.setText("-80.8587300");
 		myBrowser = new MyBrowser();
-		txtLatitud.setText("-" + 0.2298500);
-		txtLongitud.setText("-" + 78.5249500);
 		
 		btnBuscar.setOnAction(e ->{
 			latitud = Double.parseDouble(txtLatitud.getText());
@@ -86,9 +86,12 @@ public class ControllerGoogleMap{
 		});
 		
 		btnRetornar.setOnAction(evento -> {
-			if(listaCoordenadas.size() == 1)
+			if(context.getSendero()==null)
 			{
-				context.getRecurso().setPosicion(listaCoordenadas.get(0).lat + ", " + listaCoordenadas.get(0).lon);
+				if(listaCoordenadas.size()==1)
+				{
+					context.getRecurso().setPosicion(listaCoordenadas.get(0).lat + ", " + listaCoordenadas.get(0).lon);
+				}
 				try {
 					Parent root = FXMLLoader.load(getClass().getResource("/ViewRecurso.fxml"));
 					Stage escenario = new Stage();
@@ -100,24 +103,41 @@ public class ControllerGoogleMap{
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-			}else{
+			}else if (listaCoordenadas.size() > 2) {
 				ArrayList<String> listaRecorrido = new ArrayList<String>();
 				for (Coordenadas coordenadas : listaCoordenadas) {
 					listaRecorrido.add(coordenadas.lat + " ," + coordenadas.lon);
 				}
+				
 				context.getSendero().setRecorrido(listaRecorrido);
-				Stage stageMapa = (Stage) txtLatitud.getScene().getWindow();
-				stageMapa.close();
+				
+				try {
+					Parent root = FXMLLoader.load(getClass().getResource("/ViewSenderos.fxml"));
+					Stage escenario = new Stage();
+					Scene escena = new Scene(root);
+					escenario.setScene(escena);
+					escenario.show();
+					Stage stageMapa = (Stage) txtLatitud.getScene().getWindow();
+					stageMapa.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 
 			
 		});
 		
+		if(!context.getRecurso().getPosicion().isEmpty())
+		{
+			String[] coordenadaSeparadas = context.getRecurso().getPosicion().split("\\,");
+			txtLatitud.setText(coordenadaSeparadas[0]);
+			txtLongitud.setText(coordenadaSeparadas[1]);
+			
+			latitud = Double.parseDouble(txtLatitud.getText());
+			longitud = Double.parseDouble(txtLongitud.getText());
+		}
+		
 	}
-
-	
-	
-	
 	
 	private void obtenerCoordenadas() {
 			latitud = (double) webEngine.executeScript("document.obtenerLatitud();");

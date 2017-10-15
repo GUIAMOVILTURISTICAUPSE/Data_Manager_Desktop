@@ -15,7 +15,7 @@
     <script type="text/javascript">
     
         document.map = new google.maps.Map(document.getElementById("mapcanvas"));
-        var latlng = new google.maps.LatLng(-0.22985,-78.52495);
+        var latlng = new google.maps.LatLng(-2.2262200, -80.8587300);
         var Options = {
             zoom: 15,
             center: latlng,
@@ -23,7 +23,7 @@
         };
         var map = new google.maps.Map(document.getElementById("mapcanvas"), Options);
         var marker = new google.maps.Marker({
-            position: new google.maps.LatLng(latlng.lat(),latlng.lng()),
+            position: new google.maps.LatLng(),
             map: map,
             draggable: true,
             title: "",
@@ -53,6 +53,10 @@
             var latLng = new google.maps.LatLng(x, y);
             marker.setPosition(latLng);
             map.setCenter(latLng);
+            infobulle.close();
+	        infobulle = new google.maps.InfoWindow({
+        		content: "Coordenadas: " + latLng
+        	});
         }
         
         document.obtenerLatitud = function(){
