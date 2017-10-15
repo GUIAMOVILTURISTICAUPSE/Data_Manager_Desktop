@@ -105,7 +105,7 @@ public class ControllerGoogleMap{
 				for (Coordenadas coordenadas : listaCoordenadas) {
 					listaRecorrido.add(coordenadas.lat + " ," + coordenadas.lon);
 				}
-				context.getSendero().setRecorrido(listaRecorrido);
+				//context.getSendero().setRecorrido(listaRecorrido);
 				Stage stageMapa = (Stage) txtLatitud.getScene().getWindow();
 				stageMapa.close();
 			}
