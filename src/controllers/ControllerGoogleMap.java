@@ -53,7 +53,7 @@ public class ControllerGoogleMap{
 		
 		public MyBrowser(){
 			webEngine = wView.getEngine();
-			final URL urlGoogleMaps = getClass().getResource("demo.html");
+			final URL urlGoogleMaps = getClass().getResource("map.html");
 			webEngine.load(urlGoogleMaps.toExternalForm());
 			
 		}
