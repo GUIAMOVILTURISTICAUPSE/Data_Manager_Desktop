@@ -3,6 +3,7 @@ package controllers;
 import javafx.scene.Scene;
 import pojos.Imagen;
 import pojos.Recurso;
+import pojos.Sendero;
 
 public class Context {
 
@@ -14,27 +15,42 @@ public class Context {
 		}
 			
 		private Recurso recurso;
+		private Sendero sendero;
 		private Imagen imagen;
 		private Scene scene;
 
 		public Scene getScene() {
 			return scene;
 		}
+		
 		public void setScene(Scene scene) {
 			this.scene = scene;
 		}
+		
 		public Recurso getRecurso() {
 			return recurso;
 		}
+		
 		public void setRecurso(Recurso recurso) {
 			this.recurso = recurso;
 		}
+		
 		public Imagen getImagen() {
 			return imagen;
 		}
+		
 		public void setImagen(Imagen imagen) {
 			this.imagen = imagen;
 		}
+
+		public Sendero getSendero() {
+			return sendero;
+		}
+
+		public void setSendero(Sendero sendero) {
+			this.sendero = sendero;
+		}
+		
 		
 		
 
