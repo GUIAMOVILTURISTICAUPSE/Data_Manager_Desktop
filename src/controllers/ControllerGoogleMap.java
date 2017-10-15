@@ -65,6 +65,8 @@ public class ControllerGoogleMap{
 		txtLongitud.setText("-80.8587300");
 		myBrowser = new MyBrowser();
 
+		//Para dibujar el punto en el mapa apenas de ha cargado el html (con Workers)
+		// https://stackoverflow.com/questions/12540044/execute-a-task-after-the-webview-is-fully-loaded
 		wView.getEngine().getLoadWorker().stateProperty().addListener(
 				  new ChangeListener<Worker.State>() {
 				  @Override
@@ -120,7 +122,7 @@ public class ControllerGoogleMap{
 					listaRecorrido.add(coordenadas.lat + " ," + coordenadas.lon);
 				}
 
-				//context.getSendero().setRecorrido(listaRecorrido);
+				context.getSendero().setRecorrido(listaRecorrido);
 				
 				try {
 					Parent root = FXMLLoader.load(getClass().getResource("/ViewSenderos.fxml"));
