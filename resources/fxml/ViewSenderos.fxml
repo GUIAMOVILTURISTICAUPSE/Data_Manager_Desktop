@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
@@ -17,7 +15,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="533.0" prefWidth="862.0" stylesheets="/Estilo.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ControllerSenderos">
+<VBox prefHeight="533.0" prefWidth="862.0" stylesheets="/Estilo.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ControllerSenderos">
    <children>
       <BorderPane prefHeight="33.0" prefWidth="844.0" />
       <HBox prefHeight="424.0" prefWidth="862.0">
@@ -87,34 +85,22 @@
                <children>
                   <Accordion>
                     <panes>
-                        <TitledPane id="listAtractivo" maxHeight="150.0" prefHeight="150.0" prefWidth="291.0" text="ATRACTIVO">
-                           <content>
-                              <ListView fx:id="listatractivos" maxHeight="150.0" prefHeight="150.0" prefWidth="291.0" styleClass="lstView" />
-                           </content>
-                        </TitledPane>
-                      <TitledPane animated="false" maxHeight="150.0" prefHeight="150.0" prefWidth="291.0" text="DISPONIBILIDAD CELULAR">
-                        <content>
-                          <AnchorPane maxHeight="150.0" minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="200.0">
-                                 <children>
-                                    <ListView fx:id="listDisponibilidadCelular" prefHeight="150.0" prefWidth="291.0" styleClass="lstView" />
-                                 </children>
-                              </AnchorPane>
-                        </content>
-                      </TitledPane>
                       <TitledPane animated="false" maxHeight="150.0" prefHeight="150.0" prefWidth="291.0" text="EQUIPAMIENTO">
                         <content>
                           <AnchorPane maxHeight="150.0" minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="289.0">
                                  <children>
-                                    <ListView fx:id="listEquipamiento" prefHeight="150.0" prefWidth="291.0" styleClass="lstView" />
+                                    <ListView fx:id="listEquipamiento" prefHeight="138.0" prefWidth="291.0" styleClass="lstView" />
                                  </children>
                               </AnchorPane>
                         </content>
                       </TitledPane>
                       <TitledPane animated="false" maxHeight="150.0" prefHeight="150.0" prefWidth="291.0" text="TRANSPORTE DE SENDERO">
                         <content>
-                          <AnchorPane maxHeight="150.0" minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="200.0">
+                          <AnchorPane maxHeight="150.0" minHeight="0.0" minWidth="0.0" prefHeight="149.0" prefWidth="299.0">
                                  <children>
-                                    <ListView fx:id="listTransporteSendero" prefHeight="150.0" prefWidth="291.0" styleClass="lstView" />
+                                    <ListView fx:id="listTransporteSendero" layoutX="-1.0" prefHeight="109.0" prefWidth="291.0" styleClass="lstView" />
+                                    <Button fx:id="btnCrearTransporteSendero" layoutX="-1.0" layoutY="98.0" mnemonicParsing="false" onAction="#abrirPantallaModalNuevoTransporteSendero" text="Crear Tran-Sendero" />
+                                    <Button fx:id="btnCargarTransporteSendero" layoutX="150.0" layoutY="98.0" mnemonicParsing="false" onAction="#abrirPantallaModalCargarTransporteSendero" text="Cargar Tran-Sendero" />
                                  </children>
                               </AnchorPane>
                         </content>
@@ -137,6 +123,27 @@
                               </AnchorPane>
                           </content>
                         </TitledPane>
+                      <TitledPane animated="false" maxHeight="150.0" prefHeight="150.0" prefWidth="291.0" text="DISPONIBILIDAD CELULAR">
+                        <content>
+                          <AnchorPane maxHeight="150.0" minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="200.0">
+                                 <children>
+                                    <ListView fx:id="listDisponibilidadCelular" prefHeight="150.0" prefWidth="291.0" styleClass="lstView" />
+                                 </children>
+                              </AnchorPane>
+                        </content>
+                      </TitledPane>
+                        <TitledPane id="listAtractivo" maxHeight="150.0" prefHeight="150.0" prefWidth="291.0" text="ATRACTIVO">
+                           <content>
+                              <AnchorPane prefHeight="122.0" prefWidth="299.0">
+                                 <children>
+                                    <ListView fx:id="listatractivos" prefHeight="127.0" prefWidth="279.0" />
+                                    <Button fx:id="btnCrearAtractivo" layoutY="128.0" mnemonicParsing="false" onAction="#abrirPantallaModalNuevoAtractivo" text="Crear Atractivo" />
+                                    <Button fx:id="btnCargarAtractivo" layoutX="96.0" layoutY="128.0" mnemonicParsing="false" onAction="#abrirPantallaModalCargarAtractivo" prefHeight="25.0" prefWidth="107.0" text="Cargar Atractivo" />
+                                    <Button fx:id="btnBorrarAtractivo" layoutX="203.0" layoutY="128.0" mnemonicParsing="false" onAction="#handleDeleteButton" prefHeight="25.0" prefWidth="77.0" text="Borrar" />
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </TitledPane>
                     </panes>
                   </Accordion>
                </children>
@@ -151,9 +158,9 @@
                   <TextField fx:id="txt_punto" />
                   <HBox alignment="CENTER_RIGHT" prefHeight="37.0" prefWidth="212.0">
                      <children>
-                        <Button fx:id="btn_agregar" mnemonicParsing="false" styleClass="boton" text="Agregar" onAction="#addPunto"/>
-                        <Button fx:id="btn_modificar" mnemonicParsing="false" styleClass="boton" text="Modificar" onAction="#updatePunto"/>
-                        <Button fx:id="btn_eliminar" mnemonicParsing="false" styleClass="boton" text="Eliminar" onAction="#deletePunto"/>
+                        <Button fx:id="btn_agregar" mnemonicParsing="false" onAction="#addPunto" styleClass="boton" text="Agregar" />
+                        <Button fx:id="btn_modificar" mnemonicParsing="false" onAction="#updatePunto" styleClass="boton" text="Modificar" />
+                        <Button fx:id="btn_eliminar" mnemonicParsing="false" onAction="#deletePunto" styleClass="boton" text="Eliminar" />
                      </children>
                   </HBox>
                </children>

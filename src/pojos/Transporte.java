@@ -2,6 +2,9 @@ package pojos;
 
 
 public class Transporte {
+	private Sync _sync;
+	private String rev;
+	
     private String _id;
     private TipoTransporte tipo;
     private boolean obligatorio;
@@ -86,4 +89,29 @@ public class Transporte {
     public void setImagen(Imagen imagen) {
         this.imagen = imagen;
     }
+
+	public String getRev() {
+		return rev;
+	}
+
+	public void setRev(String rev) {
+		this.rev = rev;
+	}
+
+	public Sync get_sync() {
+		return _sync;
+	}
+
+	public void set_sync(Sync _sync) {
+		this._sync = _sync;
+	}
+
+	@Override
+	public String toString() {
+		return "Transporte [id=" + _id + ", tipo=" + tipo + ", obligatorio="
+				+ obligatorio + ", costoRecurso=" + costoRecurso + ", duracion=" + duracion + ", distancia=" + distancia
+				+ ", descripcion=" + descripcion + ", estado=" + estado + ", imagen=" + imagen + "]";
+	}
+	
+	
 }
