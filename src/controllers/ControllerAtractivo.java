@@ -252,7 +252,10 @@ public class ControllerAtractivo implements ControllerModalBase<Atractivo>{
 			@Override
 			public void handle(Event event) {
 				selectedItemsImagen =  listViewImagenes.getSelectionModel().getSelectedItem();
-				txtFieldTituloImagen.setText(selectedItemsImagen.toString());
+				if(selectedItemsImagen!=null)
+				{
+					txtFieldTituloImagen.setText(selectedItemsImagen.toString());
+				}
 			}
 		});
 	}
