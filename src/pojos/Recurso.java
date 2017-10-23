@@ -35,6 +35,7 @@ public class Recurso {
     private float ranking;
     private ArrayList<Imagen> galeria = new ArrayList<Imagen>();
     private Imagen imagenPrincipal;
+    private ArrayList<Animacion> animaciones = new ArrayList<Animacion>();
     private ArrayList<Sendero> sendero = new ArrayList<Sendero>();
     private String posicion; 
     private Estado estado;
@@ -348,6 +349,22 @@ public class Recurso {
 		this.opcionesTipoAccesibilidad = opcionesTipoAccesibilidad;
 	}
 	
+	public ArrayList<Animacion> getAnimaciones() {
+		return animaciones;
+	}
+
+	public void setAnimaciones(ArrayList<Animacion> animaciones) {
+		this.animaciones = animaciones;
+	}
+
+	public ArrayList<AccesibilidadRecurso> getOpcionesAccesibilidad() {
+		return opcionesAccesibilidad;
+	}
+
+	public void setOpcionesAccesibilidad(ArrayList<AccesibilidadRecurso> opcionesAccesibilidad) {
+		this.opcionesAccesibilidad = opcionesAccesibilidad;
+	}
+
 	public Sync get_sync() {
 		return _sync;
 	}

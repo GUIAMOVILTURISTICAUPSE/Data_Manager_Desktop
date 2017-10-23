@@ -1,6 +1,7 @@
 package controllers;
 
 import javafx.scene.Scene;
+import pojos.Animacion;
 import pojos.Imagen;
 import pojos.Recurso;
 import pojos.Sendero;
@@ -17,6 +18,7 @@ public class Context {
 		private Recurso recurso;
 		private Sendero sendero;
 		private Imagen imagen;
+		private Animacion animacion;
 		private Scene scene;
 
 		public Scene getScene() {
@@ -49,6 +51,14 @@ public class Context {
 
 		public void setSendero(Sendero sendero) {
 			this.sendero = sendero;
+		}
+
+		public Animacion getAnimacion() {
+			return animacion;
+		}
+
+		public void setAnimacion(Animacion animacion) {
+			this.animacion = animacion;
 		}
 		
 		

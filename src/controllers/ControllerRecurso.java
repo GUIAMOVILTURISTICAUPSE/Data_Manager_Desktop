@@ -94,6 +94,7 @@ public class ControllerRecurso {
 	@FXML private ComboBox<Imagen> cmb_Img_Principal;
 	
 	@FXML private ListView<Imagen> listViewImagenes;
+	@FXML private ListView<Animacion> listViewAnimacion;
 	@FXML private ListView<Sendero> listViewSenderos;
 	@FXML private ListView<String> listTiposParqueo;
 	@FXML private ListView<String> listPreguntas;
@@ -113,6 +114,7 @@ public class ControllerRecurso {
 	//Pojos para rellenar en otras pantallas y paso de objetos entre controladores
 	private Sendero pojoSendero;
 	private Imagen pojoImagen;
+	private Animacion pojoAnimacion;
 
 	public String id_sendero_cap;
 	
@@ -309,6 +311,15 @@ public class ControllerRecurso {
 			}	
 		}
 		
+		if((listViewAnimacion.getItems().size() != 0)){
+			for(Animacion animacion : listViewAnimacion.getItems()){
+				if(!pojo.getAnimaciones().contains(animacion))
+				{
+					pojoTemp.getAnimaciones().add(animacion);
+				}
+			}	
+		}
+		
 		pojoTemp.setimagenPrincipal(cmb_Img_Principal.getValue());
 
 
@@ -346,6 +357,7 @@ public class ControllerRecurso {
 		textpreguntasf.setText("");
 		//listViewIdiomas.setItems(null);	
 		listViewImagenes.getItems().clear();
+		listViewAnimacion.getItems().clear();
 		listViewSenderos.getItems().clear();
 		//listViewSenderos.setItems(null);
 		comboFacilidad.setValue(null);
@@ -532,6 +544,43 @@ public class ControllerRecurso {
 			ControllerHelper.mostrarAlertaInformacion("El recurso no cuenta con ninguna imagen... Debe crear alguna imagen y seleccionarla");
 		}
 	}
+	
+	public void abrirPantallaModalNuevaAnimacion()
+	{
+		pojo = Guardar();	
+
+		System.out.println("Pojo actual: " + pojo);
+		if(!textNombre.getText().isEmpty()){
+			pojoAnimacion = ControllerHelper.abrirVistaModal("/ViewAnimacion.fxml", "Animacion", null);
+			if(pojoAnimacion!=null){
+				if(!pojoAnimacion.getUrl().isEmpty()){
+					listViewAnimacion.getItems().add(pojoAnimacion);				
+					pojo.getAnimaciones().add(pojoAnimacion);
+				}
+			}		
+		}else{
+			ControllerHelper.mostrarAlertaInformacion("El recurso al que se asignara la animacion no tiene nombre... asignele un nombre al Recurso ");
+		}
+	}
+
+	public void abrirPantallaModalCargarAnimacion()
+	{
+		if(!listViewAnimacion.getItems().isEmpty()){
+			if(listViewAnimacion.getSelectionModel().getSelectedItem() != null){
+				Animacion pojoCargado = ControllerHelper.abrirVistaModal("/ViewAnimacion.fxml", "Animacion", pojoAnimacion);
+				if(pojoCargado!=null){
+					pojoAnimacion = pojoCargado;
+				}else {
+					ControllerHelper.mostrarAlertaInformacion("No se cargo el pojo de Animacion.");
+				}
+			}else{
+				ControllerHelper.mostrarAlertaInformacion("Seleccione alguna animacion");
+			}
+		}else{
+			ControllerHelper.mostrarAlertaInformacion("El recurso no cuenta con ninguna animacion... Debe crear alguna animacion y seleccionarla");
+		}
+	}
+	
 
 	public void CargarDatos(Recurso pojo){
 		textNombre.setText(pojo.getId());
@@ -609,6 +658,11 @@ public class ControllerRecurso {
 		ObservableList<Imagen> imagenesSeleccionado = FXCollections.observableArrayList(pojo.getGaleria());
 		listViewImagenes.setItems(imagenesSeleccionado);
 		listViewImagenes.setOnMouseClicked(e -> pojoImagen = listViewImagenes.getSelectionModel().getSelectedItem());
+		
+		ObservableList<Animacion> animaciones = FXCollections.observableArrayList(pojo.getAnimaciones());
+		listViewAnimacion.setItems(animaciones);
+		listViewAnimacion.setOnMouseClicked(e -> pojoAnimacion = listViewAnimacion.getSelectionModel().getSelectedItem());
+		
 		
 		cmb_Img_Principal.setValue(pojo.getimagenPrincipal());
 		cmb_Img_Principal.setItems(listViewImagenes.getItems());
@@ -731,6 +785,10 @@ public class ControllerRecurso {
 				selectedItemsImagen =  listViewImagenes.getSelectionModel().getSelectedItem();
 			}
 		});
+		
+		listViewAnimacion.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+		//TODO Decidir si debo ubicar un selected image como en el listView de Imagen arriba
+		
 		cmb_Img_Principal.setItems(listViewImagenes.getItems());
 
 		Costo pojoC1 = new Costo();

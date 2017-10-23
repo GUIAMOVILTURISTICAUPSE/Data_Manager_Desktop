@@ -305,7 +305,16 @@
                                  				<Button fx:id="btnCargarImagen" layoutX="110.0" layoutY="20.0" mnemonicParsing="false" onAction="#abrirPantallaModalCargarImagen" prefHeight="25.0" prefWidth="110.0" text="Cargar Imagen" />
                      </children>
                               			</HBox>
-                  						<ListView fx:id="listViewImagenes" prefHeight="146.0" prefWidth="338.0" styleClass="lstView" />
+                              			<ListView fx:id="listViewImagenes" prefHeight="146.0" prefWidth="338.0" styleClass="lstView" />
+                              			<HBox>
+                     <children>
+                     							<Label prefHeight="17.0" prefWidth="219.0" styleClass="label" text="Media-Animaciones del Recurso" />
+                     							<Button fx:id="btnCrearMedia" mnemonicParsing="false" onAction="#abrirPantallaModalNuevaAnimacion" prefHeight="25.0" prefWidth="110.0" text="Nueva Media" />
+                                 				<Button fx:id="btnCargarMedia" mnemonicParsing="false" onAction="#abrirPantallaModalCargarAnimacion" prefHeight="25.0" prefWidth="110.0" text="Cargar Media" />
+                     </children>
+                              			</HBox>
+                  						<ListView fx:id="listViewAnimacion" prefHeight="146.0" prefWidth="338.0" styleClass="lstView" />
+                  						
                   						
                   						<HBox>
                      <children>
