@@ -49,6 +49,10 @@ public class ControllerRecurso {
 	@FXML private Button btnCrearSenderos;
 	@FXML private Button btnIrImagen;
 	@FXML private Button btnCargarCoordenada;
+	@FXML private Button btnAgregarFacilidad;
+	@FXML private Button btnModificarFacilidad;
+	@FXML private Button btnEliminarFacilidad;
+	
 	
 	@FXML private TextField textId;
 	@FXML private Pane guno;
@@ -93,6 +97,8 @@ public class ControllerRecurso {
 	@FXML private ComboBox<Contacto> comboContactos;
 	@FXML private ComboBox<Imagen> cmb_Img_Principal;
 	
+	
+	@FXML private ListView<Facilidad> listViewFacilidades;
 	@FXML private ListView<Imagen> listViewImagenes;
 	@FXML private ListView<Animacion> listViewAnimacion;
 	@FXML private ListView<Sendero> listViewSenderos;
@@ -110,11 +116,13 @@ public class ControllerRecurso {
 	ArrayList<PreguntasFrecuentes> listapreguntas = new ArrayList<PreguntasFrecuentes>();
 	ArrayList<PreguntasFrecuentes> listpreguntas = new ArrayList<>();
 	ObservableList<TipoAccesibilidad> selectItemsTipoAccesibilidad;
+	ObservableList<Facilidad> selectItemFacilidad;
 
 	//Pojos para rellenar en otras pantallas y paso de objetos entre controladores
 	private Sendero pojoSendero;
 	private Imagen pojoImagen;
 	private Animacion pojoAnimacion;
+	private Facilidad pojoFacilidades;
 
 	public String id_sendero_cap;
 	
@@ -359,6 +367,7 @@ public class ControllerRecurso {
 		listViewImagenes.getItems().clear();
 		listViewAnimacion.getItems().clear();
 		listViewSenderos.getItems().clear();
+		listViewFacilidades.getItems().clear();
 		//listViewSenderos.setItems(null);
 		comboFacilidad.setValue(null);
 		textCanton.setText("");
@@ -581,6 +590,27 @@ public class ControllerRecurso {
 		}
 	}
 	
+	public void modalAgregarFacilidad(){
+		pojoFacilidades = ControllerHelper.abrirVistaModal("/ViewFacilidades.fxml", "Facilidades", null);
+		if(pojoFacilidades!=null)
+			listViewFacilidades.getItems().add(pojoFacilidades);
+
+		pojo.getFacilidadRecurso().add(pojoFacilidades);			
+
+		if(pojoFacilidades!=null){
+			pojo.getFacilidadRecurso().add(pojoFacilidades);
+		}else{
+			ControllerHelper.mostrarAlertaError("Cerro sin llenar el formulario.");
+		}
+	}
+
+	public void modalModificarFacilidad(){
+
+	}
+
+	public void modalEliminarFacilidad(){
+
+	}
 
 	public void CargarDatos(Recurso pojo){
 		textNombre.setText(pojo.getId());
@@ -593,18 +623,12 @@ public class ControllerRecurso {
 		textProvincia.setText(pojo.getProvincia());
 		textParroquia.setText(pojo.getParroquia());
 		textPropietario.setText(pojo.getPropietario());
-
-
-
 		textPersonaEncargada.setText(pojo.getPersonaEncargada()!=null?pojo.getPersonaEncargada():"");
-
 		textCategoria.setText(pojo.getCategoria());
 		textSeguridad.setText(pojo.getSeguridad());
 		textHorario.setText(pojo.getHorario());
 
-		if(pojo.getInfContacto()!=null)
-
-		{
+		if(pojo.getInfContacto()!=null)	{
 			Contacto c = pojo.getInfContacto();
 			textFacebook.setText(c.getFacebook());
 			textInstagram.setText(c.getInstagram());
@@ -622,7 +646,6 @@ public class ControllerRecurso {
 		senderoSeleccionado = ControllerHelper.limpiarNullsObservableList(senderoSeleccionado);
 		listViewSenderos.setItems(senderoSeleccionado);
 		listViewSenderos.setOnMouseClicked(new EventHandler<Event>() {
-
 			@Override
 			public void handle(Event event) {
 				// TODO Auto-generated method stub
@@ -631,6 +654,18 @@ public class ControllerRecurso {
 				//System.out.println(pojos);				
 			}
 		});
+		
+		ObservableList<Facilidad> facilidadesSeleccionadas = FXCollections.observableArrayList(pojo.getFacilidadRecurso());
+		facilidadesSeleccionadas = ControllerHelper.limpiarNullsObservableList(facilidadesSeleccionadas);
+		listViewFacilidades.setItems(facilidadesSeleccionadas);
+		listViewFacilidades.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+		listViewFacilidades.setOnMouseClicked(new EventHandler<Event>() {
+			@Override
+			public void handle(Event event) {
+				pojoFacilidades = listViewFacilidades.getSelectionModel().getSelectedItem();
+			}
+		});
+		
 		ObservableList<TipoAccesibilidad> TaccesibilidadSelecionados = FXCollections.observableArrayList(pojo.getOpcionesTipoAccesibilidad());
 		listTipoAccesibilidad.setItems(TaccesibilidadSelecionados);
 
@@ -806,22 +841,6 @@ public class ControllerRecurso {
 		costoslista.add(pojoC3);
 		ObservableList<Costo> costos = FXCollections.observableArrayList(costoslista);
 		comboCosto.setItems(costos);
-
-		Facilidad pojoA1 = new Facilidad();
-		pojoA1.setTitulo("Facilidad1");
-		pojoA1.setDescripcion("La facilidad1 es muy chevere");
-		Facilidad pojoA2 = new Facilidad();
-		pojoA2.setTitulo("Facilidad2");
-		pojoA2.setDescripcion("La facilidad nos vamos en las dos");
-		Facilidad pojoA3 = new Facilidad();
-		pojoA3.setTitulo("Facilidad3");
-		pojoA3.setDescripcion("Super facilidad");
-		ArrayList<Facilidad> facilidadlista = new ArrayList<Facilidad>();
-		facilidadlista.add(pojoA1);
-		facilidadlista.add(pojoA2);
-		facilidadlista.add(pojoA3);
-		ObservableList<Facilidad> facilidades = FXCollections.observableArrayList(facilidadlista);
-		comboFacilidad.setItems(facilidades);
 
 		Recomendacion pojoR1 = new Recomendacion();
 		pojoR1.setTitulo("Recomendacion1");

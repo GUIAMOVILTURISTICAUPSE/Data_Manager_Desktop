@@ -183,9 +183,20 @@
                								</content>
                							</TitledPane>
                							<TitledPane prefHeight="200.0" prefWidth="200.0" text="Facilidades">
-               								<content>
-               									<ComboBox fx:id="comboFacilidad" prefWidth="150.0" styleClass="comboBox" />
-               								</content>
+                                       <content>
+                                          <VBox prefHeight="200.0" prefWidth="100.0">
+                                             <children>
+                                                <ListView fx:id="listViewFacilidades" prefHeight="200.0" prefWidth="200.0" styleClass="lstView" />
+                                                <HBox prefHeight="100.0" prefWidth="200.0">
+                                                   <children>
+                                                      <Button fx:id="btnAgregarFacilidad" mnemonicParsing="false" onAction="#modalAgregarFacilidad" text="Agregar" />
+                                                      <Button fx:id="btnModificarFacilidad" mnemonicParsing="false" onAction="#modalModificarFacilidad" text="Modificar" />
+                                                      <Button fx:id="btnEliminarFacilidad" mnemonicParsing="false" onAction="#modalEliminarFacilidad" text="Eliminar" />
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </VBox>
+                                       </content>
                							</TitledPane>
                							<TitledPane animated="false" text="Tipos/Parqueo">
                								<content>
