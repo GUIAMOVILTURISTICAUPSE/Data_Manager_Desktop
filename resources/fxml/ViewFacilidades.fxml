@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+
+<HBox prefHeight="241.0" prefWidth="277.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="controllers.ControllerFacilidades">
+   <children>
+      <VBox prefWidth="262.0">
+         <children>
+            <HBox prefHeight="30.0" prefWidth="262.0">
+               <children>
+                  <Label prefWidth="120.0" text="ID: " />
+                  <TextField fx:id="textIdentificacion" promptText="Identificacion" />
+               </children>
+            </HBox>
+            <HBox prefHeight="30.0" prefWidth="262.0">
+               <children>
+                  <Label prefWidth="120.0" text="TITULO: " />
+                  <TextField fx:id="textTitulo" promptText="Titulo" />
+               </children>
+            </HBox>
+            <HBox prefHeight="75.0" prefWidth="262.0">
+               <children>
+                  <Label prefWidth="120.0" text="DESCRIPCION: " />
+                  <TextArea fx:id="textDescripcion" prefHeight="67.0" prefWidth="149.0" promptText="Descripcion de la facilidad." />
+               </children>
+            </HBox>
+            <HBox prefHeight="30.0" prefWidth="262.0">
+               <children>
+                  <Label prefWidth="120.0" text="UBICACION: " />
+                  <TextField fx:id="textUbicacion" promptText="Latitud, Longitud" />
+               </children>
+            </HBox>
+            <HBox prefHeight="30.0" prefWidth="262.0">
+               <children>
+                  <Label prefWidth="120.0" text="TIPO DE FACILIDAD: " />
+                  <ComboBox fx:id="cmbTipoFacilidad" prefWidth="150.0" promptText="Escoger Facilidad" />
+               </children>
+            </HBox>
+            <Separator prefHeight="8.0" prefWidth="262.0" />
+            <HBox alignment="CENTER" prefHeight="35.0" prefWidth="262.0">
+               <children>
+                  <Button fx:id="btnGuardar" mnemonicParsing="false" text="Guardar" />
+                  <Button fx:id="btnLimpiar" mnemonicParsing="false" text="Limpiar" />
+                  <Button fx:id="btnSalir" mnemonicParsing="false" text="Salir" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</HBox>
