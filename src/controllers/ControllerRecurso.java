@@ -53,7 +53,6 @@ public class ControllerRecurso {
 	@FXML private Button btnModificarFacilidad;
 	@FXML private Button btnEliminarFacilidad;
 	
-	
 	@FXML private TextField textId;
 	@FXML private Pane guno;
 	@FXML private Accordion gdos;
@@ -61,8 +60,7 @@ public class ControllerRecurso {
 	@FXML private ScrollPane gcuatro;
 	@FXML private Pane gcinco;
 	@FXML private Pane gseis;
-
-
+	
 	@FXML private TextField textTelefono;
 	@FXML private TextField textFacebook;
 	@FXML private TextField textTwitter;
@@ -92,11 +90,9 @@ public class ControllerRecurso {
 	@FXML private CheckBox checkInactivo;
 	@FXML private TextArea textpreguntasf;
 	@FXML private ComboBox<Costo> comboCosto;
-	@FXML private ComboBox<Facilidad> comboFacilidad;
 	@FXML private ComboBox<Recomendacion> comboRecomendacion;
 	@FXML private ComboBox<Contacto> comboContactos;
 	@FXML private ComboBox<Imagen> cmb_Img_Principal;
-	
 	
 	@FXML private ListView<Facilidad> listViewFacilidades;
 	@FXML private ListView<Imagen> listViewImagenes;
@@ -295,6 +291,15 @@ public class ControllerRecurso {
 			}
 
 		}
+		
+		if(listViewFacilidades.getItems().size() != 0){
+			for(Facilidad facilidad : listViewFacilidades.getItems()){
+				if(!pojo.getFacilidadRecurso().contains(facilidad)){
+					pojoTemp.getFacilidadRecurso().add(facilidad);
+				}
+			}
+		}
+		
 		if (selectItemsTipoAccesibilidad != null){
 			for (TipoAccesibilidad d :selectItemsTipoAccesibilidad) {
 				if(!pojoTemp.getOpcionesTipoAccesibilidad().contains(d))
@@ -304,7 +309,7 @@ public class ControllerRecurso {
 				}
 			}	
 		}
-		pojoTemp.getFacilidadRecurso().add(comboFacilidad.getValue());
+		//pojoTemp.getFacilidadRecurso().add(comboFacilidad.getValue());
 		pojoTemp.getRecomendacion().add(comboRecomendacion.getValue());
 		//pojo.setInfContacto(comboContactos.getValue());
 
@@ -312,8 +317,7 @@ public class ControllerRecurso {
 		pojoTemp.getGaleria().clear();
 		if((listViewImagenes.getItems().size() != 0)){
 			for(Imagen image : listViewImagenes.getItems()){
-				if(!pojo.getGaleria().contains(image))
-				{
+				if(!pojo.getGaleria().contains(image)){
 					pojoTemp.getGaleria().add(image);
 				}
 			}	
@@ -329,16 +333,7 @@ public class ControllerRecurso {
 		}
 		
 		pojoTemp.setimagenPrincipal(cmb_Img_Principal.getValue());
-
-
-		/*
-		if (selectedItemsImagen != null){
-			for(Imagen i : selectedItemsImagen){
-				 pojoTemp.getGaleria().add(i);
-				 System.out.println("selected item " + i.toString());
-	       }	
-		}*/	
-		
+	
 		context.setRecurso(pojoTemp);
 		return pojoTemp;
 	}
@@ -369,7 +364,6 @@ public class ControllerRecurso {
 		listViewSenderos.getItems().clear();
 		listViewFacilidades.getItems().clear();
 		//listViewSenderos.setItems(null);
-		comboFacilidad.setValue(null);
 		textCanton.setText("");
 		textProvincia.setText("");
 		textParroquia.setText("");
@@ -681,10 +675,6 @@ public class ControllerRecurso {
 		columRespuestas.setCellValueFactory(new PropertyValueFactory<>("respPreguntas"));
 		tablePreRes.setItems(data);
 
-		if(pojo.getFacilidadRecurso()!=null && pojo.getFacilidadRecurso().size()>0)
-		{
-			comboFacilidad.setValue(pojo.getFacilidadRecurso().get(0));
-		}
 		if(pojo.getRecomendacion()!=null && pojo.getRecomendacion().size()>0)
 		{
 			comboRecomendacion.setValue(pojo.getRecomendacion().get(0));
@@ -697,6 +687,10 @@ public class ControllerRecurso {
 		ObservableList<Animacion> animaciones = FXCollections.observableArrayList(pojo.getAnimaciones());
 		listViewAnimacion.setItems(animaciones);
 		listViewAnimacion.setOnMouseClicked(e -> pojoAnimacion = listViewAnimacion.getSelectionModel().getSelectedItem());
+		
+		ObservableList<Facilidad> facilidades = FXCollections.observableArrayList(pojo.getFacilidadRecurso());
+		listViewFacilidades.setItems(facilidades);
+		listViewFacilidades.setOnMouseClicked(e -> pojoFacilidades = listViewFacilidades.getSelectionModel().getSelectedItem());
 		
 		
 		cmb_Img_Principal.setValue(pojo.getimagenPrincipal());
