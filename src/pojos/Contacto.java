@@ -8,7 +8,8 @@ public class Contacto {
     private  String twitter;
     private  String instagram;
     private String email;
-
+    private String web;
+    private Imagen imagenContacto;
     
 
     public String getInstagram() {
@@ -74,6 +75,22 @@ public class Contacto {
     public void setEmail(String email) {
         this.email = email;
     }
+
+	public String getWeb() {
+		return web;
+	}
+
+	public void setWeb(String web) {
+		this.web = web;
+	}
+
+	public Imagen getImagenContacto() {
+		return imagenContacto;
+	}
+
+	public void setImagenContacto(Imagen imagenContacto) {
+		this.imagenContacto = imagenContacto;
+	}
 
 	@Override
 	public String toString() {
