@@ -22,6 +22,7 @@
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };
         var map = new google.maps.Map(document.getElementById("mapcanvas"), Options);
+        var marker1 = new google.maps.Marker();
         var marker = new google.maps.Marker({
             position: new google.maps.LatLng(),
             map: map,
@@ -57,6 +58,7 @@
 	        infobulle = new google.maps.InfoWindow({
         		content: "Coordenadas: " + latLng
         	});
+        	latlng=marker.getPosition();
         }
         
         document.obtenerLatitud = function(){
@@ -68,7 +70,7 @@
         }
         
         document.crearNuevoMarcador = function(){
-        	var marker1 = new google.maps.Marker({
+        		marker1 = new google.maps.Marker({
             	position: new google.maps.LatLng(latlng.lat(),latlng.lng()),
             	map: map,
             	draggable: false,
@@ -76,6 +78,25 @@
             	autoPan: true,
         	});
         }
+        
+        document.trazarRuta = function(){
+        	var ruta = [
+        		{lat: marker1.getPosition().lat() , lng: marker1.getPosition().lng()},
+        		{lat: latlng.lat() , lng: latlng.lng()}
+        	];
+        	
+        	var flightPath = new google.maps.Polyline({
+        	path: ruta,
+        	geodesic: true,
+        	strokeColor: '#FF0000',
+        	strokeOpacity: 1.0,
+        	strokeWeight: 2
+      		});
+      		
+      		flightPath.setMap(map);
+        }
+        
+        
         
     </script>
 

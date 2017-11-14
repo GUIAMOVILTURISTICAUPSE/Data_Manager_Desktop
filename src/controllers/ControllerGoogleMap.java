@@ -67,21 +67,66 @@ public class ControllerGoogleMap{
 
 		//Para dibujar el punto en el mapa apenas de ha cargado el html (con Workers)
 		// https://stackoverflow.com/questions/12540044/execute-a-task-after-the-webview-is-fully-loaded
-		wView.getEngine().getLoadWorker().stateProperty().addListener(
-				  new ChangeListener<Worker.State>() {
-				  @Override
-				  public void changed(
-				    ObservableValue<? extends Worker.State> observable,
-				    Worker.State oldValue, Worker.State newValue ) {
-
-				    if( newValue != Worker.State.SUCCEEDED ) {
-				      return;
-				    }
-
-				    ubicarCoordenadaSimpleEnMapa();
-				  }
-				} );
 		
+		if(context.getRecurso() != null || context.getSendero().getRecorrido().isEmpty()) {
+			wView.getEngine().getLoadWorker().stateProperty().addListener(
+					  new ChangeListener<Worker.State>() {
+					  @Override
+					  public void changed(
+					    ObservableValue<? extends Worker.State> observable,
+					    Worker.State oldValue, Worker.State newValue ) {
+
+					    if( newValue != Worker.State.SUCCEEDED ) {
+					      return;
+					    }
+
+					    ubicarCoordenadaSimpleEnMapa();
+					  }
+					} );
+
+		
+		}
+		
+		if(context.getSendero()!=null) {
+			int i = 0;
+			for (String c : context.getSendero().getRecorrido()) {
+				if(i==0)
+				{
+					wView.getEngine().getLoadWorker().stateProperty().addListener(
+							  new ChangeListener<Worker.State>() {
+							  @Override
+							  public void changed(
+							    ObservableValue<? extends Worker.State> observable,
+							    Worker.State oldValue, Worker.State newValue ) {
+
+							    if( newValue != Worker.State.SUCCEEDED ) {
+							      return;
+							    }
+
+							    ubicarCoordenadaEnMapa(c);
+							  }
+							} );
+				}else {
+					wView.getEngine().getLoadWorker().stateProperty().addListener(
+							  new ChangeListener<Worker.State>() {
+							  @Override
+							  public void changed(
+							    ObservableValue<? extends Worker.State> observable,
+							    Worker.State oldValue, Worker.State newValue ) {
+
+							    if( newValue != Worker.State.SUCCEEDED ) {
+							      return;
+							    }
+
+							    ubicarOtrosMarcadoresEnMapa(c);
+							  }
+							} );					
+				}
+				i++;
+			}
+			
+		}
+
 		btnBuscar.setOnAction(e -> ubicarCoordenadaSimpleEnMapa());
 		
 		
@@ -93,6 +138,11 @@ public class ControllerGoogleMap{
 			obtenerCoordenadas();
 			Coordenadas coordenada = new Coordenadas(latitud, longitud);
 			listaCoordenadas.add(coordenada);
+			if(listaCoordenadas.size() > 1)
+			{
+				webEngine.executeScript("document.trazarRuta();");
+			}
+			
 			webEngine.executeScript("document.crearNuevoMarcador();");
 			
 			System.out.println(listaCoordenadas);
@@ -116,41 +166,36 @@ public class ControllerGoogleMap{
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-			}else if (listaCoordenadas.size() > 2) {
-				ArrayList<String> listaRecorrido = new ArrayList<String>();
-				for (Coordenadas coordenadas : listaCoordenadas) {
-					listaRecorrido.add(coordenadas.lat + " ," + coordenadas.lon);
-				}
+			}else if (context.getSendero()!= null) {
+				if(listaCoordenadas.size() >= 2 ) {
+					ArrayList<String> listaRecorrido = new ArrayList<String>();
+					for (Coordenadas coordenadas : listaCoordenadas) {
+						listaRecorrido.add(coordenadas.lat + " ," + coordenadas.lon);
+					}
 
-				context.getSendero().setRecorrido(listaRecorrido);
-				
-				try {
-					Parent root = FXMLLoader.load(getClass().getResource("/ViewSenderos.fxml"));
-					Stage escenario = new Stage();
-					Scene escena = new Scene(root);
-					escenario.setScene(escena);
-					escenario.show();
-					Stage stageMapa = (Stage) txtLatitud.getScene().getWindow();
-					stageMapa.close();
-				} catch (IOException e) {
-					e.printStackTrace();
+					context.getSendero().setRecorrido(listaRecorrido);
+				}				
+				Stage stageMapa = (Stage) txtLatitud.getScene().getWindow();
+				stageMapa.close();
 				}
-			}
-
-			
 		});
 		
-		if(!context.getRecurso().getPosicion().isEmpty())
-		{
-			String[] coordenadaSeparadas = context.getRecurso().getPosicion().split("\\,");
-			txtLatitud.setText(coordenadaSeparadas[0]);
-			txtLongitud.setText(coordenadaSeparadas[1]);
-			
-			latitud = Double.parseDouble(txtLatitud.getText());
-			longitud = Double.parseDouble(txtLongitud.getText());
-		}
-		
+		if(context.getRecurso()!=null){
+			if(!context.getRecurso().getPosicion().isEmpty())
+			{
+				String[] coordenadaSeparadas = context.getRecurso().getPosicion().split("\\,");
+				txtLatitud.setText(coordenadaSeparadas[0]);
+				txtLongitud.setText(coordenadaSeparadas[1]);
+				
+				latitud = Double.parseDouble(txtLatitud.getText());
+				longitud = Double.parseDouble(txtLongitud.getText());
+			}
+		}		
 	}
+	
+	
+	
+	
 	
 	private void ubicarCoordenadaSimpleEnMapa()
 	{
@@ -162,6 +207,59 @@ public class ControllerGoogleMap{
 				"document.goToLocation(window.lat, window.lon);"
 				);
 	}
+	
+	private void ubicarCoordenadaEnMapa(String Coordenada)
+	{
+		String[] coordenadaSeparadas = Coordenada.split("\\,");
+		txtLatitud.setText(coordenadaSeparadas[0]);
+		txtLongitud.setText(coordenadaSeparadas[1]);
+		
+		latitud = Double.parseDouble(txtLatitud.getText());
+		longitud = Double.parseDouble(txtLongitud.getText());
+
+		webEngine.executeScript("" +
+				"window.lat = " + latitud + ";" +
+				"window.lon = " + longitud + ";" +
+				"document.goToLocation(window.lat, window.lon);"
+				);
+		
+		if (context.getSendero().getRecorrido().size() > 1)
+		{
+			Coordenadas coordenada = new Coordenadas(latitud, longitud);
+			listaCoordenadas.add(coordenada);
+			
+			webEngine.executeScript("document.crearNuevoMarcador();");
+		}
+		
+	}
+	
+	private void ubicarOtrosMarcadoresEnMapa(String Coordenada) {
+		
+		String[] coordenadaSeparadas = Coordenada.split("\\,");
+		txtLatitud.setText(coordenadaSeparadas[0]);
+		txtLongitud.setText(coordenadaSeparadas[1]);
+		
+		latitud = Double.parseDouble(txtLatitud.getText());
+		longitud = Double.parseDouble(txtLongitud.getText());
+
+		Coordenadas coordenada = new Coordenadas(latitud, longitud);
+		listaCoordenadas.add(coordenada);
+		
+		webEngine.executeScript("" +
+				"window.lat = " + latitud + ";" +
+				"window.lon = " + longitud + ";" +
+				"document.goToLocation(window.lat, window.lon);"
+				);
+		if(listaCoordenadas.size() > 1)
+		{
+			webEngine.executeScript("document.trazarRuta();");
+		}
+		
+		webEngine.executeScript("document.crearNuevoMarcador();");
+		
+	}
+	
+	
 	
 	private void obtenerCoordenadas() {
 			latitud = (double) webEngine.executeScript("document.obtenerLatitud();");

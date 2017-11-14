@@ -514,7 +514,7 @@ public class ControllerRecurso {
 		pojo = Guardar();	
 
 		System.out.println("Pojo de la Imagen: " + pojo);
-		if(!textNombre.getText().isEmpty()){
+		if(!textNombre.getText().isEmpty() || !textNombre.getText().equals("")){
 			pojoImagen = ControllerHelper.abrirVistaModal("/ViewImagen.fxml", "Imagen", null);
 			if(pojoImagen!=null){
 				if(!pojoImagen.getUrl().isEmpty()){

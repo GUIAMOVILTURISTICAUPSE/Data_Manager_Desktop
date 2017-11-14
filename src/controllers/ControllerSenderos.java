@@ -1,12 +1,18 @@
 package controllers;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
+import controllers.ControllerGoogleMap.Coordenadas;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
@@ -57,7 +63,8 @@ public class ControllerSenderos implements ControllerModalBase<Sendero>{
 	@FXML private Button btn_eliminar;
 	@FXML private Button btnBorrarAtractivo;
 	
-	
+	int i = 0;
+	Context context = Context.getInstance();
 	Sendero pojo = new Sendero();
 	private Transporte pojoTransporte ;
 	private Atractivo pojoAtractivo ;
@@ -75,6 +82,13 @@ public class ControllerSenderos implements ControllerModalBase<Sendero>{
 	private Stage stage;
 
 	public void initialize(){
+		
+		if(context.getSendero()!=null)
+		{
+			list_Recorrido.getItems().clear();;
+			list_Recorrido.getItems().addAll(context.getSendero().getRecorrido());
+			context.setSendero(null);
+		}
 
 		setPromptText(); 
 		
@@ -94,7 +108,7 @@ public class ControllerSenderos implements ControllerModalBase<Sendero>{
 		listaAtractivo();
 		dificultadRecorrido();
 		disponibilidadCelular();
-		 ListaLlenasString();
+		ListaLlenasString();
 	}
 
 	private void setPromptText() {
@@ -131,60 +145,94 @@ public class ControllerSenderos implements ControllerModalBase<Sendero>{
 		if (pojo!=null) {
 			pojotemp = pojo;
 		}
-		pojotemp.set_id(txtnombre.getText().trim());
-		pojotemp.setNombre(txtnombre.getText());
-		float distancia = (!txtdistancia.getText().isEmpty())?Float.parseFloat(txtdistancia.getText()):0;   
-		pojotemp.setDistancia(distancia);
-		float duracion = (!txtduracion.getText().isEmpty())?Float.parseFloat(txtduracion.getText()):0;
-		pojotemp.setDuracion(duracion);
-		pojotemp.setDescripcion(txtdescripcion.getText());
-		pojotemp.setInstrucciones(txtinstrucciones.getText());
-		if (checkActivo.isSelected()== true){
-			pojotemp.setEstado(Estado.ACTIVO);
-		}
-		else{
-			pojotemp.setEstado(Estado.INACTIVO);
-		}
-
-		pojotemp.getComentarios().add(comboComentario.getValue());
-
-		for (DificultadRecorrido dr : LTipoDificultad) {
-
-			pojotemp.setDificultad(dr);
-		}
-		for (DisponibilidadCelular dc : TipoDisponibilidadCelular) {
-			pojotemp.setDisponibilidadSenalCelular(dc);
-		}
 		
-		if(TransporteOpciones!=null)
-		for (Transporte t : TransporteOpciones) {
-			pojotemp.getTransporte().add(t);
-			System.out.println("seleccion " + t.toString());
-		}
-		if (tipoAtractivo!=null)
-		{
-			for (Atractivo at : tipoAtractivo) {
-				pojotemp.getAtractivos().add(at);
-				System.out.println("seleccion " + at.toString());
+		if(i==0) {
+			pojotemp.set_id(txtnombre.getText().trim());
+			pojotemp.setNombre(txtnombre.getText());
+			float distancia = (!txtdistancia.getText().isEmpty())?Float.parseFloat(txtdistancia.getText()):0;   
+			pojotemp.setDistancia(distancia);
+			float duracion = (!txtduracion.getText().isEmpty())?Float.parseFloat(txtduracion.getText()):0;
+			pojotemp.setDuracion(duracion);
+			pojotemp.setDescripcion(txtdescripcion.getText());
+			pojotemp.setInstrucciones(txtinstrucciones.getText());
+			if (checkActivo.isSelected()== true){
+				pojotemp.setEstado(Estado.ACTIVO);
 			}
-		}
-		for (LocacionAtractivo a : TipoLocacionAtractivo) {
-			pojotemp.getLocacionAtractivos().add(a);
-		}
+			else{
+				pojotemp.setEstado(Estado.INACTIVO);
+			}
 
-		for (String eq : TipoEquipamento) {
-			pojotemp.getEquipamento().add(eq);
-		}
-		for (Imagen i: selectedItemsImagen) {
-			pojotemp.getGaleria().add(i);
+			pojotemp.getComentarios().add(comboComentario.getValue());
 
-		}
-		for(String r : list_Recorrido.getItems()){
-			pojotemp.getRecorrido().add(r);
-		}
+			if(LTipoDificultad!=null)
+			{
+				for (DificultadRecorrido dr : LTipoDificultad) {
 		
-		stage.close();
-		pojo = pojotemp;
+					pojotemp.setDificultad(dr);
+				}
+			}
+			if(TipoDisponibilidadCelular!=null)
+			{
+				for (DisponibilidadCelular dc : TipoDisponibilidadCelular) {
+					pojotemp.setDisponibilidadSenalCelular(dc);
+				}
+			}
+			
+			if(TransporteOpciones!=null){
+				for (Transporte t : TransporteOpciones) {
+					pojotemp.getTransporte().add(t);
+					System.out.println("seleccion " + t.toString());
+				}
+			}
+			
+			if (tipoAtractivo!=null)
+			{
+				for (Atractivo at : tipoAtractivo) {
+					pojotemp.getAtractivos().add(at);
+					System.out.println("seleccion " + at.toString());
+				}
+			}
+			
+			if(TipoLocacionAtractivo!=null)
+			{
+				for (LocacionAtractivo a : TipoLocacionAtractivo) {
+					pojotemp.getLocacionAtractivos().add(a);
+				}
+			}
+			
+			if(TipoEquipamento!=null)
+			{
+				for (String eq : TipoEquipamento) {
+					pojotemp.getEquipamento().add(eq);
+				}
+			}
+			
+			if(selectedItemsImagen!=null) {
+				for (Imagen i: selectedItemsImagen) {
+					pojotemp.getGaleria().add(i);
+				}
+			}
+			
+			if(list_Recorrido != null)
+			{
+				for(String r : list_Recorrido.getItems()){
+					pojotemp.getRecorrido().add(r);
+				}
+			}
+			
+			stage.close();
+			pojo = pojotemp;
+			context.setSendero(null);
+		}else {
+			if(list_Recorrido != null)
+			{
+				for(String r : list_Recorrido.getItems()){
+					pojotemp.getRecorrido().add(r);
+				}
+			}
+			context.setSendero(pojotemp);
+		}
+		i=0;
 		return pojotemp;
 	}
 
@@ -224,6 +272,7 @@ public class ControllerSenderos implements ControllerModalBase<Sendero>{
 		if(!pojos.getRecorrido().isEmpty()){
 			list_Recorrido.getItems().addAll(pojos.getRecorrido());
 		}
+		context.setSendero(null);
 		
 	}
 	public void checkActivo(){
@@ -365,9 +414,19 @@ public class ControllerSenderos implements ControllerModalBase<Sendero>{
 	
 	
 	public void addPunto(){
-		if(!txt_punto.getText().isEmpty())
-			list_Recorrido.getItems().add(txt_punto.getText());			
-		txt_punto.setText("");
+		try {
+			i=1;
+			guardar();
+			Parent root = FXMLLoader.load(getClass().getResource("/ViewGoogleMap.fxml"));
+			Stage escenario = new Stage();
+			Scene escena = new Scene(root, 1100,500);
+			escenario.setScene(escena);
+			escenario.showAndWait();
+			initialize();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 	public void updatePunto(){
