@@ -33,6 +33,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -62,6 +63,8 @@ public class ControllerImagen implements ControllerModalBase<Imagen>{
 	@FXML private Spinner<Integer> spinner;
 	@FXML private Spinner<Integer> spinner1;
 	@FXML private ImageView imgImagen;
+	@FXML private Button btnBuscarCoordena;
+	int i = 0;
 	
 	ObservableList<String> etiquetaList = FXCollections.observableArrayList();
 	
@@ -89,10 +92,41 @@ public class ControllerImagen implements ControllerModalBase<Imagen>{
 	}
 	
 	public void initialize(){
+		
+		if(context.getImagen()!=null)
+		{
+			String[] coordenadaSeparadas = context.getImagen().getCoordenadas().split("\\,");
+			latitud1.setText(coordenadaSeparadas[0]);
+			longitud1.setText(coordenadaSeparadas[1]);
+			context.setImagen(null);
+		}
+		
 		imgImagen.setFitWidth(400);
 		imgImagen.setFitHeight(400);
 		imgImagen.setPreserveRatio(true);
+		latitud1.setEditable(false);
+		longitud1.setEditable(false);
+		//buscarCoordenada();
 	}
+	
+	public void buscarCoordenada()
+	{
+		try {
+			i=1;
+			guardar();
+			Parent root = FXMLLoader.load(getClass().getResource("/ViewGoogleMap.fxml"));
+			Stage escenario = new Stage();
+			Scene escena = new Scene(root, 1100,500);
+			escenario.setScene(escena);
+			escenario.showAndWait();
+			initialize();
+			} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
 	
 	/**
 	 * Metodo valido, creado por Ivan en Junio 2017
@@ -103,65 +137,74 @@ public class ControllerImagen implements ControllerModalBase<Imagen>{
 		{
 			pojoTemp = pojo;
 		}
-		pojoTemp.setId(ID1.getText());
-		pojoTemp.setDescripcion(descripcion1.getText());
-		pojoTemp.setFecha(fecha1.getValue());
-		pojoTemp.setTitulo(titulo1.getText());
 		
-		if(!url1.getText().trim().equals(""))
+		if(i==0)
 		{
-			if(googleStorageWorker.checkIfImageExists(ID1.getText(), url1.getText().trim()))
-			{
-				pojoTemp.setUrl(url1.getText());
-			}else{
-				String mensajeError = "No se puede guardar porque el url no es valido.";
-				System.err.println(mensajeError);
-				ControllerHelper.mostrarAlertaError(mensajeError);
-				return null;
-			}
+			pojoTemp.setId(ID1.getText());
+			pojoTemp.setDescripcion(descripcion1.getText());
+			pojoTemp.setFecha(fecha1.getValue());
+			pojoTemp.setTitulo(titulo1.getText());
 			
-		}else{
-		
-			if(imgImagen.getImage()!=null)
+			if(!url1.getText().trim().equals(""))
 			{
-				try {
-					//Solucion temporal para que el id no vaya vacio, llenar el pojo con pojoTemp en este punto
-					pojo = pojoTemp;
-					almacenarNube(convertirImagenEnImageViewAByteArray());
-				} catch (IOException e) {
-					String mensajeErrorTransformarImagen =  "Error en al almacenar la imagen en la nube. " + e;
-					ControllerHelper.mostrarAlertaError(mensajeErrorTransformarImagen);
-					System.err.println(mensajeErrorTransformarImagen);
-					e.printStackTrace();
+				if(googleStorageWorker.checkIfImageExists(ID1.getText(), url1.getText().trim()))
+				{
+					pojoTemp.setUrl(url1.getText());
+				}else{
+					String mensajeError = "No se puede guardar porque el url no es valido.";
+					System.err.println(mensajeError);
+					ControllerHelper.mostrarAlertaError(mensajeError);
 					return null;
 				}
+				
 			}else{
-				String mensajeError = "No se puede guardar porque no hay cargada una imagen en el imageView.";
-				System.err.println(mensajeError);
-				ControllerHelper.mostrarAlertaError(mensajeError);
-				return null;
-			}			
+			
+				if(imgImagen.getImage()!=null)
+				{
+					try {
+						//Solucion temporal para que el id no vaya vacio, llenar el pojo con pojoTemp en este punto
+						pojo = pojoTemp;
+						almacenarNube(convertirImagenEnImageViewAByteArray());
+					} catch (IOException e) {
+						String mensajeErrorTransformarImagen =  "Error en al almacenar la imagen en la nube. " + e;
+						ControllerHelper.mostrarAlertaError(mensajeErrorTransformarImagen);
+						System.err.println(mensajeErrorTransformarImagen);
+						e.printStackTrace();
+						return null;
+					}
+				}else{
+					String mensajeError = "No se puede guardar porque no hay cargada una imagen en el imageView.";
+					System.err.println(mensajeError);
+					ControllerHelper.mostrarAlertaError(mensajeError);
+					return null;
+				}			
+			}
+			
+			
+			pojoTemp.setUrl(url1.getText());
+			pojoTemp.setAutor(autor1.getText());
+			pojoTemp.setCoordenadas(latitud1.getText()+","+longitud1.getText());
+			//TODO Soportar agregar a un usuario como autor de la imagen (a futuro).
+			//pojo.setAutorUsuario(); 
+			pojoTemp.setReportado(Reportado.isSelected());
+			pojoTemp.setVotosFavor(spinner.getValue());
+			pojoTemp.setVotosContra(spinner1.getValue());
+			//TODO Permitir agregar y editar etiquetas con un generador de Strings a traves de GUI
+			//pojo.setEtiquetas(etiqueta1.getValue().toString());  ***************************************** ETIQUETAS ????? LATITUD Y LONGITUD ?????
+			//falta etiquetas array list combobox
+			//pojo.setEtiquetas((ArrayList<String>) etiqueta1.getItems());
+			//falta votos favor y contra del spinner :C segundo parcial segun indicaciones
+			System.out.println("******DATOS GUARDADOS*****");
+			System.out.println(pojo.toStringComplete());
+			
+			stage.close();
+			pojo = pojoTemp;
+			context.setImagen(null);
+		}else {
+			pojoTemp.setCoordenadas(latitud1.getText()+","+longitud1.getText());
+			context.setImagen(pojoTemp);
 		}
-		
-		
-		pojoTemp.setUrl(url1.getText());
-		pojoTemp.setAutor(autor1.getText());
-		pojoTemp.setCoordenadas(latitud1.getText()+","+longitud1.getText());
-		//TODO Soportar agregar a un usuario como autor de la imagen (a futuro).
-		//pojo.setAutorUsuario(); 
-		pojoTemp.setReportado(Reportado.isSelected());
-		pojoTemp.setVotosFavor(spinner.getValue());
-		pojoTemp.setVotosContra(spinner1.getValue());
-		//TODO Permitir agregar y editar etiquetas con un generador de Strings a traves de GUI
-		//pojo.setEtiquetas(etiqueta1.getValue().toString());  ***************************************** ETIQUETAS ????? LATITUD Y LONGITUD ?????
-		//falta etiquetas array list combobox
-		//pojo.setEtiquetas((ArrayList<String>) etiqueta1.getItems());
-		//falta votos favor y contra del spinner :C segundo parcial segun indicaciones
-		System.out.println("******DATOS GUARDADOS*****");
-		System.out.println(pojo.toStringComplete());
-		
-		stage.close();
-		pojo = pojoTemp;
+		i = 0;
 		return pojoTemp;
 	}
 	

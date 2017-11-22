@@ -68,7 +68,7 @@ public class ControllerGoogleMap{
 		//Para dibujar el punto en el mapa apenas de ha cargado el html (con Workers)
 		// https://stackoverflow.com/questions/12540044/execute-a-task-after-the-webview-is-fully-loaded
 		
-		if(context.getRecurso() != null || context.getSendero().getRecorrido().isEmpty()) {
+		if(context.getRecurso() != null || context.getSendero().getRecorrido().isEmpty()||context.getImagen()!= null) {
 			wView.getEngine().getLoadWorker().stateProperty().addListener(
 					  new ChangeListener<Worker.State>() {
 					  @Override
@@ -83,10 +83,9 @@ public class ControllerGoogleMap{
 					    ubicarCoordenadaSimpleEnMapa();
 					  }
 					} );
-
-		
 		}
 		
+		//Cargar puntos en el mapa cuando se ingresa desde la pantalla sendero
 		if(context.getSendero()!=null) {
 			int i = 0;
 			for (String c : context.getSendero().getRecorrido()) {
@@ -127,6 +126,92 @@ public class ControllerGoogleMap{
 			
 		}
 
+		eventosDeLosBotones();
+		
+		if(context.getRecurso()!=null && context.getImagen()==null){
+			if(!context.getRecurso().getPosicion().isEmpty())
+			{
+				String[] coordenadaSeparadas = context.getRecurso().getPosicion().split("\\,");
+				settearCoordenadaEnTextBox(coordenadaSeparadas);
+			}
+		}else if(context.getImagen()!=null){
+				if(!context.getImagen().getCoordenadas().equals(","))
+				{
+					System.out.println(context.getImagen().getCoordenadas());
+					String[] coordenadaSeparadas = context.getImagen().getCoordenadas().split("\\,");
+					settearCoordenadaEnTextBox(coordenadaSeparadas);
+				}
+		}
+	}
+
+
+	private void settearCoordenadaEnTextBox(String[] coordenadaSeparadas) {
+		txtLatitud.setText(coordenadaSeparadas[0]);
+		txtLongitud.setText(coordenadaSeparadas[1]);
+	}	
+	
+	
+	private void ubicarCoordenadaSimpleEnMapa()
+	{
+		latitud = Double.parseDouble(txtLatitud.getText());
+		longitud = Double.parseDouble(txtLongitud.getText());
+		webEngine.executeScript("" +
+				"window.lat = " + latitud + ";" +
+				"window.lon = " + longitud + ";" +
+				"document.goToLocation(window.lat, window.lon);"
+				);
+	}
+	
+	private void ubicarCoordenadaEnMapa(String Coordenada)
+	{
+		String[] coordenadaSeparadas = Coordenada.split("\\,");
+		settearCoordenadaEnTextBox(coordenadaSeparadas);
+		ubicarCoordenadaSimpleEnMapa();
+		
+		if (context.getSendero().getRecorrido().size() > 1)
+		{
+			Coordenadas coordenada = new Coordenadas(latitud, longitud);
+			listaCoordenadas.add(coordenada);
+			
+			webEngine.executeScript("document.crearNuevoMarcador();");
+		}
+		
+	}
+	
+	private void ubicarOtrosMarcadoresEnMapa(String Coordenada) {
+		
+		String[] coordenadaSeparadas = Coordenada.split("\\,");
+		
+		settearCoordenadaEnTextBox(coordenadaSeparadas);
+		ubicarCoordenadaSimpleEnMapa();
+		
+		Coordenadas coordenada = new Coordenadas(latitud, longitud);
+		listaCoordenadas.add(coordenada);
+		
+		if(listaCoordenadas.size() > 1)
+		{
+			webEngine.executeScript("document.trazarRuta();");
+		}
+		
+		webEngine.executeScript("document.crearNuevoMarcador();");
+		
+	}
+	
+	
+	
+	
+	private void obtenerCoordenadas() {
+			latitud = (double) webEngine.executeScript("document.obtenerLatitud();");
+			txtLatitud.setText(String.valueOf(latitud));
+			
+			longitud = (double) webEngine.executeScript("document.obtenerLongitud();");
+			txtLongitud.setText(String.valueOf(longitud));
+	}
+	
+	
+	
+	
+	private void eventosDeLosBotones() {
 		btnBuscar.setOnAction(e -> ubicarCoordenadaSimpleEnMapa());
 		
 		
@@ -153,119 +238,44 @@ public class ControllerGoogleMap{
 			{
 				if(listaCoordenadas.size()==1)
 				{
-					context.getRecurso().setPosicion(listaCoordenadas.get(0).lat + ", " + listaCoordenadas.get(0).lon);
+					if (context.getRecurso()!=null && context.getImagen()==null) {
+						context.getRecurso().setPosicion(listaCoordenadas.get(0).lat + ", " + listaCoordenadas.get(0).lon);
+					}else {
+						context.getImagen().setCoordenadas(listaCoordenadas.get(0).lat + ", " + listaCoordenadas.get(0).lon);
+					}
 				}
+				
 				try {
-					Parent root = FXMLLoader.load(getClass().getResource("/ViewRecurso.fxml"));
-					Stage escenario = new Stage();
-					Scene escena = new Scene(root);
-					escenario.setScene(escena);
-					escenario.show();
+					if (context.getRecurso()!=null && context.getImagen()==null) {
+						Parent root = FXMLLoader.load(getClass().getResource("/ViewRecurso.fxml"));
+						Stage escenario = new Stage();
+						Scene escena = new Scene(root);
+						escenario.setScene(escena);
+						escenario.show();
+					}
 					Stage stageMapa = (Stage) txtLatitud.getScene().getWindow();
 					stageMapa.close();
+					
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-			}else if (context.getSendero()!= null) {
+			}else{
 				if(listaCoordenadas.size() >= 2 ) {
 					ArrayList<String> listaRecorrido = new ArrayList<String>();
+					
 					for (Coordenadas coordenadas : listaCoordenadas) {
 						listaRecorrido.add(coordenadas.lat + " ," + coordenadas.lon);
 					}
 
 					context.getSendero().setRecorrido(listaRecorrido);
-				}				
+				}
+				
 				Stage stageMapa = (Stage) txtLatitud.getScene().getWindow();
 				stageMapa.close();
 				}
+			
 		});
-		
-		if(context.getRecurso()!=null){
-			if(!context.getRecurso().getPosicion().isEmpty())
-			{
-				String[] coordenadaSeparadas = context.getRecurso().getPosicion().split("\\,");
-				txtLatitud.setText(coordenadaSeparadas[0]);
-				txtLongitud.setText(coordenadaSeparadas[1]);
-				
-				latitud = Double.parseDouble(txtLatitud.getText());
-				longitud = Double.parseDouble(txtLongitud.getText());
-			}
-		}		
 	}
 	
 	
-	
-	
-	
-	private void ubicarCoordenadaSimpleEnMapa()
-	{
-		latitud = Double.parseDouble(txtLatitud.getText());
-		longitud = Double.parseDouble(txtLongitud.getText());
-		webEngine.executeScript("" +
-				"window.lat = " + latitud + ";" +
-				"window.lon = " + longitud + ";" +
-				"document.goToLocation(window.lat, window.lon);"
-				);
-	}
-	
-	private void ubicarCoordenadaEnMapa(String Coordenada)
-	{
-		String[] coordenadaSeparadas = Coordenada.split("\\,");
-		txtLatitud.setText(coordenadaSeparadas[0]);
-		txtLongitud.setText(coordenadaSeparadas[1]);
-		
-		latitud = Double.parseDouble(txtLatitud.getText());
-		longitud = Double.parseDouble(txtLongitud.getText());
-
-		webEngine.executeScript("" +
-				"window.lat = " + latitud + ";" +
-				"window.lon = " + longitud + ";" +
-				"document.goToLocation(window.lat, window.lon);"
-				);
-		
-		if (context.getSendero().getRecorrido().size() > 1)
-		{
-			Coordenadas coordenada = new Coordenadas(latitud, longitud);
-			listaCoordenadas.add(coordenada);
-			
-			webEngine.executeScript("document.crearNuevoMarcador();");
-		}
-		
-	}
-	
-	private void ubicarOtrosMarcadoresEnMapa(String Coordenada) {
-		
-		String[] coordenadaSeparadas = Coordenada.split("\\,");
-		txtLatitud.setText(coordenadaSeparadas[0]);
-		txtLongitud.setText(coordenadaSeparadas[1]);
-		
-		latitud = Double.parseDouble(txtLatitud.getText());
-		longitud = Double.parseDouble(txtLongitud.getText());
-
-		Coordenadas coordenada = new Coordenadas(latitud, longitud);
-		listaCoordenadas.add(coordenada);
-		
-		webEngine.executeScript("" +
-				"window.lat = " + latitud + ";" +
-				"window.lon = " + longitud + ";" +
-				"document.goToLocation(window.lat, window.lon);"
-				);
-		if(listaCoordenadas.size() > 1)
-		{
-			webEngine.executeScript("document.trazarRuta();");
-		}
-		
-		webEngine.executeScript("document.crearNuevoMarcador();");
-		
-	}
-	
-	
-	
-	private void obtenerCoordenadas() {
-			latitud = (double) webEngine.executeScript("document.obtenerLatitud();");
-			txtLatitud.setText(String.valueOf(latitud));
-			
-			longitud = (double) webEngine.executeScript("document.obtenerLongitud();");
-			txtLongitud.setText(String.valueOf(longitud));
-	}
 }
