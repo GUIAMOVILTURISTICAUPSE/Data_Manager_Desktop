@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.util.List;
 
 import configuration.PropertyManager;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
-
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -66,6 +68,15 @@ public class ControllerHelper<R> {
 		}	
 	}
 	
+	public void actualizarDatosWebService(R r, Class<R> clase)
+	{
+		String urlBase = PropertyManager.getURLBase();
+		
+		String urlRelativo = propertyManager.getUrlRelativoDesdeClase(clase.getName());
+		GenericWebServiceConsumer<R> webService = new GenericWebServiceConsumer<R>(clase);
+		webService.consumePut(r, urlBase, urlRelativo);
+	}
+	
 	public void borrarDatosWebService(String id, String rev, Class<R> clase)
 	{
 		String urlBase = PropertyManager.getURLBase();
@@ -110,12 +121,20 @@ public class ControllerHelper<R> {
 		alertError.show();
 	}
 	
+	public static void mostrarAlertaInformacion(String mensaje)
+	{
+		Alert alertError = new Alert(AlertType.INFORMATION);
+		alertError.setTitle("Informacion");
+		alertError.setContentText(mensaje);
+		alertError.show();
+	}
+	
 	public static <X> X abrirVistaModal(String uriVista, String titulo, X x){
 		X x1 = null;
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(Main.class.getResource(uriVista));
-			AnchorPane page = (AnchorPane) loader.load();
+			Parent page = (Parent) loader.load();
 			Stage stage = new Stage();
 			stage.setTitle(titulo);
 			stage.initModality(Modality.WINDOW_MODAL);
@@ -132,5 +151,22 @@ public class ControllerHelper<R> {
 			e.printStackTrace(); //Retorna Connection reset cuando demora mucho
 		}
 		return x1;
+	}
+	
+	public static <X> ObservableList<X> limpiarNullsObservableList(ObservableList<X> lista) {
+		if(lista==null)
+		{
+			return FXCollections.observableArrayList();
+		}
+		
+		ObservableList<X> listaLimpia = FXCollections.observableArrayList();
+		for(int i = 0; i < lista.size(); i++)
+		{
+			if(lista.get(i)!=null)
+			{
+				listaLimpia.add(lista.get(i));
+			}
+		}
+		return listaLimpia;
 	}
 }

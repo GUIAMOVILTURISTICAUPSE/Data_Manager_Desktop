@@ -260,7 +260,8 @@ public class ControllerImagen implements ControllerModalBase<Imagen>{
 		byte[] res = s.toByteArray();
 		s.flush();
 		s.close();
-		convertirByteArrayEnImagenArchivo();
+		//Metodo para convertir ByteArray en Archivo de imagen. Solo usado para pruebas.
+		//convertirByteArrayEnImagenArchivo();
 		return res;
 	}
 	
@@ -272,6 +273,10 @@ public class ControllerImagen implements ControllerModalBase<Imagen>{
 		
 	}
 	
+	/**
+	 * Metodo para convertir una ByteArray en Archivo de Imagen.
+	 * Solo lo usamos para probar, por el momento este metodo no esta siendo llamado por ningun otro.
+	 */
 	public void convertirByteArrayEnImagenArchivo()
 	{
 		try {

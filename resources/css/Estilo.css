@@ -1,24 +1,47 @@
- .root{
--fx-background-color: linear-gradient(from 0% 0% to 100% 200%, repeat, #22858C 0%, #564F5A 50%);
--fx-alignment: center;
-}
-
-.text-field{
--fx-font: 12px Calibri;
--fx-text-fill: black;
-}
-
-.button{
--fx-background-color: #5C6F70;
--fx-text-fill: white;
+.root{
+    -fx-background-repeat: stretch;   
+    -fx-background-size: 5000 800;
+    -fx-background-position: center center;
+    -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0); 
 }
 
 .label{
--fx-font: 12px Calibri;
--fx-text-fill: black;
+	-fx-font-family: "Segoe UI Semibold";
+    -fx-min-width: 120px;
+    -fx-max-width: 1800px;
+    /*-fx-font-size: 12px;
+    -fx-padding: 8;*/
 }
 
-#lblRecurso{
--fx-font: 37px Calibri;
--fx-text-fill: black;
+.textField{
+		-fx-font-family: "Segoe UI Semibold";
+    -fx-min-width: 250px;
+    -fx-max-width: 1800px;
+    -fx-font-size: 13px;
+    /*-fx-padding: 8;*/
 }
+
+.textFieldContacto{
+	-fx-font-family: "Segoe UI Semibold";
+    -fx-min-width: 200px;
+    -fx-max-width: 1800px;
+    -fx-font-size: 13px;
+    /*-fx-padding: 8;*/
+}
+
+.boton{
+	-fx-font-family: "Segoe UI Semibold";
+    -fx-min-width: 100px;
+    -fx-max-width: 1800px;
+    -fx-font-size: 13px;
+    /*-fx-padding: 8;*/
+}
+
+.botonSalir{
+	-fx-font-family: "Segoe UI Semibold";
+    -fx-min-width: 100px;
+    -fx-max-width: 1800px;
+    -fx-font-size: 13px;
+    /*-fx-padding: 8;*/
+}
+
