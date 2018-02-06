@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -44,29 +45,23 @@
             <ComboBox fx:id="cboTipoAtractivo" minHeight="25.0" minWidth="200.0" prefHeight="25.0" prefWidth="516.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <HBox GridPane.columnIndex="1" GridPane.rowIndex="6">
                <children>
-                  <ComboBox fx:id="cboGaleria" minHeight="25.0" minWidth="175.0" prefHeight="25.0" prefWidth="516.0" />
-                  <Button fx:id="btnBuscar" alignment="CENTER_RIGHT" contentDisplay="RIGHT" maxHeight="25.0" maxWidth="35.0" minHeight="25.0" minWidth="25.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" text="..." />
+                  <ListView fx:id="listViewImagenes" prefHeight="94.0" prefWidth="342.0" />
+                  <Button fx:id="btnCrearImagen" mnemonicParsing="false" onAction="#abrirPantallaModalNuevaImagen" prefHeight="25.0" prefWidth="110.0" text="Nueva Imagen" />
+                  <Button fx:id="btnCargarImagen" mnemonicParsing="false" onAction="#abrirPantallaModalCargarImagen" prefHeight="25.0" prefWidth="110.0" text="Cargar Imagen" />
                </children>
             </HBox>
-            <Label alignment="CENTER" maxWidth="427.0" minHeight="50.0" minWidth="121.0" prefHeight="17.0" prefWidth="193.0" text="IMAGEN PRINCIPAL" GridPane.rowIndex="7" GridPane.rowSpan="2" />
             <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
                <children>
-                  <Label alignment="CENTER" minHeight="25.0" minWidth="75.0" prefHeight="25.0" prefWidth="116.0" text="TITULO" />
-                  <TextField fx:id="txtFieldTitulo" minHeight="25.0" minWidth="125.0" prefHeight="25.0" prefWidth="391.0" />
+                  <Label alignment="CENTER" minHeight="25.0" minWidth="67.0" prefHeight="25.0" prefWidth="67.0" text="TITULO" />
+                  <TextField fx:id="txtFieldTituloImagen" minHeight="25.0" minWidth="125.0" prefHeight="25.0" prefWidth="391.0" />
                </children>
             </HBox>
-            <HBox GridPane.columnIndex="1" GridPane.rowIndex="8">
+            <HBox alignment="CENTER" minHeight="30.0" minWidth="400.0" prefHeight="100.0" prefWidth="400.0" spacing="10.0" GridPane.columnSpan="2" GridPane.rowIndex="8">
                <children>
-                  <Label alignment="CENTER" minHeight="25.0" minWidth="75.0" prefHeight="25.0" prefWidth="116.0" text="URL" />
-                  <TextField fx:id="txtFieldURL" minHeight="25.0" minWidth="125.0" prefHeight="25.0" prefWidth="391.0" />
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" minHeight="30.0" minWidth="400.0" prefHeight="100.0" prefWidth="400.0" spacing="10.0" GridPane.columnSpan="2" GridPane.rowIndex="9">
-               <children>
-                  <Button fx:id="btnGuardar" minHeight="25.0" minWidth="71.0" mnemonicParsing="false" onAction="#guardarDatosWebService" text="GUARDAR" />
+                  <Button fx:id="btnGuardar" minHeight="25.0" minWidth="71.0" mnemonicParsing="false" onAction="#Guardar" text="GUARDAR" />
                   <Button fx:id="btnLimpiar" layoutX="10.0" layoutY="10.0" minHeight="25.0" minWidth="61.0" mnemonicParsing="false" onAction="#Limpiar" text="LIMPIAR" />
-                  <Button fx:id="btncargarD" layoutX="10.0" layoutY="10.0" minHeight="25.0" minWidth="103.0" mnemonicParsing="false" onAction="#cargarDatosWebService" text="CARGAR DATOS" />
-                  <Button fx:id="btnCargar" layoutX="113.0" layoutY="10.0" minHeight="25.0" minWidth="62.0" mnemonicParsing="false"  text="CARGAR" />
+                  <!-- <Button fx:id="btncargarD" layoutX="10.0" layoutY="10.0" minHeight="25.0" minWidth="103.0" mnemonicParsing="false" text="CARGAR DATOS" />
+                  <Button fx:id="btnCargar" layoutX="113.0" layoutY="10.0" minHeight="25.0" minWidth="62.0" mnemonicParsing="false"  text="CARGAR" />-->
                   <Button fx:id="btnAtras" layoutX="216.0" layoutY="10.0" minHeight="25.0" minWidth="52.0" mnemonicParsing="false" onAction="#cancelar" text="ATRAS" />
                   <Button fx:id="btnSalir" layoutX="319.0" layoutY="10.0" minHeight="25.0" minWidth="47.0" mnemonicParsing="false" onAction="#salir" text="SALIR" />
                </children>

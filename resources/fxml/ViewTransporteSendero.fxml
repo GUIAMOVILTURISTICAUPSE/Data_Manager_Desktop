@@ -76,11 +76,11 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="38.0" prefWidth="562.0">
                <children>
-                  <Button mnemonicParsing="false" text="GUARDAR" />
-                  <Button mnemonicParsing="false" text="LIMPIAR" />
-                  <Button mnemonicParsing="false" text="CARGAR" />
-                  <Button mnemonicParsing="false" text="CANCELAR" />
-                  <Button mnemonicParsing="false" text="SALIR" />
+                  <Button mnemonicParsing="false" text="GUARDAR" onAction="#guardar"  />
+                  <Button mnemonicParsing="false" text="LIMPIAR"  onAction="#limpiar"/>
+                 <Button mnemonicParsing="false" text="CARGAR" /> 
+                   <Button mnemonicParsing="false" text="ATRAS" onAction="#cancelar" />
+                  <Button mnemonicParsing="false" text="SALIR" onAction="#salir" />
                </children>
             </HBox>
          </children>

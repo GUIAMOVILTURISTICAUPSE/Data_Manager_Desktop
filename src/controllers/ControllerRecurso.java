@@ -48,6 +48,8 @@ public class ControllerRecurso {
 	@FXML private Button btnCargarSendero;
 	@FXML private Button btnCrearSenderos;
 	@FXML private Button btnIrImagen;
+	@FXML private Button btnCargarCoordenada;
+	
 	@FXML private TextField textId;
 	@FXML private Pane guno;
 	@FXML private Accordion gdos;
@@ -92,6 +94,7 @@ public class ControllerRecurso {
 	@FXML private ComboBox<Imagen> cmb_Img_Principal;
 	
 	@FXML private ListView<Imagen> listViewImagenes;
+	@FXML private ListView<Animacion> listViewAnimacion;
 	@FXML private ListView<Sendero> listViewSenderos;
 	@FXML private ListView<String> listTiposParqueo;
 	@FXML private ListView<String> listPreguntas;
@@ -111,6 +114,7 @@ public class ControllerRecurso {
 	//Pojos para rellenar en otras pantallas y paso de objetos entre controladores
 	private Sendero pojoSendero;
 	private Imagen pojoImagen;
+	private Animacion pojoAnimacion;
 
 	public String id_sendero_cap;
 
@@ -119,10 +123,16 @@ public class ControllerRecurso {
 	}
 
 	Context context = Context.getInstance();
+	
 	Recurso pojo = new Recurso();
 
 
 	public void initialize(){
+		if(context.getRecurso()!=null)
+		{
+			CargarDatos(context.getRecurso());
+			context.setRecurso(null);
+		}
 		setPromptText();
 		//cargarListViewSendero();
 		cargarTipoAccesibilidad();
@@ -130,7 +140,25 @@ public class ControllerRecurso {
 		cargarTipoAtractivo();
 		cargarTiposDeParqueo();
 		cargarListasConString();
-
+		buscarCoordenada();
+	}
+	
+	private void buscarCoordenada()
+	{
+		btnCargarCoordenada.setOnAction(evento ->{
+			try {
+				Guardar();
+				Parent root = FXMLLoader.load(getClass().getResource("/ViewGoogleMap.fxml"));
+				Stage escenario = new Stage();
+				Scene escena = new Scene(root, 1100,500);
+				escenario.setScene(escena);
+				escenario.show();
+				Stage stageRecurso = (Stage) textDireccion.getScene().getWindow();
+				stageRecurso.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			});
 	}
 
 	private void setPromptText() {
@@ -282,6 +310,15 @@ public class ControllerRecurso {
 			}	
 		}
 		
+		if((listViewAnimacion.getItems().size() != 0)){
+			for(Animacion animacion : listViewAnimacion.getItems()){
+				if(!pojo.getAnimaciones().contains(animacion))
+				{
+					pojoTemp.getAnimaciones().add(animacion);
+				}
+			}	
+		}
+		
 		pojoTemp.setimagenPrincipal(cmb_Img_Principal.getValue());
 
 
@@ -292,7 +329,8 @@ public class ControllerRecurso {
 				 System.out.println("selected item " + i.toString());
 	       }	
 		}*/	
-
+		
+		context.setRecurso(pojoTemp);
 		return pojoTemp;
 	}
 
@@ -318,9 +356,10 @@ public class ControllerRecurso {
 		textpreguntasf.setText("");
 		//listViewIdiomas.setItems(null);	
 		listViewImagenes.getItems().clear();
+		listViewAnimacion.getItems().clear();
 		listViewSenderos.getItems().clear();
 		//listViewSenderos.setItems(null);
-		//comboFacilidad.setValue(null);
+		comboFacilidad.setValue(null);
 		textCanton.setText("");
 		textProvincia.setText("");
 		textParroquia.setText("");
@@ -374,7 +413,7 @@ public class ControllerRecurso {
 	public void actualizarDatosWebService()
 	{
 		ControllerHelper<Recurso> controllerHelper= new ControllerHelper<Recurso>();
-		//Recurso pojo = Guardar();
+		Recurso pojo = Guardar();
 		System.out.println("El pojo a guardar en el WS es: " + pojo);
 		try {
 			controllerHelper.actualizarDatosWebService(pojo, Recurso.class);
@@ -444,6 +483,8 @@ public class ControllerRecurso {
 		if(pojoSendero!=null)
 			listViewSenderos.getItems().add(pojoSendero);
 
+		pojo.getSendero().add(pojoSendero);			
+
 		if(pojoSendero!=null){
 			pojo.getSendero().add(pojoSendero);
 		}else{
@@ -500,6 +541,42 @@ public class ControllerRecurso {
 			}
 		}else{
 			ControllerHelper.mostrarAlertaInformacion("El recurso no cuenta con ninguna imagen... Debe crear alguna imagen y seleccionarla");
+		}
+	}
+	
+	public void abrirPantallaModalNuevaAnimacion()
+	{
+		pojo = Guardar();	
+
+		System.out.println("Pojo actual: " + pojo);
+		if(!textNombre.getText().isEmpty()){
+			pojoAnimacion = ControllerHelper.abrirVistaModal("/ViewAnimacion.fxml", "Animacion", null);
+			if(pojoAnimacion!=null){
+				if(!pojoAnimacion.getUrl().isEmpty()){
+					listViewAnimacion.getItems().add(pojoAnimacion);				
+					pojo.getAnimaciones().add(pojoAnimacion);
+				}
+			}		
+		}else{
+			ControllerHelper.mostrarAlertaInformacion("El recurso al que se asignara la animacion no tiene nombre... asignele un nombre al Recurso ");
+		}
+	}
+
+	public void abrirPantallaModalCargarAnimacion()
+	{
+		if(!listViewAnimacion.getItems().isEmpty()){
+			if(listViewAnimacion.getSelectionModel().getSelectedItem() != null){
+				Animacion pojoCargado = ControllerHelper.abrirVistaModal("/ViewAnimacion.fxml", "Animacion", pojoAnimacion);
+				if(pojoCargado!=null){
+					pojoAnimacion = pojoCargado;
+				}else {
+					ControllerHelper.mostrarAlertaInformacion("No se cargo el pojo de Animacion.");
+				}
+			}else{
+				ControllerHelper.mostrarAlertaInformacion("Seleccione alguna animacion");
+			}
+		}else{
+			ControllerHelper.mostrarAlertaInformacion("El recurso no cuenta con ninguna animacion... Debe crear alguna animacion y seleccionarla");
 		}
 	}
 
@@ -579,6 +656,10 @@ public class ControllerRecurso {
 		ObservableList<Imagen> imagenesSeleccionado = FXCollections.observableArrayList(pojo.getGaleria());
 		listViewImagenes.setItems(imagenesSeleccionado);
 		listViewImagenes.setOnMouseClicked(e -> pojoImagen = listViewImagenes.getSelectionModel().getSelectedItem());
+		
+		ObservableList<Animacion> animaciones = FXCollections.observableArrayList(pojo.getAnimaciones());
+		listViewAnimacion.setItems(animaciones);
+		listViewAnimacion.setOnMouseClicked(e -> pojoAnimacion = listViewAnimacion.getSelectionModel().getSelectedItem());
 		
 		cmb_Img_Principal.setValue(pojo.getimagenPrincipal());
 		cmb_Img_Principal.setItems(listViewImagenes.getItems());
@@ -701,6 +782,10 @@ public class ControllerRecurso {
 				selectedItemsImagen =  listViewImagenes.getSelectionModel().getSelectedItem();
 			}
 		});
+		
+		listViewAnimacion.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+		//TODO Decidir si debo ubicar un selected image como en el listView de Imagen arriba
+
 		cmb_Img_Principal.setItems(listViewImagenes.getItems());
 
 		Costo pojoC1 = new Costo();
@@ -733,7 +818,7 @@ public class ControllerRecurso {
 		facilidadlista.add(pojoA2);
 		facilidadlista.add(pojoA3);
 		ObservableList<Facilidad> facilidades = FXCollections.observableArrayList(facilidadlista);
-		//comboFacilidad.setItems(facilidades);
+		comboFacilidad.setItems(facilidades);
 
 		Recomendacion pojoR1 = new Recomendacion();
 		pojoR1.setTitulo("Recomendacion1");
@@ -756,4 +841,6 @@ public class ControllerRecurso {
 			}
 		});
 	}
+
+	
 }

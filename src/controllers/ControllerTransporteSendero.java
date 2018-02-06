@@ -205,7 +205,8 @@ public class ControllerTransporteSendero implements ControllerModalBase<Transpor
 		}
 	} 
 	
-	public void Salir(){
+	public void salir(){
+		System.out.println("************** EXIT *********\n");
 		stage.close();
 	}
 	
