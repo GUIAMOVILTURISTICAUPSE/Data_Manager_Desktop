@@ -42,7 +42,7 @@ public class Recurso {
     private ArrayList<Idiomas> idiomasInformac = new ArrayList<Idiomas>();
     private ArrayList<Comentario> comentarios = new ArrayList<Comentario>();
     private ArrayList<TipoAtractivo> tipoAtractivo = new ArrayList<TipoAtractivo>();
-    private ArrayList<String> tiposParqueo = new ArrayList<>();
+    private ArrayList<String> tiposParqueo = new ArrayList<String>();
     private ArrayList<AccesibilidadRecurso> opcionesAccesibilidad;
  
     private String horario;

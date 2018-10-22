@@ -20,6 +20,7 @@ import javafx.util.converter.LocalDateStringConverter;
 import pojos.Imagen;
 import pojos.Recurso;
 import pojos.Sendero;
+import webservices.GenericWebServiceConsumer;
 import pojos.Imagen;
 
 import cloud.GoogleCloudStorageWorker;
@@ -44,7 +45,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 
 public class ControllerImagen implements ControllerModalBase<Imagen>{
-		
+
 	@FXML private TextField ID1;
 	@FXML private TextArea descripcion1;
 	@FXML private TextField titulo1;
@@ -62,9 +63,9 @@ public class ControllerImagen implements ControllerModalBase<Imagen>{
 	@FXML private Spinner<Integer> spinner;
 	@FXML private Spinner<Integer> spinner1;
 	@FXML private ImageView imgImagen;
-	
+
 	ObservableList<String> etiquetaList = FXCollections.observableArrayList();
-	
+
 	GoogleCloudStorageWorker googleStorageWorker = new GoogleCloudStorageWorker();
 	Imagen pojo = new Imagen();
 	//Recurso recurso;
@@ -72,10 +73,10 @@ public class ControllerImagen implements ControllerModalBase<Imagen>{
 
 	//BufferedImage para tener la imagen en memoria y poder procesarla correctamente. No borrar HP!
 	BufferedImage bufferedImageToExchage;
-	
+
 	Context context = Context.getInstance();
 	ControllerHelper<Imagen> controllerHelper = new ControllerHelper<Imagen>();
-	
+
 	public ControllerImagen() {
 		twelveMonkeyLibraryTestForImage();
 	}
@@ -84,16 +85,16 @@ public class ControllerImagen implements ControllerModalBase<Imagen>{
 		ImageIO.scanForPlugins();
 		Iterator<ImageReader> readers = ImageIO.getImageReadersByFormatName("JPEG");
 		while (readers.hasNext()) {
-		    System.out.println("reader: " + readers.next());
+			System.out.println("reader: " + readers.next());
 		}
 	}
-	
+
 	public void initialize(){
 		imgImagen.setFitWidth(400);
 		imgImagen.setFitHeight(400);
 		imgImagen.setPreserveRatio(true);
 	}
-	
+
 	/**
 	 * Metodo valido, creado por Ivan en Junio 2017
 	 */
@@ -107,7 +108,7 @@ public class ControllerImagen implements ControllerModalBase<Imagen>{
 		pojoTemp.setDescripcion(descripcion1.getText());
 		pojoTemp.setFecha(fecha1.getValue());
 		pojoTemp.setTitulo(titulo1.getText());
-		
+
 		if(!url1.getText().trim().equals(""))
 		{
 			if(googleStorageWorker.checkIfImageExists(ID1.getText(), url1.getText().trim()))
@@ -119,9 +120,9 @@ public class ControllerImagen implements ControllerModalBase<Imagen>{
 				ControllerHelper.mostrarAlertaError(mensajeError);
 				return null;
 			}
-			
+
 		}else{
-		
+
 			if(imgImagen.getImage()!=null)
 			{
 				try {
@@ -142,8 +143,8 @@ public class ControllerImagen implements ControllerModalBase<Imagen>{
 				return null;
 			}			
 		}
-		
-		
+
+
 		pojoTemp.setUrl(url1.getText());
 		pojoTemp.setAutor(autor1.getText());
 		pojoTemp.setCoordenadas(latitud1.getText()+","+longitud1.getText());
@@ -159,12 +160,12 @@ public class ControllerImagen implements ControllerModalBase<Imagen>{
 		//falta votos favor y contra del spinner :C segundo parcial segun indicaciones
 		System.out.println("******DATOS GUARDADOS*****");
 		System.out.println(pojo.toStringComplete());
-		
+
 		stage.close();
 		pojo = pojoTemp;
 		return pojoTemp;
 	}
-	
+
 	public void cargar(){
 		carga_pojo(pojo);
 	}
@@ -176,20 +177,20 @@ public class ControllerImagen implements ControllerModalBase<Imagen>{
 		descripcion1.setText(i.getDescripcion());
 		fecha1.setValue(i.getFecha());
 		titulo1.setText(i.getTitulo());
-		
+
 		if(i.getUrl()!=null && !i.getUrl().equals(""))
 		{
 			url1.setText(i.getUrl());
 			//dibujarImagenDesdeGoogleCloudId(i.getId());
-			
+
 		}
-		
+
 		if(i.getId()!=null && !i.getId().equals(""))
 		{
 			dibujarImagenDesdeGoogleCloudId(i.getId());
-			
+
 		}
-		
+
 		autor1.setText(i.getAutor());
 		Reportado.setSelected(i.isReportado());
 		etiqueta1.setValue(i.getEtiquetas().toString());
@@ -206,38 +207,38 @@ public class ControllerImagen implements ControllerModalBase<Imagen>{
 		System.out.println(i.toStringComplete());
 	}
 
-	
+
 	public void cargarImagenDesdeArchivo()
 	{
 		//Tomado de http://java-buddy.blogspot.com/2013/01/use-javafx-filechooser-to-open-image.html
 		FileChooser fileChooser = new FileChooser();
-        
-        //Set extension filter
-        FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
-        FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
-        fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
-        File file = fileChooser.showOpenDialog(imgImagen.getScene().getWindow());  
-        
-        if(file!=null)	cargarImagenEnImageView(file);
+
+		//Set extension filter
+		FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
+		FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
+		fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
+		File file = fileChooser.showOpenDialog(imgImagen.getScene().getWindow());  
+
+		if(file!=null)	cargarImagenEnImageView(file);
 	}
-	
+
 	private void cargarImagenEnImageView(File file)
 	{
-        try {
-        		BufferedImage bufferedImage = ImageIO.read(file);
-        		bufferedImageToExchage = bufferedImage;
-        		Image image = SwingFXUtils.toFXImage(bufferedImage, null);
-        		//image2 = image;
-        		imgImagen.setImage(image);
-        } catch (IOException ex) {
-            System.err.println("Error al cargar imagen");
-            ex.printStackTrace();
-        } catch (Exception e) {
+		try {
+			BufferedImage bufferedImage = ImageIO.read(file);
+			bufferedImageToExchage = bufferedImage;
+			Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+			//image2 = image;
+			imgImagen.setImage(image);
+		} catch (IOException ex) {
+			System.err.println("Error al cargar imagen");
+			ex.printStackTrace();
+		} catch (Exception e) {
 			System.err.println("Otro error al cargar imagen, quiza no selecciono ningun archivo.");
 			e.printStackTrace();
 		}
 	}
-	
+
 	private void cargarImagenEnImageView(String url)
 	{
 		try {
@@ -247,7 +248,7 @@ public class ControllerImagen implements ControllerModalBase<Imagen>{
 			ControllerHelper.mostrarAlertaError("Error, url de Imagen invalida.");
 		}
 	}
-	
+
 	//TODO Refactorizar este metodo, res no hace nada, de hecho no necesito retornar byte[]. Necesito mas yerba para resolver esto.
 	private byte[] convertirImagenEnImageViewAByteArray() throws IOException
 	{
@@ -264,15 +265,15 @@ public class ControllerImagen implements ControllerModalBase<Imagen>{
 		//convertirByteArrayEnImagenArchivo();
 		return res;
 	}
-	
+
 	private void dibujarImagenDesdeGoogleCloudId(String id)
 	{
 		Image image = GoogleCloudStorageWorker.getImage(id);
 		if(image!=null)
 			imgImagen.setImage(image);
-		
+
 	}
-	
+
 	/**
 	 * Metodo para convertir una ByteArray en Archivo de Imagen.
 	 * Solo lo usamos para probar, por el momento este metodo no esta siendo llamado por ningun otro.
@@ -291,7 +292,7 @@ public class ControllerImagen implements ControllerModalBase<Imagen>{
 		}
 	}
 
-	
+
 	public void almacenarNube(byte[] imagen)
 	{
 		if(pojo.getId()!=null && !pojo.getId().trim().isEmpty())
@@ -300,21 +301,35 @@ public class ControllerImagen implements ControllerModalBase<Imagen>{
 			String url;
 			try {
 				url = googleStorageWorker.saveImage(nombreImagen, imagen);
-				url1.setText(url);
-				url1.setDisable(true);
+				//url="testJavaFX Fail";
+				//Aqui consumir WebService para reducir la imagen con Google APP Engine
+				//String urlGoogleAppEngine = "https://practica-20-7e346.appspot.com/images?id=" + pojo.getId(); 
+				String urlGoogleAppEngine = configuration.PropertyManager.urlAppEngineImagesGoogleCloud + "images?id=" + pojo.getId(); 
+
+				GenericWebServiceConsumer<String> consumidorGoogleAppEngineURL = new GenericWebServiceConsumer<>(String.class);
+				String magicURLImageGoogleAppEngine = consumidorGoogleAppEngineURL.consumeGet(urlGoogleAppEngine, null);
+
+				if(magicURLImageGoogleAppEngine!= null && !magicURLImageGoogleAppEngine.isEmpty())
+				{
+					url1.setText(magicURLImageGoogleAppEngine);
+					System.out.println("Google App Engine URL generado con exito!");
+				}else {
+					url1.setText(url);
+					url1.setDisable(true);
+				}
 			}catch(Exception e){
 				e.printStackTrace();
 				ControllerHelper.mostrarAlertaError("Error de comunicacion. Host (Google Cloud) no se puede resolver."); 
 			}
-			
+
 		}else{
 			String mensajeErrorID = "No hay ide de imagen valido";
 			System.err.println(mensajeErrorID);	
 			ControllerHelper.mostrarAlertaError(mensajeErrorID);
-		
+
 		}
 	}
-	
+
 	public void limpiarPantalla(){
 		ID1.setText("");
 		descripcion1.setText("");
@@ -330,10 +345,10 @@ public class ControllerImagen implements ControllerModalBase<Imagen>{
 		longitud1.setText("");
 		latitud1.setText("");
 		//falta votos favor y contra del spinner :C para segundo parcial segun indicaciones
-		
+
 		System.out.println("******DATOS LIMPIOS*****");
 	}
-	
+
 	public void salir(){		
 		System.out.println("************** EXIT *********\n");
 		stage.close();

@@ -2,18 +2,21 @@ package cloud;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import com.google.auth.Credentials;
+//import com.google.auth.Credentials;
 import com.google.cloud.ReadChannel;
 import com.google.cloud.storage.Blob;
 //Imports the Google Cloud client library
 import com.google.cloud.storage.Bucket;
 import com.google.cloud.storage.Bucket.BlobTargetOption;
+//The Google cloud Image Library from APP Engine. For magic URL
+
 
 import controllers.ControllerHelper;
 import javafx.embed.swing.SwingFXUtils;
@@ -24,14 +27,14 @@ import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageException;
 import com.google.cloud.storage.StorageOptions;
 
-
+import autovalue.shaded.com.google.common.common.collect.Lists;
 
 import com.google.auth.oauth2.*;
 
 public class GoogleCloudStorageWorker {
 
 	private static String bucketName = "guiamovilse_recursos_storage";
-
+	
 	public String saveImage(String blobId, byte[] content)
 	{
 		// Instantiates a client
@@ -39,10 +42,26 @@ public class GoogleCloudStorageWorker {
 		//StorageOptions.newBuilder().setCredentials(credentials).build();
 		try {
 			//GoogleCredentials credential = GoogleCredential.getApplicationDefault();
-			Credentials c = GoogleCredentials.getApplicationDefault();
+			
+			//Funcionaba asi antes... era bueno para desarrollo. En Oct 2018 no funcionaba.
+			//Credentials c = GoogleCredentials.getApplicationDefault();
 			//GoogleCredential c1 = GoogleCredential.getApplicationDefault();
+			
+			//Esta forma no funciona por alguna razon
+			GoogleCredentials credentials = GoogleCredentials.fromStream(new FileInputStream("/Users/ivansanchez/Google Drive/OneDrive/UPSE/Investigacion/Proyecto Guia Movil/Google Cloud/New/GuiaMovilSE-be01e9ac19c3.json"))
+			        .createScoped(Lists.newArrayList("https://www.googleapis.com/auth/cloud-platform"));
+			
+			//ESta forma funciona, pero no es ideal para produccion
+			GoogleCredentials credentials2 = GoogleCredentials.fromStream(new FileInputStream("/Users/ivansanchez/.config/gcloud/application_default_credentials.json"))
+			        .createScoped(Lists.newArrayList("https://www.googleapis.com/auth/cloud-platform"));
+			
 			StorageOptions.getDefaultInstance();
-			Storage storage = (Storage) StorageOptions.newBuilder().setCredentials(c).build().getService();
+			//StorageOptions.newBuilder().setProjectId("practica-20-7e346");
+			
+			Storage storage = (Storage) StorageOptions.newBuilder().setCredentials(credentials).build().getService();
+
+			//NEW OCT 2018, to get id not from enviroment but from config
+			//Storage storage = (Storage) StorageOptions.newBuilder().setProjectId("practica-20-7e346").setCredentials(c).build().getService();
 
 			//StorageOptions.Builder().newBuilder().setCredentials(credential).build();
 			// The name for the new bucket
@@ -54,13 +73,22 @@ public class GoogleCloudStorageWorker {
 			Bucket bucket = storage. get(bucketName);
 
 			Blob blob = bucket.create(blobId, content, BlobTargetOption.doesNotExist());
+			
+			
+			
 			System.out.println(blob.getMediaLink());
 			System.out.printf("Bucket %s created.%n", bucket.getName());
-
 			return blob.getMediaLink();
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
+			return null;
+		} catch (StorageException se)
+		{
+			se.printStackTrace();
+			ControllerHelper.mostrarAlertaError("Error de Almacenamiento. Se pudo conectar con Google Cloud, pero Storage dio error. Pueden ser permisos o que el identificador de archivo ya existe. Intente probar con otro ID.");
 			return null;
 		}
 	}
@@ -129,6 +157,4 @@ public class GoogleCloudStorageWorker {
 		}
 		return image;
 	}
-
-
 }

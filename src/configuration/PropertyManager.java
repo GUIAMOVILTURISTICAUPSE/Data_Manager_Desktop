@@ -28,6 +28,7 @@ public class PropertyManager {
     private String servicesIndexPath;
     
 	public static String baseURL;
+	public static String urlAppEngineImagesGoogleCloud;
 	
 	private String recursosPath;
 	private String senderosPath;
@@ -53,6 +54,9 @@ public class PropertyManager {
 		recursosPath = props.getProperty("recursos.path");
 		senderosPath = props.getProperty("senderos.path");
 		baseURL = "http://"+serverHostname+":"+serverPort+"/"+servicesIndexPath; 
+		
+		urlAppEngineImagesGoogleCloud = props.getProperty("cloud.app-engine.images");
+		
 		mensajeCargaCorrectaPropiedades();
 		mapearClasesAPropiedadURLRelativo();
 	}
