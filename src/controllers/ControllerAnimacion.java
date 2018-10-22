@@ -71,7 +71,7 @@ public class ControllerAnimacion implements ControllerModalBase<Animacion> {
 	private void cargarDatos(Animacion x) {
 		pojo = x;	
 		txtId.setText(pojo.getId());
-		txtNombre.setText(pojo.getNombreAnimacion());
+		txtNombre.setText(pojo.getTitulo());
 		chbTipoAnimacion.selectionModelProperty().get().select(pojo.getTipo());
 		txtURL.setText(pojo.getUrl());
 
@@ -88,7 +88,7 @@ public class ControllerAnimacion implements ControllerModalBase<Animacion> {
 			pojoTemp = new Animacion();
 		}
 
-		pojoTemp.setNombreAnimacion(txtNombre.getText());
+		pojoTemp.setTitulo(txtNombre.getText());
 		pojoTemp.setTipo(chbTipoAnimacion.getValue());
 		pojoTemp.setUrl(txtURL.getText());
 
